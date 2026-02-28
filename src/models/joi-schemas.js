@@ -20,3 +20,21 @@ export const UserSpecPlus = UserSpec.keys({
 }).label("UserDetailsPlus");
 
 export const UserArray = Joi.array().items(UserSpecPlus).label("UserArray");
+
+export const PlacemarkSpec = Joi.object()
+  .keys({
+    name: Joi.string().required().example("The Forty Foot"),
+    description: Joi.string().required().example("Famous deep-water swimming spot."),
+    category: Joi.string().required().example("Deep Water"),
+    lat: Joi.number().required().example(53.289),
+    lng: Joi.number().required().example(-6.115),
+    // Optional Extended Field
+    amenities: Joi.array().items(Joi.string()).optional().example(["Changing Rooms", "Ladders"]),
+  }).label("PlacemarkDetails");
+
+export const PlacemarkSpecPlus = PlacemarkSpec.keys({
+  _id: IdSpec,
+  __v: Joi.number(),
+}).label("PlacemarkDetailsPlus");
+
+export const PlacemarkArraySpec = Joi.array().items(PlacemarkSpecPlus).label("PlacemarkArray");

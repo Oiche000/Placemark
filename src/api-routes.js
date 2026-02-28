@@ -1,25 +1,19 @@
-import { aboutController } from "./controllers/about-controller.js";
-import { accountsController } from "./controllers/accounts-controller.js";
-import { dashboardController } from "./controllers/dashboard-controller.js";
-import { placemarkController } from "./controllers/placemark-controller.js";
+import { userApi } from "./api/user-api.js";
+import { placemarkApi } from "./api/placemark-api.js";
+/* import { trackApi } from "./api/track-api.js";
+ */
+export const apiRoutes = [
+  { method: "GET", path: "/api/users", config: userApi.find },
+  { method: "POST", path: "/api/users", config: userApi.create },
+  { method: "DELETE", path: "/api/users", config: userApi.deleteAll },
+  { method: "GET", path: "/api/users/{id}", config: userApi.findOne },
+  { method: "GET", path: "/api/placemark", config: placemarkApi.find },
+  { method: "POST", path: "/api/placemark", config: placemarkApi.create },
+  { method: "DELETE", path: "/api/placemark", config: placemarkApi.deleteAll },
+  { method: "GET", path: "/api/placemark/{id}", config: placemarkApi.findOne },
+  { method: "DELETE", path: "/api/placemark/{id}", config: placemarkApi.deleteOne },
 
-export const webRoutes = [
-  { method: "GET", path: "/", config: accountsController.index },
-  { method: "GET", path: "/signup", config: accountsController.showSignup },
-  { method: "GET", path: "/login", config: accountsController.showLogin },
-  { method: "GET", path: "/logout", config: accountsController.logout },
-  { method: "POST", path: "/register", config: accountsController.signup },
-  { method: "POST", path: "/authenticate", config: accountsController.login },
+  { method: "POST", path: "/api/users/authenticate", config: userApi.authenticate },
 
-  { method: "GET", path: "/about", config: aboutController.index },
-
-  { method: "GET", path: "/dashboard", config: dashboardController.index },
-  { method: "POST", path: "/dashboard/addplacemark", config: dashboardController.addPlacemark },
-  { method: "GET", path: "/dashboard/deleteplacemark/{id}", config: dashboardController.deletePlacemark },
-
-  { method: "GET", path: "/placemark/{id}", config: placemarkController.index },
-  { method: "POST", path: "/placemark/{id}/addtrack", config: placemarkController.addTrack },
-  { method: "GET", path: "/placemark/{id}/deletetrack/{trackid}", config: placemarkController.deleteTrack },
-
-  { method: "GET", path: "/{param*}", handler: { directory: { path: "./public" } }, options: { auth: false } },
 ];
+
