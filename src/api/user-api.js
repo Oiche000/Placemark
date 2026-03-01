@@ -25,10 +25,7 @@ export const userApi = {
     auth: false,
     handler: async function (request, h) {
       try {
-        
         const user = await db.userStore.getUserById(request.params.id);
-       
-        
         if (!user) {
           return Boom.notFound("No User with this id");
         }

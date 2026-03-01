@@ -16,8 +16,12 @@ export const placemarkService = {
   },
 
   async getAllUsers() {
-    const res = await axios.get(`${this.placemarkUrl}/api/users`);
-    return res.data;
+    try {
+      const res = await axios.get(`${this.placemarkUrl}/api/users`);
+      return res.data;
+    } catch (e) {
+      return null;
+    }
   },
 
   async deleteAllUsers() {
