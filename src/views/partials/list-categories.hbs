@@ -1,0 +1,16 @@
+<div class="columns is-multiline">
+  {{#each categories}}
+    <div class="column is-3">
+      <a href="/category/{{this}}">
+        <div class="card has-background-info-dark is-shady">
+          <div class="card-content has-text-centered">
+            <p class="title is-4 has-text-white">{{this}}</p>
+            <span class="icon is-large has-text-white mt-2">
+              <i class="fas fa-compass fa-2x"></i> 
+            </span>
+          </div>
+        </div>
+      </a>
+    </div>
+  {{/each}}
+</div>
