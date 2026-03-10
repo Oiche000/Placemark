@@ -1,5 +1,5 @@
 import { v4 } from "uuid";
-import { trackMemStore } from "./track-mem-store.js";
+// import { trackMemStore } from "./track-mem-store.js";
 
 let placemarks = [];
 
@@ -19,8 +19,6 @@ export const placemarkMemStore = {
     list.tracks = await trackMemStore.getPlacemarkTracks(list._id);
     return list;
   },
-
-  /* need to make sure that tracks are parts of placemarks */
 
   async deletePlacemarkById(id) {
     const index = placemarks.findIndex((placemark) => placemark._id === id);

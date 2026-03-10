@@ -23,7 +23,7 @@ export const dashboardController = {
           options: { abortEarly: false }, 
           failAction: function (request, h, error) {
             console.log("Joi Validation Failed:", error.details);
-            return h.view("dashboard-view", {title: "Placemark error", error: error.details }).takeover().code(400);
+            return h.view("dashboard-view", {title: "Add Placemark error", error: error.details }).takeover().code(400);
           },
         },
     handler: async function (request, h) {
