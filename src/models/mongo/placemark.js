@@ -1,12 +1,15 @@
 import Mongoose from "mongoose";
-import Boom from "@hapi/boom";
+import availableCategories from "../joi-schemas.js";
 
 const { Schema } = Mongoose;
 
 const placemarkSchema = new Schema({
   name: String,
   description: String,
-  category: String,
+  category: { 
+    type: String, 
+    enum: availableCategories 
+  },
   lat: Number,
   lng: Number,
   image: String,
