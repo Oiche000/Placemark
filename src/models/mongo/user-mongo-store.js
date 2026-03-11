@@ -1,3 +1,4 @@
+import { Placemark } from "./placemark.js";
 import { User } from "./user.js";
 
 export const userMongoStore = {
@@ -28,6 +29,7 @@ export const userMongoStore = {
 
   async deleteUserById(id) {
     try {
+      await Placemark.deleteMany({ userId: id });  // cascade delete placemarks associated with the user
       await User.deleteOne({ _id: id });
     } catch (error) {
       console.log("bad id");
@@ -36,5 +38,16 @@ export const userMongoStore = {
 
   async deleteAll() {
     await User.deleteMany({});
-  }
+  },
+
+  async updateUser(userId, updatedUser) {
+    const user = await User.findById(userId);
+    if (!user) return null;
+    user.firstName = updatedUser.firstName;
+    user.lastName = updatedUser.lastName;
+    user.email = updatedUser.email;
+    user.password = updatedUser.password;
+    const newUser = await user.save();
+    return newUser;
+  },
 };

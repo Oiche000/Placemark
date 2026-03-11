@@ -97,5 +97,5 @@ export const userApi = {
         return Boom.serverUnavailable("Database Error");
       }
     },
-  }
+  },
 };

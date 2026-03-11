@@ -14,8 +14,7 @@ import { webRoutes } from "./web-routes.js";
 import { apiRoutes } from "./api-routes.js";
 import { db } from "./models/db.js";
 import { accountsController } from "./controllers/accounts-controller.js";
-/* import { apiRoutes } from "./api-routes.js";
- */
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -91,7 +90,7 @@ server.auth.default("session");
     returns true from accountsController.validate function.
     server.auth.strategy: This creates a security rule named "session".
 
-    name: "playtime": The name of the cookie stored in the browser.
+    name: "placemark": The name of the cookie stored in the browser.
 
     password: A long secret string used to encrypt the cookie so hackers can't fake a login.
 
