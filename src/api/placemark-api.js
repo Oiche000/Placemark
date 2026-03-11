@@ -43,7 +43,7 @@ export const placemarkApi = {
   },
 
   findOne: {
-    auth: false,
+    auth: false,  // change to JWt
     handler: async function(request, h) {
       try {
         const placemark = await db.placemarkStore.getPlacemarkById(request.params.id);
@@ -70,7 +70,7 @@ export const placemarkApi = {
         await db.placemarkStore.deleteAllPlacemarks();
         return h.response().code(204);
       } catch (err) {
-        console.error("❌ Placemark DeleteAll Error:", err);
+        console.error("Placemark DeleteAll Error:", err);
         return Boom.serverUnavailable("Database Error");
       }
     },
@@ -97,5 +97,22 @@ export const placemarkApi = {
     description: "Delete a placemarkApi",
     notes: "A placemark removed from Playtime",
     validate: { params: { id: IdSpec }, failAction: validationError },
+  },
+
+  update: {
+    auth: false,
+    handler: async function(request, h) {
+      try {
+        const placemark = await db.placemarkStore.updatePlacemarks(request.params.id, request.payload);
+        if (!placemark) {
+          return Boom.notFound("No Placemark with this id");
+        }
+      },
+
+    },
+  },
+
+  authenticate: {
+
   },
 };

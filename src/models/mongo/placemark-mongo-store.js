@@ -26,11 +26,16 @@ export const placemarkMongoStore = {
     return placemark;
   },
 
+  async getPlacemarksByCategory(category) {
+    const placemark = await Placemark.find({ category: category }).lean();
+    return placemark;
+  },
+
   async deletePlacemarkById(id) {
     try {
       await Placemark.deleteOne({ _id: id });
     } catch (error) {
-      console.log("bad id");
+      console.log("bad id for placemark deletion", error);
     }
   },
 

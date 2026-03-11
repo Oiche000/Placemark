@@ -29,7 +29,7 @@ export const userMemStore = {
     return u;
   },
 
-  async deleteUserById(id) {
+    async deleteUserById(id) {
     const index = users.findIndex((user) => user._id === id);
     if (index !== -1) users.splice(index, 1);
   },

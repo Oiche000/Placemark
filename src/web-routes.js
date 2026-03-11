@@ -19,4 +19,6 @@ export const webRoutes = [
 
   { method: "GET", path: "/about", config: aboutController.index },
 
+  { method: "GET", path: "/category/{category}", config: dashboardController.categoryView },
+
 ];

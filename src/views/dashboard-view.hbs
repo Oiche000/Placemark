@@ -9,3 +9,41 @@
     {{> add-placemark}}
   </div>
 </section>
+
+<section class="section">
+  <div class="container">
+    <h3 class="title">Adventure Dashboard</h3>
+    
+    <div class="box">
+      <p class="subtitle is-6">Filter by Activity:</p>
+      <div class="field is-grouped is-grouped-multiline">
+        <div class="control">
+          <a href="/dashboard" class="tag is-primary is-medium">All Activities</a>
+        </div>
+        {{#each categories}}
+        <div class="control">
+          <a href="/dashboard?category={{this}}" class="tag is-info is-light is-medium">{{this}}</a>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+
+    <div class="columns is-multiline">
+      {{#each placemarks}}
+        <div class="column is-4">
+          <div class="card">
+            <div class="card-content">
+              <span class="tag is-warning is-pulled-right">{{category}}</span>
+              <p class="title is-4">{{name}}</p>
+              <p>{{description}}</p>
+            </div>
+            <footer class="card-footer">
+              <a href="/placemark/{{_id}}" class="card-footer-item">Details</a>
+              <a href="/dashboard/deleteplacemark/{{_id}}" class="card-footer-item has-text-danger">Delete</a>
+            </footer>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+  </div>
+</section>
