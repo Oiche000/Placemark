@@ -1,5 +1,5 @@
 import Mongoose from "mongoose";
-import availableCategories from "../joi-schemas.js";
+import { availableCategories } from "../joi-schemas.js";
 
 const { Schema } = Mongoose;
 

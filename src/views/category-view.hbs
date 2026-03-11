@@ -1,0 +1,25 @@
+{{> menu active="dashboard"}}
+
+<section class="section">
+  <div class="container">
+    <nav class="breadcrumb" aria-label="breadcrumbs">
+      <ul>
+        <li><a href="/dashboard">Dashboard</a></li>
+        <li class="is-active"><a href="#" aria-current="page">{{category}}</a></li>
+      </ul>
+    </nav>
+    
+    <div class="level">
+      <div class="level-left">
+        <h1 class="title">Explore {{category}}</h1>
+      </div>
+    </div>
+
+    {{> list-placemarks}}
+    
+    <div class="box mt-6">
+      <h2 class="title is-4">Add a new {{category}} spot</h2>
+      {{> add-placemark}}
+    </div>
+  </div>
+</section>

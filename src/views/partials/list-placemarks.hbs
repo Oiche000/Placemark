@@ -1,0 +1,32 @@
+<div class="columns is-multiline">
+  {{#each placemarks}}
+    <div class="column is-4">
+      <div class="card">
+        {{#if image}}
+        <div class="card-image">
+          <figure class="image is-4by3">
+            <img src="{{image}}" alt="{{name}} image">
+          </figure>
+        </div>
+        {{/if}}
+        <div class="card-content">
+          <p class="title is-5">{{name}}</p>
+          <span class="tag is-primary">{{category}}</span>
+          {{#if timeRequired}}
+            <span class="tag is-light">⏱ {{timeRequired}}</span>
+          {{/if}}
+          
+          <div class="content mt-3">
+            <p>{{description}}</p>
+            <p class="is-size-7"><strong>Coords:</strong> {{lat}}, {{lng}}</p>
+          </div>
+        </div>
+        <footer class="card-footer">
+          <a href="/placemark/{{_id}}" class="card-footer-item">View Details</a>
+          <a href="/dashboard/editplacemark/{{_id}}" class="card-footer-item">Edit</a>
+          <a href="/dashboard/deleteplacemark/{{_id}}" class="card-footer-item has-text-danger">Delete</a>
+        </footer>
+      </div>
+    </div>
+  {{/each}}
+</div>

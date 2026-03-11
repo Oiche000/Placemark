@@ -1,5 +1,4 @@
 import Joi from "joi";
-import { use } from "react";
 
 export const IdSpec = Joi.alternatives().try(Joi.string(), Joi.object()).description("a valid ID");
 
@@ -22,7 +21,7 @@ export const UserSpecPlus = UserSpec.keys({
 
 export const UserArray = Joi.array().items(UserSpecPlus).label("UserArray");
 
-const availableCategories = ["Swimming", "Hiking", "Swimming", "Kayaking", "Heritage", "Caving", "Camping", "Surfing", "Stargazing"];
+export const availableCategories = ["Swimming", "Hiking", "Swimming", "Kayaking", "Heritage", "Caving", "Camping", "Surfing", "Stargazing"];
 
 export const PlacemarkSpec = Joi.object()
   .keys({
