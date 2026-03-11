@@ -18,14 +18,14 @@ export const userJsonStore = {
   async getUserById(id) {
     await db.read();
     let u = db.data.users.find((user) => user._id === id);
-    if (u === undefined) u =null;
+    if (!u) u =null;
     return u;
   },
 
   async getUserByEmail(email) {
     await db.read();
     let u = db.data.users.find((user) => user.email === email);
-    if (u === undefined) u =null;
+    if (!u) u =null;
     return u;
   },
 
@@ -36,10 +36,21 @@ export const userJsonStore = {
     await db.write();
   },
 
-  /* index is -1 if no match is found so dont splice */
-
   async deleteAll() {
     db.data.users = [];
     await db.write();
+  },
+
+  async updateUser(userId, updatedUser) {
+    await db.read();
+    const user = db.data.users.find((u) => u._id === userId);
+    if (user) {
+    user.firstName = updatedUser.firstName;
+    user.lastName = updatedUser.lastName;
+    user.email = updatedUser.email;
+    user.password = updatedUser.password;
+    await db.write();
+    }
+    return user;
   },
 };

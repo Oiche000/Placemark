@@ -70,6 +70,7 @@ export const accountsController = {
       return h.redirect("/dashboard");
     },
   },
+
   logout: {
     auth: false,
    
@@ -79,12 +80,34 @@ export const accountsController = {
     },
   },
 
+  updateUser: {
+    auth: false,
+    validate: {
+      payload: UserSpec,
+      options: { abortEarly: false }, 
+      failAction: function (request, h, error) {
+        const userId = request.params.id;
+        const originalUser = db.userStore.getUserById(userId);
+        return h.view("profile-view", {
+          title: "Update Profile error", 
+          error: error.details,
+          user: originalUser
+        }).takeover().code(400);
+      },
+    },
+    handler: async function(request, h) {
+      const userId = request.params.id;
+      const updatedUser = request.payload;
+      await db.userStore.updateUser(userId, updatedUser);
+      return h.redirect("/dashboard");
+    },
+  },
+
   async validate(request, session) {
     const user = await db.userStore.getUserById(session.id);
     if (!user) {
       return { isValid: false };
     }
     return { isValid: true, credentials: user };
-  }
+  },
 };
-

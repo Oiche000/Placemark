@@ -1,7 +1,6 @@
 import { userApi } from "./api/user-api.js";
 import { placemarkApi } from "./api/placemark-api.js";
-/* import { trackApi } from "./api/track-api.js";
- */
+
 export const apiRoutes = [
   { method: "GET", path: "/api/users", config: userApi.find },
   { method: "POST", path: "/api/users", config: userApi.create },

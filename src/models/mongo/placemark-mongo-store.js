@@ -10,9 +10,6 @@ export const placemarkMongoStore = {
   async getPlacemarkById(id) {
     if (Mongoose.isValidObjectId(id)) {
       const placemark = await Placemark.findOne({ _id: id }).lean();
-      if (placemark) {
-        placemark.tracks = await trackMongoStore.getTracksByPlacemarkId(placemark._id);
-      }
       return placemark;
     }
     return null;
@@ -25,7 +22,7 @@ export const placemarkMongoStore = {
   },
 
   async getUserPlacemarks(id) {
-    const placemark = await Placemark.find({ userid: id }).lean();
+    const placemark = await Placemark.find({ userId: id }).lean();
     return placemark;
   },
 
@@ -39,5 +36,20 @@ export const placemarkMongoStore = {
 
   async deleteAllPlacemarks() {
     await Placemark.deleteMany({});
-  }
+  },
+
+  async updatePlacemarks(placemarkId, updatedPlacemark) {
+    const placemark = await Placemark.findById(placemarkId);
+    if (!placemark) return null;
+    placemark.name = updatedPlacemark.name;
+    placemark.description = updatedPlacemark.description;
+    placemark.lat = updatedPlacemark.lat;
+    placemark.lng = updatedPlacemark.lng;
+    placemark.image = updatedPlacemark.image;
+    placemark.timeRequired = updatedPlacemark.timeRequired;
+    placemark.amenities = updatedPlacemark.amenities;
+    placemark.category = updatedPlacemark.category;
+    const newPlacemark = await placemark.save();
+    return newPlacemark;
+  },
 };

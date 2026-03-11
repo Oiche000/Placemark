@@ -1,5 +1,4 @@
 import { v4 } from "uuid";
-// import { trackMemStore } from "./track-mem-store.js";
 
 let placemarks = [];
 
@@ -16,15 +15,15 @@ export const placemarkMemStore = {
 
   async getPlacemarkById(id) {
     const list = placemarks.find((placemark) => placemark._id === id);
-    list.tracks = await trackMemStore.getPlacemarkTracks(list._id);
+    if (!list) {
+      return null;
+    }
     return list;
   },
 
   async deletePlacemarkById(id) {
     const index = placemarks.findIndex((placemark) => placemark._id === id);
-    if (index !== -1) {
-    placemarks.splice(index, 1);
-    }
+    if (index !== -1) placemarks.splice(index, 1);
   },
 
   async deleteAllPlacemarks() {
@@ -32,14 +31,20 @@ export const placemarkMemStore = {
   },
 
   async getUserPlacemarks(userid) {
-    return placemarks.filter((placemark) => placemark.userid === userid);
+    return placemarks.filter((placemark) => placemark.userId === userid);
   },
 
   async updatePlacemarks(placemarkId, updatedPlacemark) {
-    const index = placemarks.findIndex((placemark) => placemark._id === placemarkId);
-    if (index !== -1) {
-      placemarks[index] = { ...placemarks[index], ...updatedPlacemark };
-    }
-    return placemarks[index];  // need to return the updated placemark? ?? 
+    const placemark = placemarks.find((p) => p._id === placemarkId);
+    if (!placemark) return null;
+    placemark.name = updatedPlacemark.name;
+    placemark.description = updatedPlacemark.description;
+    placemark.lat = updatedPlacemark.lat;
+    placemark.lng = updatedPlacemark.lng;
+    placemark.image = updatedPlacemark.image;
+    placemark.timeRequired = updatedPlacemark.timeRequired;
+    placemark.amenities = updatedPlacemark.amenities; 
+    placemark.category = updatedPlacemark.category; 
+    return placemark;
   },
 };

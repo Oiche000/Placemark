@@ -15,7 +15,7 @@ export const userMemStore = {
 
   async getUserById(id) {
     let u =  users.find((user) => user._id === id);
-    if (u === undefined) {
+    if (!u) {
       u = null;
     }
     return u;
@@ -23,7 +23,7 @@ export const userMemStore = {
 
   async getUserByEmail(email) {
     let u = users.find((user) => user.email === email);
-    if (u === undefined) {
+    if (!u) {
       u = null;
     }
     return u;
@@ -36,5 +36,15 @@ export const userMemStore = {
 
   async deleteAll() {
     users = [];
+  },
+
+  async updateUser(userid, updatedUser) {
+    const user = users.find((u) => u._id === userid);
+    if (!user) return null;
+    user.firstName = updatedUser.firstName;
+    user.lastName = updatedUser.lastName;
+    user.email = updatedUser.email;
+    user.password = updatedUser.password;
+    return user;
   },
 };
