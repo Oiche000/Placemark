@@ -43,7 +43,7 @@ export const placemarkMongoStore = {
     await Placemark.deleteMany({});
   },
 
-  async updatePlacemarks(placemarkId, updatedPlacemark) {
+  async updatePlacemark(placemarkId, updatedPlacemark) {
     const placemark = await Placemark.findById(placemarkId);
     if (!placemark) return null;
     placemark.name = updatedPlacemark.name;
@@ -52,9 +52,9 @@ export const placemarkMongoStore = {
     placemark.lng = updatedPlacemark.lng;
     placemark.image = updatedPlacemark.image;
     placemark.timeRequired = updatedPlacemark.timeRequired;
-    placemark.amenities = updatedPlacemark.amenities;
+    // placemark.amenities = updatedPlacemark. amenities;
     placemark.category = updatedPlacemark.category;
-    const newPlacemark = await placemark.save();
-    return newPlacemark;
+    await placemark.save();
+    return placemark.toObject();
   },
 };

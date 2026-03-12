@@ -29,9 +29,17 @@ export const dashboardController = {
     handler: async function (request, h) {
       const loggedInUser = request.auth.credentials;
       const newPlacemark = {
-        userid: loggedInUser._id,
-        title: request.payload.title,
+        userId: loggedInUser._id, 
+        name: request.payload.name,
+        description: request.payload.description,
+        category: request.payload.category,
+        lat: Number(request.payload.lat),
+        lng: Number(request.payload.lng),
+        image: request.payload.image || "",
+        timeRequired: request.payload.timeRequired || "",
+        // // amenities: request.payload.// amenities || "",
       };
+      
       await db.placemarkStore.addPlacemark(newPlacemark);
       return h.redirect("/dashboard");
     },
@@ -40,7 +48,9 @@ export const dashboardController = {
   deletePlacemark: {
     handler: async function(request, h) {
       /* const loggedInUser = request.auth.credentials; */
-      const placemark = await db.placemarkStore.deletePlacemarkById(request.params.id);
+
+      const placemarkId = request.params.id;
+      await db.placemarkStore.deletePlacemarkById(placemarkId);
       /* await db.placemarkStore.deletePlacemarkById(request.params.id); */
       /* console.log(`Deleted placemark with ID: ${request.params.id} for user: ${loggedInUser._id}`); */
       return h.redirect("/dashboard");
@@ -51,12 +61,12 @@ export const dashboardController = {
     validate: {
       payload: PlacemarkSpec,
       options: { abortEarly: false },
-      failAction: function (request, h, error) {
+      failAction: async function (request, h, error) {
         const placemarkId = request.params.id;
-        const originalPlacemark = db.placemarkStore.getPlacemarkById(placemarkId);
-        return h.view("dashboard-view", {
+        const originalPlacemark = await db.placemarkStore.getPlacemarkById(placemarkId);
+        return h.view("edit-placemark-view", {
           title: "Update Placemark error", 
-          error: error.details,
+          errors: error.details,
           placemark: originalPlacemark
         }).takeover().code(400);
       },
@@ -67,13 +77,14 @@ export const dashboardController = {
       const updatedPlacemarkData = {
         name: request.payload.name,
         description: request.payload.description,
-        lat: request.payload.lat,
-        lng: request.payload.lng,
+        lat: Number(request.payload.lat),
+        lng: Number(request.payload.lng),
         image: request.payload.image,
         category: request.payload.category,
         timeRequired: request.payload.timeRequired,
-        amenities: request.payload.amenities,
+        // amenities: request.payload.// amenities,
       };
+      console.log("updating placemark with id: ", placemarkId, "with data: ", updatedPlacemarkData);
       await db.placemarkStore.updatePlacemark(placemarkId, updatedPlacemarkData);
       return h.redirect("/dashboard");
     },
@@ -83,7 +94,13 @@ export const dashboardController = {
     handler: async function(request, h) {
       const placemarkId = request.params.id;
       const placemark = await db.placemarkStore.getPlacemarkById(placemarkId);
-      return h.view("edit-placemark-view", { title: "Edit Placemark", placemark: placemark });
+      const viewData = {
+        title: `Edit ${placemark.name} Placemark`,
+        placemark: placemark,
+        categories: availableCategories,
+      };
+
+      return h.view("edit-placemark-view", viewData);
     },        // or partials/edit-placemark
   },
 

@@ -1,10 +1,10 @@
 import axios from "axios";
-
 import { serviceUrl } from "../fixtures.js";
 
 export const placemarkService = {
   placemarkUrl: serviceUrl,
 
+  // ---- User API ----
   async createUser(user) {
     const res = await axios.post(`${this.placemarkUrl}/api/users`, user);
     return res.data;
@@ -29,6 +29,12 @@ export const placemarkService = {
     return res.data;
   },
 
+  async updateUser(id, user) {
+    const res = await axios.post(`${this.placemarkUrl}/api/users/${id}`, user);
+    return res.data;
+  },
+
+  // ---- Placemark API ----
   async createPlacemark(placemark) {
     const res = await axios.post(`${this.placemarkUrl}/api/placemark`, placemark);
     return res.data;
@@ -44,6 +50,11 @@ export const placemarkService = {
     return res.data;
   },
 
+  async updatePlacemark(id, placemark) {
+    const res = await axios.post(`${this.placemarkUrl}/api/placemark/${id}`, placemark);
+    return res.data;
+  },
+
   async deleteAllPlacemarks() {
     const res = await axios.delete(`${this.placemarkUrl}/api/placemark`);
     return res.data;
@@ -52,35 +63,7 @@ export const placemarkService = {
   async deletePlacemarkById(id) {
     const res = await axios.delete(`${this.placemarkUrl}/api/placemark/${id}`);
     return res;
-  },
-  /* want for deletebyID to return the whole response as there is no data so returns res.data gives undefined
-   */
-
-  async createTrack(id, track) {
-    console.log(`URL: ${this.placemarkUrl}/api/placemark/${id}/tracks`);
-    const res = await axios.post(`${this.placemarkUrl}/api/placemark/${id}/tracks`, track);
-    return res.data;
-  },
-
-  async getAllTracks() {
-    const res = await axios.get(`${this.placemarkUrl}/api/tracks`);
-    return res.data;
-  },
-
-  async getTracksById(id) {
-    const res = await axios.get(`${this.placemarkUrl}/api/tracks/${id}`);
-    return res.data;
-  },
-
-  async deleteAllTracks() {
-    const res = await axios.delete(`${this.placemarkUrl}/api/tracks`);
-    return res.data;
-  },
-
-  async deleteTrackById(id) {
-    const res = await axios.delete(`${this.placemarkUrl}/api/tracks/${id}`);
-    return res;
-  },
+  },  // want for deletebyID to return the whole response as there is no data so returns res.data gives undefined
 
   async authenticate(user) {
     const response = await axios.post(`${this.placemarkUrl}/api/users/authenticate`, user);

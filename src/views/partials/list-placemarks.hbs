@@ -15,6 +15,9 @@
           {{#if timeRequired}}
             <span class="tag is-light">⏱ {{timeRequired}}</span>
           {{/if}}
+          {{#if amenities}}
+            <span class="tag is-light">Amenities: {{#each amenities}} {{amenities}} {{/each}}</span>
+          {{/if}}
           
           <div class="content mt-3">
             <p>{{description}}</p>

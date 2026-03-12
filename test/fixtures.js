@@ -5,26 +5,77 @@ export const maggie = {
   password: "secret"
 };
 
+export const maggieCredentials = {
+  email: "maggie@simpson.com",
+  password: "secret"
+};
+
+export const freshUser = {
+  firstName: "Ned",
+  lastName: "Flanders",
+  email: "ned@flanders.com",
+  password: "secretpassword"
+};
+
 export const testUsers = [
   {
     firstName: "Homer",
     lastName: "Simpson",
     email: "homer@simpson.com",
-    password: "secret"
+    password: "secret",
   },
   {
     firstName: "Marge",
     lastName: "Simpson",
     email: "marge@simpson.com",
-    password: "secret"
+    password: "secret",
   },
   {
     firstName: "Bart",
     lastName: "Simpson",
     email: "bart@simpson.com",
-    password: "secret"
-  }
+    password: "secret",
+  },
 ];
 
+export const testPlacemark = {
+  name: "The Forty Foot",
+  description: "Historic sea-swimming inlet.",
+  category: "Swimming",
+  lat: 53.2891,
+  lng: -6.1162,
+  timeRequired: "1 hour",
+  // amenities: ["Changing Rooms", "Ladders"]
+};
+
+export const testPlacemarks = [
+  { 
+    name: "Carrauntoohil", 
+    description: "Highest peak.", 
+    category: "Hiking", 
+    lat: 52.0000, 
+    lng: -9.7000, 
+    timeRequired: "Full day", 
+    // amenities: ["Parking"] 
+  },
+  { 
+    name: "Aillwee Caves", 
+    description: "Show cave.", 
+    category: "Caving", 
+    lat: 53.0800, 
+    lng: -9.1400, 
+    timeRequired: "2 hours", 
+    // amenities: ["Cafe", "Toilets"] 
+  },
+  { 
+    name: "Lough Hyne", 
+    description: "Marine reserve.", 
+    category: "Kayaking", 
+    lat: 51.5000, 
+    lng: -9.2900, 
+    timeRequired: "Half day", 
+    // amenities: ["Pier"] 
+  }
+];
 
 export const serviceUrl = "http://localhost:3000";

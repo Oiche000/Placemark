@@ -21,6 +21,10 @@ export function assertSubset(subset, superset) {
     return superset instanceof Date && subset.valueOf() === superset.valueOf();
   }
 
+ /*  if (Array.isArray(subset)) {
+    return assert.deepEqual(subset, superset);
+    
+  } */
   // Handle arrays - every element in subset must exist in superset
   if (Array.isArray(subset)) {
     if (!Array.isArray(superset)) {

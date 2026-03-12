@@ -47,7 +47,7 @@ export const userMongoStore = {
     user.lastName = updatedUser.lastName;
     user.email = updatedUser.email;
     user.password = updatedUser.password;
-    const newUser = await user.save();
-    return newUser;
+    await user.save();
+    return user.toObject();  // add to prevent test failing due to objects already having $__
   },
 };

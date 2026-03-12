@@ -39,7 +39,7 @@ export const placemarkMemStore = {
     return userPlacemarks.filter((p) => p.category === category);
   },
 
-  async updatePlacemarks(placemarkId, updatedPlacemark) {
+  async updatePlacemark(placemarkId, updatedPlacemark) {
     const placemark = placemarks.find((p) => p._id === placemarkId);
     if (!placemark) return null;
     placemark.name = updatedPlacemark.name;
@@ -48,7 +48,7 @@ export const placemarkMemStore = {
     placemark.lng = updatedPlacemark.lng;
     placemark.image = updatedPlacemark.image;
     placemark.timeRequired = updatedPlacemark.timeRequired;
-    placemark.amenities = updatedPlacemark.amenities; 
+    placemark.// amenities = updatedPlacemark.// amenities; 
     placemark.category = updatedPlacemark.category; 
     return placemark;
   },
