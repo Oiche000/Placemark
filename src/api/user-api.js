@@ -1,12 +1,12 @@
 import Boom from "@hapi/boom";
 import { db } from "../models/db.js";
-import { UserArray, UserSpec, UserSpecPlus, IdSpec, JwtAuth } from "../models/joi-schemas.js";
+import { UserCredentialsSpec, UserArray, UserSpec, UserSpecPlus, IdSpec, JwtAuth } from "../models/joi-schemas.js";
 import { validationError } from "./logger.js";
 import { createToken } from "./jwt-utils.js";
  
 export const userApi = {
   find: {
-auth: {
+    auth: {
       strategy: "jwt",
     },
     handler: async function (request, h) {
@@ -44,9 +44,6 @@ auth: {
     response: { schema: UserSpecPlus, failAction: validationError },
     validate: { params: { id: IdSpec }, failAction: validationError },
   },
-
-  /*  console.log("--> Request for ID:", request.params.id); */
-  /* console.log("--> Database returned:", user); // Log 2 */
 
   create: {
     auth: false,
@@ -95,7 +92,6 @@ auth: {
         }
         if (user.password !== request.payload.password) {
           return Boom.unauthorized("Invalid password");
-
         }
         const token = createToken(user);
         return h.response({ success: true, token: token}).code(201);
@@ -107,17 +103,26 @@ auth: {
     description: "Authenticate  a User",
     notes: "If user has valid email/password, create and return a JWT token",
     validate: { payload: UserCredentialsSpec, failAction: validationError },
-    response: { schema: JwtAuth, failAction: validationError }
+    response: { schema: JwtAuth, failAction: validationError },
   },
 
   update: {
-auth: { strategy: "jwt" },
+    auth: { strategy: "jwt" },
     handler: async function(request, h) {
-      const user = await db.userStore.updateUser(request.params.id, request.payload);
-      if (user) {
-        return h.response(user).code(200);
+      try {
+        const user = await db.userStore.updateUser(request.params.id, request.payload);
+        if (user) {
+          return h.response(user).code(200);
+        }
+        return Boom.notFound("User not found");
+      } catch (err) {
+        return Boom.serverUnavailable("Database Error");
       }
-      return Boom.notFound("User not found");
     },
+    tags: ["api"],
+    description: "Update a User",
+    notes: "Updates a user's details",
+    validate: { payload: UserSpec , failAction: validationError },
+    response: { schema: UserSpecPlus, failAction: validationError },
   },
 };

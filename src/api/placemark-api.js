@@ -119,12 +119,25 @@ auth: {
         if (!placemark) {
           return Boom.notFound("No Placemark with this id");
         }
-      },
-
+        return h.response(placemark).code(200);
+      } catch (err) {
+        console.error("Placemark Update Error:", err);
+        return Boom.serverUnavailable("Database Error");
+      }
     },
+    tags: ["api"],
+    description: "Update a Placemark",
+    notes: "Updates a placemark's details",
+    validate: { payload: UserCredentialsSpec, failAction: validationError },
+    response: { schema: JwtAuth, failAction: validationError },
   },
 
   authenticate: {
+    auth: false,
+    handler: {
+
+    },
 
   },
+
 };
