@@ -21,7 +21,7 @@ export const UserSpecPlus = UserSpec.keys({
 
 export const UserArray = Joi.array().items(UserSpecPlus).label("UserArray");
 
-export const availableCategories = ["Swimming", "Hiking", "Swimming", "Kayaking", "Heritage", "Caving", "Camping", "Surfing", "Stargazing"];
+export const availableCategories = ["Swimming", "Hiking", "Kayaking", "Heritage", "Caving", "Camping", "Surfing", "Stargazing"];
 
 export const PlacemarkSpec = Joi.object()
   .keys({

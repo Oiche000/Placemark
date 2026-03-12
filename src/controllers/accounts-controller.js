@@ -3,25 +3,19 @@ import { UserSpec, UserCredentialsSpec } from "../models/joi-schemas.js";
 
 export const accountsController = {
   index: {
-        auth: {
-      strategy: "jwt",
-    },  /* no auth needed to view main page, otherwise couldnt get to login form */            
+    auth:  false,  /* no auth needed to view main page, otherwise couldnt get to login form */            
     handler: function (request, h) {
       return h.view("main", { title: "Welcome to Placemark" });
     },
   },
   showSignup: {
-        auth: {
-      strategy: "jwt",
-    },
+    auth:  false,
     handler: function (request, h) {
       return h.view("signup-view", { title: "Sign up for Placemark" });
     },
   },
   signup: {
-        auth: {
-      strategy: "jwt",
-    },
+    auth:  false,
     validate: {
       payload: UserSpec,
       options: { abortEarly: false }, 
@@ -42,17 +36,13 @@ export const accountsController = {
     },
   },
   showLogin: {
-        auth: {
-      strategy: "jwt",
-    },
+    auth:  false,
     handler: function (request, h) {
       return h.view("login-view", { title: "Login to Placemark" });
     },
   },
   login: {
-        auth: {
-      strategy: "jwt",
-    },
+    auth:  false,
     validate: {
       payload: UserCredentialsSpec,
       options: { abortEarly: false }, 
@@ -82,9 +72,7 @@ export const accountsController = {
   },
 
   logout: {
-        auth: {
-      strategy: "jwt",
-    },
+    auth: false,
    
     handler: function (request, h) {
       request.cookieAuth.clear();
@@ -93,9 +81,7 @@ export const accountsController = {
   },
 
   updateUser: {
-        auth: {
-      strategy: "jwt",
-    },
+    auth: false,
     validate: {
       payload: UserSpec,
       options: { abortEarly: false }, 

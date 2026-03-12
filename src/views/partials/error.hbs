@@ -8,3 +8,15 @@
     </ul>
   </div>
 {{/if}}
+
+{{#if errors}}
+  <div class="notification is-danger is-light">
+    <button class="delete"></button>
+    <p class="has-text-weight-bold">There was a problem with your submission:</p>
+    <ul>
+      {{#each errors}}
+        <li>- {{message}}</li>
+      {{/each}}
+    </ul>
+  </div>
+{{/if}}

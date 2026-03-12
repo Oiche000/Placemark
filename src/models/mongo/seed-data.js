@@ -68,7 +68,7 @@ export const seedData = {
     killarney: {
       name: "Killarney National Park",
       description: "First national park in Ireland, features lakes and mountains.",
-      category: "Nature",
+      category: "Hiking",
       lat: 52.0174,
       lng: -9.5167,
       image: "https://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg",
@@ -79,7 +79,7 @@ export const seedData = {
     glendalough: {
       name: "Glendalough Valley",
       description: "Glacial valley and 6th-century monastic settlement.",
-      category: "Nature",
+      category: "Hiking",
       lat: 53.0113,
       lng: -6.3298,
       image: "https://res.cloudinary.com/demo/image/upload/v1312461274/sample.jpg",
@@ -90,7 +90,7 @@ export const seedData = {
     newgrange: {
       name: "Newgrange",
       description: "Ancient passage tomb built during the Neolithic period.",
-      category: "History",
+      category: "Heritage",
       lat: 53.6947,
       lng: -6.4463,
       image: "https://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg",

@@ -128,16 +128,7 @@ export const placemarkApi = {
     tags: ["api"],
     description: "Update a Placemark",
     notes: "Updates a placemark's details",
-    validate: { payload: UserCredentialsSpec, failAction: validationError },
-    response: { schema: JwtAuth, failAction: validationError },
+    validate: { payload: PlacemarkSpec, failAction: validationError },
+    response: { schema: PlacemarkSpecPlus, failAction: validationError },
   },
-
-  authenticate: {
-    auth: false,
-    handler: {
-
-    },
-
-  },
-
 };
