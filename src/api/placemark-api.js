@@ -5,7 +5,7 @@ import { validationError } from "./logger.js";
 
 export const placemarkApi = {
   create: {
-auth: {
+    auth: {
       strategy: "jwt",
     },
     handler: async function(request, h) {
