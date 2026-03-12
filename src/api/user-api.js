@@ -82,6 +82,26 @@ export const userApi = {
     notes: "All userApi removed from Playtime",
   },
 
+  deleteOne: {
+    auth: { strategy: "jwt" },
+    handler: async function (request, h) {
+      try {
+        const user = await db.userStore.getUserById(request.params.id);
+        if (!user) {
+          return Boom.notFound("No User with this id");
+        }
+        await db.userStore.deleteUserById(user._id);
+        return h.response().code(204);
+      } catch (err) {
+        return Boom.serverUnavailable("No User with this id");
+      }
+    },
+    tags: ["api"],
+    description: "Delete a user",
+    notes: "Deletes a specific user by ID",
+    validate: { params: { id: IdSpec }, failAction: validationError },
+  },
+
   authenticate: {
     auth: false,
     handler: async function(request, h) {
