@@ -136,6 +136,7 @@ export const userApi = {
         }
         return Boom.notFound("User not found");
       } catch (err) {
+        console.log("Error updating user:", err);
         return Boom.serverUnavailable("Database Error");
       }
     },

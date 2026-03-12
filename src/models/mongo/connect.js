@@ -28,6 +28,9 @@ export function connectMongo() {
 
   db.once("open", function () {
     console.log(`database connected to ${this.name} on ${this.host}`);
+
+    if (process.env.NODE_END !== "test") {
     seed();
+    }
   });
 }

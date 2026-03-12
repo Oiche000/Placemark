@@ -14,7 +14,7 @@ const placemarkSchema = new Schema({
   lng: Number,
   image: String,
   timeRequired: String,
-  amenities: [String],
+  // amenities: [String],
   userId: {
     type: Schema.Types.ObjectId,
     ref: "User"

@@ -37,7 +37,7 @@ export const dashboardController = {
         lng: Number(request.payload.lng),
         image: request.payload.image || "",
         timeRequired: request.payload.timeRequired || "",
-        amenities: request.payload.amenities || "",
+        // // amenities: request.payload.// amenities || "",
       };
       
       await db.placemarkStore.addPlacemark(newPlacemark);
@@ -82,7 +82,7 @@ export const dashboardController = {
         image: request.payload.image,
         category: request.payload.category,
         timeRequired: request.payload.timeRequired,
-        amenities: request.payload.amenities,
+        // amenities: request.payload.// amenities,
       };
       console.log("updating placemark with id: ", placemarkId, "with data: ", updatedPlacemarkData);
       await db.placemarkStore.updatePlacemark(placemarkId, updatedPlacemarkData);

@@ -52,15 +52,6 @@ export const accountsController = {
       },
     },
     handler: async function (request, h) {
-
-    /*   // --- DEBUGGING START ---
-      console.log("------------------------------------------------");
-      console.log("What tools are on this request?");
-      console.log(Object.keys(request)); // prints: ['params', 'auth', 'cookieAuth', etc...]
-      
-      console.log("Is cookieAuth real?", request.cookieAuth); // Check if the plugin worked
-      console.log("------------------------------------------------");
-      // --- DEBUGGING END --- */
       const { email, password } = request.payload;
       const user = await db.userStore.getUserByEmail(email);
       if (!user || user.password !== password) {

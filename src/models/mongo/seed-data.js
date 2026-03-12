@@ -39,7 +39,7 @@ export const seedData = {
       lng: -9.7424,
       image: "https://upload.wikimedia.org/wikipedia/commons/e/e0/Carrauntoohil_Summit.jpg",
       timeRequired: "Full day",
-      amenities: ["Parking", "Trail Markers"],
+      // amenities: ["Parking", "Trail Markers"],
       userId: "->users.marge"
     },
     
@@ -51,7 +51,7 @@ export const seedData = {
       lng: -9.2986,
       image: "https://westcorkoceanoutreach.ie/wp-content/uploads/2021/05/Lough-Hyne.jpg",
       timeRequired: "Half day",
-      amenities: ["Pier", "Information Boards"],
+      // amenities: ["Pier", "Information Boards"],
       userId: "->users.marge"
     },
     guinness: {
@@ -62,7 +62,7 @@ export const seedData = {
       lng: -6.2867,
       image: "https://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg",
       timeRequired: "2 hours",
-      amenities: ["Guiness Tasting", "Gift Shop"],
+      // amenities: ["Guiness Tasting", "Gift Shop"],
       userId: "->users.marge"
     },
     killarney: {
@@ -73,7 +73,7 @@ export const seedData = {
       lng: -9.5167,
       image: "https://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg",
       timeRequired: "Half Day",
-      amenities: ["Information Signs", "Cafe"],
+      // amenities: ["Information Signs", "Cafe"],
       userId: "->users.lisa"    
     },
     glendalough: {
@@ -84,7 +84,7 @@ export const seedData = {
       lng: -6.3298,
       image: "https://res.cloudinary.com/demo/image/upload/v1312461274/sample.jpg",
       timeRequired: "Half Day",
-      amenities: ["Hiking Trails"],
+      // amenities: ["Hiking Trails"],
       userId: "->users.lisa"
     },
     newgrange: {
@@ -95,7 +95,7 @@ export const seedData = {
       lng: -6.4463,
       image: "https://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg",
       timeRequired: "Half Day",
-      amenities: ["Guided Tours", "Cafe"],
+      // amenities: ["Guided Tours", "Cafe"],
       userId: "->users.marge"
     },
     cliffs: {
@@ -106,7 +106,7 @@ export const seedData = {
         lng: -9.4265,
         image: "https://upload.wikimedia.org/wikipedia/commons/b/b2/Forty_Foot_Dublin.jpg",
         timeRequired: "2 hours",
-        amenities: ["Parking", "Visitor Centre", "Pathways"],
+        // amenities: ["Parking", "Visitor Centre", "Pathways"],
         userId: "->users.marge"
       },
     cashel: {
@@ -117,7 +117,7 @@ export const seedData = {
       lng: -7.8906,
       image: "https://www.aillweeburrenexperience.ie/wp-content/uploads/2021/03/Caves-1.jpg",
       timeRequired: "2 hours",
-      amenities: ["Guided Tour", "Toilets", "Parking"],
+      // amenities: ["Guided Tour", "Toilets", "Parking"],
       userId: "->users.homer"
     },
     fortyFoot: {
@@ -128,7 +128,7 @@ export const seedData = {
       lng: -6.1162,
       image: "https://upload.wikimedia.org/wikipedia/commons/b/b2/Forty_Foot_Dublin.jpg",
       timeRequired: "1 hour",
-      amenities: ["Changing Rooms", "Ladders", "Handrails"],
+      // amenities: ["Changing Rooms", "Ladders", "Handrails"],
       userId: "->users.lisa"
     },
     ailwee: {
@@ -139,7 +139,7 @@ export const seedData = {
       lng: -9.1466,
       image: "https://www.aillweeburrenexperience.ie/wp-content/uploads/2021/03/Caves-1.jpg",
       timeRequired: "2 hours",
-      amenities: ["Gift Shop", "Cafe", "Guided Tour"],
+      // amenities: ["Gift Shop", "Cafe", "Guided Tour"],
       userId: "->users.homer"
     },
     kerryDarkSky: {
@@ -150,7 +150,7 @@ export const seedData = {
       lng: -10.2796,
       image: "https://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg",
       timeRequired: "Overnight",
-      amenities: ["Information Boards", "Observation Point"],
+      // amenities: ["Information Boards", "Observation Point"],
       userId: "->users.marge"
     },
   },

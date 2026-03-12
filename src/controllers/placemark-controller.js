@@ -40,7 +40,7 @@ export const placemarkController = {
           image: request.payload.image,
           category: request.payload.category,
           timeRequired: request.payload.timeRequired,
-          amenities: request.payload.amenities,
+          // amenities: request.payload.// amenities,
         };
         await db.placemarkStore.updatePlacemark(placemarkId, updatedPlacemarkData);
         return h.redirect("/dashboard");
