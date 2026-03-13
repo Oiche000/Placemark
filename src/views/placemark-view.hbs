@@ -1,0 +1,23 @@
+{{> menu}}
+<section class="section">
+  <div class="columns">
+    <div class="column">
+      <h1 class="title">{{placemark.name}}</h1>
+      <p><strong>Category:</strong> {{placemark.category}}</p>
+      <p>{{placemark.description}}</p>
+      <div class="box">
+        {{> map-partial}}
+      </div>
+    </div>
+    <div class="column">
+      <figure class="image is-4by3">
+        <img src="{{placemark.image}}" onerror="this.src='/images/placeholder.jpg'">
+      </figure>
+    </div>
+  </div>
+  <hr>
+  <div class="columns">
+    <div class="column is-one-third">{{> review-form}}</div>
+    <div class="column">{{> review-list}}</div>
+  </div>
+</section>

@@ -9,7 +9,7 @@
   "scripts": {
     "start": "node src/server.js",
     "lint": "eslint . --ext .js",
-    "test": "mocha --ui tdd test/**/*.js -exit",
+    "test": "cross-env NODE_ENV=test mocha --ui tdd test/**/*.js -exit",
     "dev": "nodemon src/server.js --ignore 'src/models/json/*.json'",
     "testmodels": "mocha --ui tdd test/models/**/*.js -exit",
     "testapi": "mocha --ui tdd test/api/**/*.js -exit"
@@ -34,6 +34,7 @@
     "@hapi/hapi": "^21.4.6",
     "@hapi/inert": "^7.1.0",
     "@hapi/vision": "^7.0.3",
+    "cross-env": "^10.1.0",
     "dotenv": "^17.3.1",
     "handlebars": "^4.7.8",
     "hapi-auth-jwt2": "^11.0.0",
