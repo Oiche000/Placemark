@@ -10,12 +10,12 @@ export const apiRoutes = [
   { method: "POST", path: "/api/users/{id}", config: userApi.update },
   { method: "DELETE", path: "/api/users/{id}", config: userApi.deleteOne },
   
-  { method: "GET", path: "/api/placemark", config: placemarkApi.find },
-  { method: "POST", path: "/api/placemark", config: placemarkApi.create },
-  { method: "DELETE", path: "/api/placemark", config: placemarkApi.deleteAll },
-  { method: "GET", path: "/api/placemark/{id}", config: placemarkApi.findOne },
-  { method: "POST", path: "/api/placemark/{id}", config: placemarkApi.update },
-  { method: "DELETE", path: "/api/placemark/{id}", config: placemarkApi.deleteOne },
+  { method: "GET", path: "/api/placemarks", config: placemarkApi.find },
+  { method: "POST", path: "/api/placemarks", config: placemarkApi.create },
+  { method: "DELETE", path: "/api/placemarks", config: placemarkApi.deleteAll },
+  { method: "GET", path: "/api/placemarks/{id}", config: placemarkApi.findOne },
+  { method: "POST", path: "/api/placemarks/{id}", config: placemarkApi.update },
+  { method: "DELETE", path: "/api/placemarks/{id}", config: placemarkApi.deleteOne },
 
 ];
 

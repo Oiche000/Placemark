@@ -22,7 +22,7 @@ suite("Placemark API tests", () => {
   teardown(async () => {});
 
   test("create placemark", async () => {
-    testPlacemark.userId = user._id;  // add user to placemark
+    // testPlacemark.userId = user._id;  // add user to placemark
     let returnedPlacemark;
     try {
     returnedPlacemark = await placemarkService.createPlacemark(testPlacemark);
@@ -34,10 +34,11 @@ suite("Placemark API tests", () => {
     assert.isNotNull(returnedPlacemark);
     assertSubset(testPlacemark, returnedPlacemark);
     assert.isDefined(returnedPlacemark._id);
+    assert.equal(returnedPlacemark.userId, user._id);
   });
 
   test("get placemark", async () => {
-    testPlacemark.userId = user._id;
+    // testPlacemark.userId = user._id;
     const placemark = await placemarkService.createPlacemark(testPlacemark);
     const returnedPlacemark = await placemarkService.getPlacemark(placemark._id);
     assert.deepEqual(returnedPlacemark, placemark);
@@ -55,7 +56,7 @@ suite("Placemark API tests", () => {
 
   test("Get multiple placemarks", async () => {
     for (let i = 0; i < testPlacemarks.length; i += 1) {
-      testPlacemarks[i].userId = user._id;
+      // testPlacemarks[i].userId = user._id;
       // eslint-disable-next-line no-await-in-loop
       await placemarkService.createPlacemark(testPlacemarks[i]);
     }
@@ -64,7 +65,7 @@ suite("Placemark API tests", () => {
   });
 
   test("update placemark", async () => {
-    testPlacemark.userId = user._id;
+    // testPlacemark.userId = user._id;
     const placemark = await placemarkService.createPlacemark(testPlacemark);
     const updatedData = {
       name: "Updated Name",
@@ -75,7 +76,7 @@ suite("Placemark API tests", () => {
       // amenities: ["Updated Amenities"],
       timeRequired: "2 hours",
       image: "updated-image.jpg",
-      userId: user._id,
+      // userId: user._id,
     };
     const updatedPlacemark = await placemarkService.updatePlacemark(placemark._id, updatedData);
     assert.isNotNull(updatedPlacemark);
@@ -96,7 +97,7 @@ suite("Placemark API tests", () => {
 
     test("delete multiple placemarks", async () => {
       for (let i = 0; i < testPlacemarks.length; i += 1) {
-        testPlacemarks[i].userId = user._id;
+        // testPlacemarks[i].userId = user._id;
         // eslint-disable-next-line no-await-in-loop
         await placemarkService.createPlacemark(testPlacemarks[i]);
       }
@@ -127,7 +128,7 @@ suite("Placemark API tests", () => {
 
     test("Delete All Placemarks", async () => {
       for (let i = 0; i < testPlacemarks.length; i += 1) {
-        testPlacemarks[i].userId = user._id;
+        // testPlacemarks[i].userId = user._id;
         // eslint-disable-next-line no-await-in-loop
         await placemarkService.createPlacemark(testPlacemarks[i]);
       }

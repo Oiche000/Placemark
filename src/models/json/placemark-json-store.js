@@ -7,9 +7,10 @@ export const placemarkJsonStore = {
     return db.data.placemarks;
   },
 
-  async addPlacemark(placemark) {
+  async addPlacemark(userId, placemark) {
     await db.read();
     placemark._id = v4();
+    placemark.userId = userId;
     db.data.placemarks.push(placemark);
     await db.write();
     return placemark;

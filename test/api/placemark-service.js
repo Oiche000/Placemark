@@ -36,32 +36,32 @@ export const placemarkService = {
 
   // ---- Placemark API ----
   async createPlacemark(placemark) {
-    const res = await axios.post(`${this.placemarkUrl}/api/placemark`, placemark);
+    const res = await axios.post(`${this.placemarkUrl}/api/placemarks`, placemark);
     return res.data;
   },
 
   async getPlacemark(id) {
-    const res = await axios.get(`${this.placemarkUrl}/api/placemark/${id}`);
+    const res = await axios.get(`${this.placemarkUrl}/api/placemarks/${id}`);
     return res.data;
   },
 
   async getAllPlacemarks() {
-    const res = await axios.get(`${this.placemarkUrl}/api/placemark`);
+    const res = await axios.get(`${this.placemarkUrl}/api/placemarks`);
     return res.data;
   },
 
   async updatePlacemark(id, placemark) {
-    const res = await axios.post(`${this.placemarkUrl}/api/placemark/${id}`, placemark);
+    const res = await axios.post(`${this.placemarkUrl}/api/placemarks/${id}`, placemark);
     return res.data;
   },
 
   async deleteAllPlacemarks() {
-    const res = await axios.delete(`${this.placemarkUrl}/api/placemark`);
+    const res = await axios.delete(`${this.placemarkUrl}/api/placemarks`);
     return res.data;
   },
 
   async deletePlacemarkById(id) {
-    const res = await axios.delete(`${this.placemarkUrl}/api/placemark/${id}`);
+    const res = await axios.delete(`${this.placemarkUrl}/api/placemarks/${id}`);
     return res;
   },  // want for deletebyID to return the whole response as there is no data so returns res.data gives undefined
 

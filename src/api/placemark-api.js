@@ -10,7 +10,8 @@ export const placemarkApi = {
     },
     handler: async function(request, h) {
       try {
-        const placemark = await db.placemarkStore.addPlacemark(request.payload);
+        const userId = request.auth.credentials._id; 
+        const placemark = await db.placemarkStore.addPlacemark(userId, request.payload);
         if (placemark) {
           return h.response(placemark).code(201);
         }

@@ -1,9 +1,10 @@
 import { assert } from "chai";
 import { db } from "../../src/models/db.js";
 import { assertSubset } from "../test-utils.js";
-import { maggie, testUsers } from "../fixtures.js";
+import { freshUser, maggie, testUsers } from "../fixtures.js";
 
 suite("User Model tests", () => {
+
   setup(async () => {
     db.init("mongo");
     await db.userStore.deleteAll();
@@ -35,15 +36,27 @@ suite("User Model tests", () => {
   });
 
   test("update a user - success", async () => {
-    const user = await db.userStore.addUser(maggie);
+    const user = testUsers[0];
     const updatedData = {
       firstName: "UpdatedFirstName",
       lastName: "UpdatedLastName",
       email: "newmail@mail.com",
       password: "newpassword",
     };
-    const updatedUser = await db.userStore.updateUser(user._id, update);
-    assert.equal(user.firstName, updatedUser.firstName);
+    const updatedUser = await db.userStore.updateUser(user._id, updatedData);
+    assert.equal(updatedData.firstName, updatedUser.firstName);
+    assert.equal(updatedUser.email, "newmail@mail.com")
+  });
+
+  test("update a user - fail", async () => {
+    const updatedData = {
+      firstName: "UpdatedFirstName",
+      lastName: "UpdatedLastName",
+      email: "newmail@mail.com",
+      password: "newpassword",
+    };
+    const updatedUser = await db.userStore.updateUser("661699999999999999999999", updatedData);
+    assert.isNull(updatedUser);
   });
 
   test("delete One User - success", async () => {

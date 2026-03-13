@@ -17,6 +17,13 @@ export const freshUser = {
   password: "secretpassword"
 };
 
+export const freshUser2 = {
+  firstName: "Jane",
+  lastName: "Doe",
+  email: "jane@mail.com",
+  password: "secretpassword"
+};
+
 export const testUsers = [
   {
     firstName: "Homer",

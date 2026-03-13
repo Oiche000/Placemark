@@ -7,8 +7,9 @@ export const placemarkMemStore = {
     return placemarks;
   },
 
-  async addPlacemark(placemark) {
+  async addPlacemark(userId, placemark) {
     placemark._id = v4();
+    placemark.userId = userId;
     placemarks.push(placemark);
     return placemark;
   },
