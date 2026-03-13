@@ -1,0 +1,25 @@
+{{#if placemarks.length}}
+  <div class="box">
+    <div id="dashboard-map" style="height: 500px;"></div>
+  </div>
+{{/if}}
+
+<script>
+  // Center the map on Ireland generally [lat, lng]
+  const dashMap = L.map('dashboard-map').setView([53.4, -8.2], 7);
+
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(dashMap);
+
+  //  loop through all placemarks and create a marker for each
+  {{#each placemarks}}
+    L.marker([{{lat}}, {{lng}}])
+      .addTo(dashMap)
+      .bindPopup(`
+        <h2>{{name}}</h2>
+        <p>{{category}}</p>
+        <a href="/placemark/{{_id}}">View Details</a>
+      `);
+  {{/each}}
+</script>

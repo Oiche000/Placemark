@@ -26,5 +26,12 @@ export const imageStore = {
 
   deleteImage: async function(image) {
     await cloudinary.v2.uploader.destroy(image, {});
-  }
+  },
+
+  updateImage: async function(image, newImageFile) {
+    writeFileSync("./public/temp.image", newImageFile);
+    await cloudinary.v2.uploader.destroy(image, {});
+    const response = await cloudinary.v2.uploader.upload("./public/temp.image");
+    return response.url;
+  },
 };
