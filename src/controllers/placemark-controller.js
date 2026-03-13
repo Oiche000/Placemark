@@ -61,4 +61,28 @@ export const placemarkController = {
       },        // or partials/edit-placemark
     },
 
+    uploadImage: {
+    handler: async function (request, h) {
+      try {
+        const placemark = await db.placemarkStore.getplacemarkById(request.params.id);
+        const file = request.payload.imagefile;
+        if (Object.keys(file).length > 0) {
+          const url = await imageStore.uploadImage(request.payload.imagefile);
+          placemark.img = url;
+          await db.placemarkStore.updateplacemark(placemark);
+        }
+        return h.redirect(`/placemark/${placemark._id}`);
+      } catch (err) {
+        console.log(err);
+        return h.redirect(`/placemark/${placemark._id}`);
+      }
+    },
+    payload: {
+      multipart: true,
+      output: "data",
+      maxBytes: 209715200,
+      parse: true,
+    },
+  },
+
 };
