@@ -21,15 +21,15 @@
           
           <div class="content mt-3">
             <p>{{description}}</p>
-            <p class="is-size-7"><strong>Coords:</strong> {{lat}}, {{lng}}</p>
+            <p class="is-size-7"><strong>Location (Lat/Long):</strong> {{lat}}, {{lng}}</p>
           </div>
         </div>
         <footer class="card-footer">
           <a href="/placemark/{{_id}}" class="card-footer-item">View Details</a>
-          <a href="/dashboard/editplacemark/{{_id}}" class="card-footer-item">Edit</a>
+          <a href="/placemark/{{_id}}/editplacemark" class="card-footer-item">Edit</a>
           <a href="/dashboard/deleteplacemark/{{_id}}" class="card-footer-item has-text-danger">Delete</a>
         </footer>
       </div>
     </div>
   {{/each}}
-</div>
+</div>>

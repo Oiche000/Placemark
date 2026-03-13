@@ -6,8 +6,12 @@ import { assertSubset } from "../test-utils.js";
 suite("Placemark Model tests", () => {
   let user = null;
 
-  setup(async () => {
+  suiteSetup( () => {
     db.init("mongo");
+  });
+
+  setup(async () => {
+    // db.init("mongo");
     
     await db.userStore.deleteAll();
     await db.placemarkStore.deleteAllPlacemarks();

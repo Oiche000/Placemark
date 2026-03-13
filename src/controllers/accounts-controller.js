@@ -76,9 +76,9 @@ export const accountsController = {
     validate: {
       payload: UserSpec,
       options: { abortEarly: false }, 
-      failAction: function (request, h, error) {
+      failAction: async function (request, h, error) {
         const userId = request.params.id;
-        const originalUser = db.userStore.getUserById(userId);
+        const originalUser = await db.userStore.getUserById(userId);
         return h.view("profile-view", {
           title: "Update Profile error", 
           error: error.details,
