@@ -14,3 +14,20 @@
     </div>
   {{/each}}
 </div>
+
+{{#each placemarks}}
+  <tr>
+    <td>
+      {{#if (eq category "Swimming")}}<i class="fas fa-swimmer has-text-info"></i>{{/if}}
+      {{#if (eq category "Hiking")}}<i class="fas fa-hiking has-text-success"></i>{{/if}}
+      {{#if (eq category "Kayaking")}}<i class="fas fa-water has-text-link"></i>{{/if}}
+      {{#if (eq category "Heritage")}}<i class="fas fa-landmark has-text-grey-dark"></i>{{/if}}
+      {{#if (eq category "Caving")}}<i class="fas fa-mountain has-text-dark"></i>{{/if}}
+      {{#if (eq category "Camping")}}<i class="fas fa-campground has-text-warning"></i>{{/if}}
+      {{#if (eq category "Surfing")}}<i class="fas fa-water has-text-info"></i>{{/if}}
+      {{#if (eq category "Stargazing")}}<i class="fas fa-star has-text-primary"></i>{{/if}}
+      {{name}}
+    </td>
+    <td>{{category}}</td>
+  </tr>
+{{/each}}

@@ -26,7 +26,7 @@ export const placemarkApi = {
     notes: "Returns the newly created placemark",
     validate: { payload: PlacemarkSpec, failAction: validationError },
     response: { schema: PlacemarkSpecPlus, failAction: validationError },
-    
+
   },
 
   find: {
