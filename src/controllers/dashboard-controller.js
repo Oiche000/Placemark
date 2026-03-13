@@ -39,8 +39,8 @@ export const dashboardController = {
         timeRequired: request.payload.timeRequired || "",
         // // amenities: request.payload.// amenities || "",
       };
-      
-      await db.placemarkStore.addPlacemark(newPlacemark);
+      console.log("adding new placemark: ", newPlacemark);
+      await db.placemarkStore.addPlacemark(loggedInUser._id, newPlacemark);
       return h.redirect("/dashboard");
     },
   },
