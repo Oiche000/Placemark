@@ -1,5 +1,6 @@
 import {db } from "../models/db.js";
 import { PlacemarkSpec, availableCategories } from "../models/joi-schemas.js";
+import { imageStore } from "../models/image-store.js";
 
 export const placemarkController = {
   index: {
@@ -19,9 +20,9 @@ export const placemarkController = {
       validate: {
         payload: PlacemarkSpec,
         options: { abortEarly: false },
-        failAction: function (request, h, error) {
+        failAction: async function (request, h, error) {
           const placemarkId = request.params.id;
-          const originalPlacemark = db.placemarkStore.getPlacemarkById(placemarkId);
+          const originalPlacemark = await db.placemarkStore.getPlacemarkById(placemarkId);
           return h.view("dashboard-view", {
             title: "Update Placemark error", 
             errors: error.details,
@@ -64,11 +65,11 @@ export const placemarkController = {
     uploadImage: {
     handler: async function (request, h) {
       try {
-        const placemark = await db.placemarkStore.getplacemarkById(request.params.id);
+        const placemark = await db.placemarkStore.getPlacemarkById(request.params.id);
         const file = request.payload.imagefile;
         if (Object.keys(file).length > 0) {
           const url = await imageStore.uploadImage(request.payload.imagefile);
-          placemark.img = url;
+          placemark.image = url;
           await db.placemarkStore.updateplacemark(placemark);
         }
         return h.redirect(`/placemark/${placemark._id}`);

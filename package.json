@@ -34,6 +34,7 @@
     "@hapi/hapi": "^21.4.6",
     "@hapi/inert": "^7.1.0",
     "@hapi/vision": "^7.0.3",
+    "cloudinary": "^2.9.0",
     "cross-env": "^10.1.0",
     "dotenv": "^17.3.1",
     "handlebars": "^4.7.8",

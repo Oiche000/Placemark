@@ -1,4 +1,29 @@
 {{> menu}}
+
+<section class="section columns is-vcentered">
+  <div class="column has-text-centered">
+    <div class="title">
+      {{placemark.title}}
+    </div>
+    {{> add-placemark}}
+    {{> update-placemark}}
+  </div>
+  <div class="column">
+    {{> placemark-image }}
+  </div>
+</section>
+
+<script>
+  const fileInput = document.querySelector(".file-input");
+  fileInput.onchange = () => {
+    if (fileInput.files.length > 0) {
+      const fileName = document.querySelector(".file-name");
+      fileName.textContent = fileInput.files[0].name;
+    }
+  };
+</script>
+
+
 <section class="section">
   <div class="columns">
     <div class="column">
