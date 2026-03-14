@@ -24,7 +24,7 @@ export const seedData = {
       lastName: "Simpson", 
       email: "lisa@simpson.com", 
       password: "secret", 
-      isAdmin: false 
+      isAdmin: true 
     },
   },
 
