@@ -38,4 +38,15 @@ suite("Authentication API tests", async () => {
     }
   });
 
+  test("non-admin user cannot access admin route", async () => {
+    const returnedUser = await placemarkService.createUser(maggie);
+    const response = await placemarkService.authenticate(maggieCredentials );
+    try {
+      await placemarkService.getAdminData();
+      assert.fail("Admin route not protected");
+    } catch (error) {
+      assert.equal(error.response.data.statusCode, 403);
+    }
+  });
+
 });

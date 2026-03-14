@@ -71,6 +71,12 @@ export const placemarkService = {
     return response.data;
   },
 
+  async getAdminData() {
+    const res = await axios.get(`${this.placemarkUrl}/api/admin`);
+    return res.data;
+  },
+
+
   async clearAuth() {
     axios.defaults.headers.common.Authorization = "";
   },

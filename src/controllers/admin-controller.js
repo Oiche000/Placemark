@@ -32,39 +32,7 @@ export const adminController = {
       });
     },
   },
-/* 
-  showAnalytics: {
 
-    handler: async function (request, h) {
-      const loggedInUser = request.auth.credentials;
-      const allUsers = await db.userStore.getAllUsers();
-      const allPlacemarks = await db.placemarkStore.getAllPlacemarks();
-      const categoriesCount = {};
-        allPlacemarks.forEach(p => {
-          categoriesCount[p.category] = (categoriesCount[p.category] || 0) + 1;
-        });
-
-        const viewData = {
-          title: "Admin Dashboard",
-          user: loggedInUser,
-          users: allUsers,
-          analytics: {
-            totalUsers: allUsers.length,
-            totalPlacemarks: allPlacemarks.length,
-          }
-        };
-      const stats = {
-        userCount: await User.countDocuments(),
-        placemarkCount: await Placemark.countDocuments(),
-        
-        // Advanced query: Counts per category
-        categoryBreakdown: await Placemark.aggregate([
-          { $group: { _id: "$category", count: { $sum: 1 } } }
-        ])
-      };
-    },
-  },
- */
   deleteUser: {
     handler: async function (request, h) {
       const loggedInUser = request.auth.credentials;

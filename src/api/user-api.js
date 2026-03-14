@@ -11,6 +11,10 @@ export const userApi = {
     },
     handler: async function (request, h) {
       try {
+        if (!request.auth.credentials.isAdmin) {
+          return Boom.forbidden("Only administrators can access user lists");
+        }
+
         const users = await db.userStore.getAllUsers();
         return users;
       } catch (err) {
@@ -71,6 +75,10 @@ export const userApi = {
     },
     handler: async function (request, h) {
       try {
+        if (!request.auth.credentials.isAdmin) {
+          return Boom.forbidden("Only administrators can perform this action");
+        }
+
         await db.userStore.deleteAll();
         return h.response().code(204);
       } catch (err) {
