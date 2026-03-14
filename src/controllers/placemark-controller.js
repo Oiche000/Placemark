@@ -82,6 +82,7 @@ export const placemarkController = {
           timeRequired: request.payload.timeRequired,
           // amenities: request.payload.// amenities,
         };
+        console.log("updating placemark with id: ", placemarkId, "with data: ", updatedPlacemarkData);
         await db.placemarkStore.updatePlacemark(placemarkId, updatedPlacemarkData);
         return h.redirect(`/placemark/${placemarkId}`);
       },
@@ -95,7 +96,7 @@ export const placemarkController = {
           title: `Edit ${placemark.name} Placemark`,
           placemark: placemark,
           categories: availableCategories,
-          isEditing: true, // Add this flag to indicate in editing mode
+          isEditing: true, // Add this flag to indicate in editing mode for playlist view
         };
   
         return h.view("placemark-view", viewData);

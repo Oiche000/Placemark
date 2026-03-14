@@ -35,7 +35,7 @@ export const placemarkMemStore = {
     return placemarks.filter((placemark) => placemark.userId === userid);
   },
 
-  async getPlacemarksByCategory(userid, category) {
+  async getPlacemarkByCategory(userid, category) {
     const userPlacemarks = await this.getUserPlacemarks(userid);
     return userPlacemarks.filter((p) => p.category === category);
   },

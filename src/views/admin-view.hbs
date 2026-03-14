@@ -1,0 +1,45 @@
+{{> menu active="admin"}}
+
+<section class="section">
+  <h1 class="title">Admin Dashboard</h1>
+  <div class="columns">
+    <div class="column">
+      <div class="box has-background-primary has-text-primary-invert has-text-centered">
+        <p class="heading">Total Users</p>
+        <p class="title">{{users.length}}</p>
+      </div>
+    </div>
+    <div class="column">
+      <div class="box has-background-info-light has-text-info-light-invert has-text-centered">
+        <p class="heading">Total Adventure Placemarks</p>
+        <p class="title">{{totalPlacemarks}}</p>
+      </div>
+    </div>
+  </div>
+
+  <table class="table is-fullwidth is-striped">
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>Email</th>
+        <th>Num. Placemarks</th>
+        <th>User Type</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each users}}
+        <tr>
+          <td>{{firstName}} {{lastName}}</td>
+          <td>{{email}}</td>
+          <td>{{placemarkCount}}</td>
+          <td>{{#if isAdmin}}<span class="tag is-info">Admin</span>{{else}}User{{/if}}</td>
+          <td><a href="/admin/deleteuser/{{_id}}" class="button is-danger">
+                <span class="icon mr-2"><i class="fas fa-trash"></i></span>  Delete
+              </a>
+          </td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</section>

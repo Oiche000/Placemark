@@ -27,7 +27,7 @@ export const placemarkMongoStore = {
     return placemark;
   },
 
-  async getPlacemarksByCategory(category) {
+  async getPlacemarkByCategory(category) {
     const placemark = await Placemark.find({ category: category }).lean();
     return placemark;
   },
