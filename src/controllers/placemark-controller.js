@@ -1,3 +1,4 @@
+import axios from "axios";
 import {db } from "../models/db.js";
 import { PlacemarkSpec, availableCategories } from "../models/joi-schemas.js";
 import { imageStore } from "../models/image-store.js";
@@ -7,10 +8,47 @@ export const placemarkController = {
     handler: async function (request, h) {
       /* add placemark variable here to pass to the view */
       const placemark = await db.placemarkStore.getPlacemarkById(request.params.id);
+
+      let currentWeather = null;
+      let forecast = null;
+
+      try {
+        const currentUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${placemark.lat}&lon=${placemark.lng}&units=metric&appid=${process.env.WEATHER_API_KEY}`;
+        const currentResponse = await axios.get(currentUrl);
+        
+        currentWeather = {
+          temp: Math.round(currentResponse.data.main.temp),
+          feelsLike: Math.round(currentResponse.data.main.feels_like),
+          clouds: currentResponse.data.weather[0].description,
+          windSpeed: currentResponse.data.wind.speed,
+          icon: currentResponse.data.weather[0].icon,
+        };
+        
+        console.log("Current Weather:", currentWeather);
+
+        const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${placemark.lat}&lon=${placemark.lng}&units=metric&appid=${process.env.WEATHER_API_KEY}`;
+        const forecastResponse = await axios.get(forecastUrl);
+        const dayForecast = forecastResponse.data.list.slice(0, 8); // Get the next 8 forecast entries (24 hours)
+        const forecastQuarters = dayForecast.filter((item, index) => index % 2 === 1); // Get every 2nd entry for 4 chunks of 6 hours
+        const weatherForecast = forecastQuarters.map(timeslot => ({
+            time: timeslot.dt_txt.split(" ")[1].substring(0, 5),  // split by space to get the time, and substring to drop the seconds.
+            temp: Math.round(timeslot.main.temp),
+            description: timeslot.weather[0].description,
+            icon: timeslot.weather[0].icon,
+        }));
+        forecast = weatherForecast;
+
+        console.log("Weather Forecast:", forecast);
+       
+      } catch (err) {
+        console.error("Weather API Error:", err);
+      }
    
       const viewData = {
         title: "Placemark",
         placemark: placemark,
+        currentWeather: currentWeather,
+        forecast: forecast,
       };
       return h.view("placemark-view", viewData);
     },
