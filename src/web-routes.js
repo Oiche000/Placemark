@@ -24,7 +24,7 @@ export const webRoutes = [
   { method: "GET", path: "/category/{category}", config: dashboardController.categoryView },
   // { method: "GET", path: "/category/{category}", config: dashboardController.categoryView },
 
-  // { method: "POST", path: "/placemark/{id}/uploadimage", config: placemarkController.uploadImage },
+  { method: "POST", path: "/placemark/{id}/uploadimage", config: placemarkController.uploadImage },
 
   // { method: "GET", path: "/{param*}", handler: { directory: { path: "./public" } }, options: { auth: false } },
 

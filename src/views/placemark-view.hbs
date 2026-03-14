@@ -1,17 +1,35 @@
 {{> menu}}
 
-<section class="section columns is-vcentered">
-  <div class="column has-text-centered">
-    <div class="title">
-      {{placemark.title}}
+<section class="section  is-vcentered">
+  {{#if isEditing}}
+    <h1 class="title is-2">Edit {{placemark.name}} Details</h1>
+    {{> edit-placemark}}
+    <a href="/placemark/{{placemark._id}}" class="button is-light">Cancel</a>
+  {{else}}
+    <div class="columns has-text-centered">
+      <div class="column">
+        <h1 class="title">{{placemark.name}}</h1>
+          <p>Category: {{placemark.category}}</p>
+          <p>{{placemark.description}}</p>
+          <a href="/placemark/{{placemark._id}}/editplacemark" class="button is-warning">
+            <i class="fas fa-edit mr-2"></i>Edit Details
+          </a>
+      </div>
+      <div class="column">
+        <figure class="image is-4by3">
+          <img src="{{placemark.image}}" onerror="this.src='/images/placeholder.jpg'">
+        </figure>
+      </div>
+      <div class="column">
+        {{> placemark-image }}
+      </div>
     </div>
-    {{> add-placemark}}
-    {{> update-placemark}}
-  </div>
-  <div class="column">
-    {{> placemark-image }}
-  </div>
-</section>
+    <div class="box">
+      {{> map}}
+    </div>
+  {{/if}}
+</section> 
+
 
 <script>
   const fileInput = document.querySelector(".file-input");
@@ -22,27 +40,3 @@
     }
   };
 </script>
-
-
-<section class="section">
-  <div class="columns">
-    <div class="column">
-      <h1 class="title">{{placemark.name}}</h1>
-      <p><strong>Category:</strong> {{placemark.category}}</p>
-      <p>{{placemark.description}}</p>
-      <div class="box">
-        {{> map}}
-      </div>
-    </div>
-    <div class="column">
-      <figure class="image is-4by3">
-        <img src="{{placemark.image}}" onerror="this.src='/images/placeholder.jpg'">
-      </figure>
-    </div>
-  </div>
-  <hr>
-  <div class="columns">
-    <div class="column is-one-third">{{!-- {{> review-form}} --}}</div>
-    <div class="column">{{!-- {{> review-list}} --}}</div>
-  </div>
-</section>

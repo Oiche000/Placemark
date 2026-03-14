@@ -23,10 +23,11 @@ export const placemarkController = {
         failAction: async function (request, h, error) {
           const placemarkId = request.params.id;
           const originalPlacemark = await db.placemarkStore.getPlacemarkById(placemarkId);
-          return h.view("dashboard-view", {
+          return h.view("edit-placemark-view", {
             title: "Update Placemark error", 
             errors: error.details,
-            placemark: originalPlacemark
+            placemark: originalPlacemark,
+            categories: availableCategories,
           }).takeover().code(400);
         },
       },
@@ -44,7 +45,7 @@ export const placemarkController = {
           // amenities: request.payload.// amenities,
         };
         await db.placemarkStore.updatePlacemark(placemarkId, updatedPlacemarkData);
-        return h.redirect("/dashboard");
+        return h.redirect(`/placemark/${placemarkId}`);
       },
     },
   
@@ -56,9 +57,10 @@ export const placemarkController = {
           title: `Edit ${placemark.name} Placemark`,
           placemark: placemark,
           categories: availableCategories,
+          isEditing: true, // Add this flag to indicate in editing mode
         };
   
-        return h.view("edit-placemark-view", viewData);
+        return h.view("placemark-view", viewData);
       },        // or partials/edit-placemark
     },
 

@@ -65,7 +65,7 @@ export const dashboardController = {
         const placemarkId = request.params.id;
         const originalPlacemark = await db.placemarkStore.getPlacemarkById(placemarkId);
         return h.view("edit-placemark-view", {
-          title: "Update Placemark error", 
+          title: "Update Error", 
           errors: error.details,
           placemark: originalPlacemark
         }).takeover().code(400);
@@ -86,7 +86,7 @@ export const dashboardController = {
       };
       console.log("updating placemark with id: ", placemarkId, "with data: ", updatedPlacemarkData);
       await db.placemarkStore.updatePlacemark(placemarkId, updatedPlacemarkData);
-      return h.redirect("/dashboard");
+      return h.redirect(`/placemark/${placemarkId}`);
     },
   },
 
