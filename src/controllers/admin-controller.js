@@ -1,5 +1,6 @@
 import { emitWarning } from "process";
 import { db } from "../models/db.js";
+import { analyticsUtils } from "../models/analytics.js";
 import { UserSpec, UserCredentialsSpec } from "../models/joi-schemas.js";
 
 export const adminController = {
@@ -8,7 +9,7 @@ export const adminController = {
     handler: async function (request, h) {
       const loggedInUser = request.auth.credentials;
       if ( !loggedInUser ||  !loggedInUser.isAdmin) {
-       
+
         return h.redirect("/login");
       }
 
@@ -20,23 +21,28 @@ export const adminController = {
       }
 
       const allPlacemarks = await db.placemarkStore.getAllPlacemarks();
-
+      const stats = analyticsUtils.generateStats(allPlacemarks, users);
 
       return h.view("admin-view", {
         title: "Admin Dashboard",
         user: loggedInUser,
         users: users,
         totalPlacemarks: allPlacemarks.length,
+        stats: stats,
       });
     },
   },
-
+/* 
   showAnalytics: {
 
     handler: async function (request, h) {
       const loggedInUser = request.auth.credentials;
       const allUsers = await db.userStore.getAllUsers();
       const allPlacemarks = await db.placemarkStore.getAllPlacemarks();
+      const categoriesCount = {};
+        allPlacemarks.forEach(p => {
+          categoriesCount[p.category] = (categoriesCount[p.category] || 0) + 1;
+        });
 
         const viewData = {
           title: "Admin Dashboard",
@@ -58,7 +64,7 @@ export const adminController = {
       };
     },
   },
-
+ */
   deleteUser: {
     handler: async function (request, h) {
       const loggedInUser = request.auth.credentials;
@@ -66,10 +72,7 @@ export const adminController = {
         return h.redirect("/login");
       }
 
-      // cascade delete placemarks associated with the user is handled in the user store's deleteUserById method
-
       const userId = request.params.id;
-
       if (userId === loggedInUser._id) {
         emitWarning("Admin users cannot delete their own account.");
         console.log("Admin users cannot delete their own account.");  
@@ -81,6 +84,7 @@ export const adminController = {
         }).takeover().code(400);
       }
       
+      // cascade delete placemarks associated with the user is handled in the user store's deleteUserById method
       const usersPlacemarks = await db.placemarkStore.getUserPlacemarks(userId);
       for (let i =0; i < usersPlacemarks.length; i+=1) {
         // eslint-disable-next-line no-await-in-loop

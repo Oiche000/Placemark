@@ -1,45 +1,110 @@
+
 {{> menu active="admin"}}
 
 <section class="section">
-  <h1 class="title">Admin Dashboard</h1>
-  <div class="columns">
-    <div class="column">
-      <div class="box has-background-primary has-text-primary-invert has-text-centered">
-        <p class="heading">Total Users</p>
-        <p class="title">{{users.length}}</p>
+  <div class="container">
+    <h1 class="title">Admin Dashboard</h1>
+
+    <div class="columns">
+      <div class="column">
+        <div class="box has-background-primary has-text-primary-invert has-text-centered">
+          <p class="heading has-text-white">Total Users</p>
+          <p class="title has-text-white">{{stats.totalUsers}}</p>
+        </div>
+      </div>
+      <div class="column">
+        <div class="box has-background-info has-text-info-invert has-text-centered">
+          <p class="heading has-text-white">Total Placemarks</p>
+          <p class="title has-text-white">{{stats.totalPlacemarks}}</p>
+        </div>
+      </div>
+      <div class="column">
+        <div class="box has-background-link has-text-link-invert has-text-centered">
+          <p class="heading has-text-white">Top Category</p>
+          <p class="title has-text-white is-size-4">
+            {{#if stats.categoryCounts.[0]}}
+              {{stats.categoryCounts.[0]._id}} ({{stats.categoryCounts.[0].count}})
+            {{else}}
+              None
+            {{/if}}
+          </p>
+        </div>
+      </div>
+    </div> 
+    <div class="columns">
+      <div class="column is-4">
+        <div class="box">
+          <h3 class="subtitle">Top Explorers</h3>
+          <table class="table is-fullwidth is-narrow">
+            {{#each stats.activeUsers}}
+              <tr>
+                <td><span class="has-text-weight-bold">{{firstName}} {{lastName}}</span></td>
+                <td class="has-text-right"><span class="tag is-info is-light">{{count}} spots</span></td>
+              </tr>
+            {{/each}}
+          </table>
+        </div>
+      </div>
+      <div class="column is-4">
+        <div class="box">
+          <h3 class="subtitle">Recently Added</h3>
+          <ul class="is-size-6">
+            {{#each stats.recentPlacemarks}}
+              <li class="mb-2 is-flex is-justify-content-space-between">
+                <span class="has-text-weight-bold mb-2 ">{{name}} </span> <span class="tag is-link is-light has-text-right">{{category}}</span>
+              </li>
+            {{/each}}
+          </ul>
+        </div>
+      </div>  
+
+      <div class="column is-4">
+        <div class="box">
+          <h3 class="subtitle">Category Distribution</h3>
+          {{#each stats.categoryCounts}}
+            <div class="mb-3">
+              <div class="is-flex is-justify-content-space-between">
+                <span>{{_id}}</span>
+                <span>{{count}}</span>
+              </div>
+              <progress class="progress is-warning is-small" value="{{count}}" max="{{../stats.totalPlacemarks}}"></progress>
+            </div>
+          {{/each}}
+        </div>
       </div>
     </div>
-    <div class="column">
-      <div class="box has-background-info-light has-text-info-light-invert has-text-centered">
-        <p class="heading">Total Adventure Placemarks</p>
-        <p class="title">{{totalPlacemarks}}</p>
-      </div>
+
+    <div class="box mt-5">
+      <h2 class="title is-4">Manage Users</h2>
+      <table class="table is-fullwidth is-striped">
+        <thead>
+          <tr>
+            <th>User</th>
+            <th>Email</th>
+            <th>Num. Placemarks</th>
+            <th>User Type</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each users}}
+            <tr>
+              <td>{{firstName}} {{lastName}}</td>
+              <td>{{email}}</td>
+              <td>{{placemarkCount}}</td>
+              <td>{{#if isAdmin}}<span class="tag is-info">Admin</span>{{else}}User{{/if}}</td>
+              <td>
+                {{#unless isAdmin}}
+                <a href="/admin/deleteuser/{{_id}}" class="button is-danger is-small">
+                  <span class="icon"><i class="fas fa-trash"></i></span>
+                  <span>Delete</span>
+                </a>
+                {{/unless}}
+              </td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
     </div>
   </div>
-
-  <table class="table is-fullwidth is-striped">
-    <thead>
-      <tr>
-        <th>User</th>
-        <th>Email</th>
-        <th>Num. Placemarks</th>
-        <th>User Type</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#each users}}
-        <tr>
-          <td>{{firstName}} {{lastName}}</td>
-          <td>{{email}}</td>
-          <td>{{placemarkCount}}</td>
-          <td>{{#if isAdmin}}<span class="tag is-info">Admin</span>{{else}}User{{/if}}</td>
-          <td><a href="/admin/deleteuser/{{_id}}" class="button is-danger">
-                <span class="icon mr-2"><i class="fas fa-trash"></i></span>  Delete
-              </a>
-          </td>
-        </tr>
-      {{/each}}
-    </tbody>
-  </table>
 </section>
