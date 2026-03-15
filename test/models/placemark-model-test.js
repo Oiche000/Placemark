@@ -7,7 +7,7 @@ suite("Placemark Model tests", () => {
   let user = null;
 
   suiteSetup( () => {
-    db.init("mongo");
+    db.init("firebase");
   });
 
   setup(async () => {

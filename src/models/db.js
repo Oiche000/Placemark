@@ -5,6 +5,9 @@ import { placemarkMemStore } from "./mem/placemark-mem-store.js";
 import { placemarkJsonStore } from "./json/placemark-json-store.js";
 import { placemarkMongoStore } from "./mongo/placemark-mongo-store.js";
 import { connectMongo } from "./mongo/connect.js";
+import { userFirebaseStore } from "./firebase/user-firebase-store.js";
+import { placemarkFirebaseStore } from "./firebase/placemark-firebase-store.js";
+import { connectFirebase } from "./firebase/fb-connect.js";
 
 
 export const db = {
@@ -21,6 +24,11 @@ export const db = {
         this.userStore = userMongoStore;
         this.placemarkStore = placemarkMongoStore;
         connectMongo();
+        break;
+      case "firebase":
+        this.userStore = userFirebaseStore;
+        this.placemarkStore = placemarkFirebaseStore;
+        connectFirebase();
         break;
       default :
         this.userStore = userMemStore;

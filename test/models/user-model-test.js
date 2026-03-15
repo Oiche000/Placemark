@@ -6,7 +6,7 @@ import { freshUser, maggie, testUsers } from "../fixtures.js";
 suite("User Model tests", () => {
 
   suiteSetup( () => {
-    db.init("mongo");
+    db.init("firebase");
   });
 
   setup(async () => {
