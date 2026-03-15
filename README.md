@@ -38,7 +38,7 @@ A full-stack Node.js/Hapi application for tracking and sharing adventure/activit
     ``` 
 5. Access the server at http://localhost:3000
 6. View API docs at http://localhost:3000/documentation
-7 4. Run the tests: 
+7. 4. Run the tests: 
     ```node
     npm run test
     ``` 
