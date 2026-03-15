@@ -8,6 +8,7 @@ EventEmitter.setMaxListeners(25);
 
 suite("Placemark API tests", () => {
   let user = null;
+  const placemarks = new Array(testPlacemarks.length);
 
   setup(async () => {
     placemarkService.clearAuth();
@@ -22,7 +23,6 @@ suite("Placemark API tests", () => {
   teardown(async () => {});
 
   test("create placemark", async () => {
-    // testPlacemark.userId = user._id;  // add user to placemark
     let returnedPlacemark;
     try {
     returnedPlacemark = await placemarkService.createPlacemark(testPlacemark);
@@ -30,7 +30,6 @@ suite("Placemark API tests", () => {
       console.log("ERROR: ", error.response.data.message);
       throw error;
     }
-    // console.log("Returned Placemark: ", returnedPlacemark);
     assert.isNotNull(returnedPlacemark);
     assertSubset(testPlacemark, returnedPlacemark);
     assert.isDefined(returnedPlacemark._id);
@@ -38,7 +37,6 @@ suite("Placemark API tests", () => {
   });
 
   test("get placemark", async () => {
-    // testPlacemark.userId = user._id;
     const placemark = await placemarkService.createPlacemark(testPlacemark);
     const returnedPlacemark = await placemarkService.getPlacemark(placemark._id);
     assert.deepEqual(returnedPlacemark, placemark);
@@ -56,7 +54,6 @@ suite("Placemark API tests", () => {
 
   test("Get multiple placemarks", async () => {
     for (let i = 0; i < testPlacemarks.length; i += 1) {
-      // testPlacemarks[i].userId = user._id;
 
       // eslint-disable-next-line no-await-in-loop
       await placemarkService.createPlacemark(testPlacemarks[i]);
@@ -66,7 +63,6 @@ suite("Placemark API tests", () => {
   });
 
   test("update placemark", async () => {
-    // testPlacemark.userId = user._id;
     const placemark = await placemarkService.createPlacemark(testPlacemark);
     const updatedData = {
       name: "Updated Name",
@@ -89,7 +85,7 @@ suite("Placemark API tests", () => {
       const response = await placemarkService.deletePlacemarkById(placemark._id);
       assert.equal(response.status, 204);
       try {
-        const returnedPlacemark = await placemarkService.getPlacemark(placemark.id);
+        /* const returnedPlacemark =  */await placemarkService.getPlacemark(placemark._id);
         assert.fail("Should not return a response");
       } catch (error) {
         assert(error.response.data.message === "No Placemark with this id", "Incorrect Response Message");
@@ -108,7 +104,6 @@ suite("Placemark API tests", () => {
 
     test("delete all placemarks - fail regular user", async () => {
       for (let i = 0; i < testPlacemarks.length; i += 1) {
-        // testPlacemarks[i].userId = user._id;
         // eslint-disable-next-line no-await-in-loop
         await placemarkService.createPlacemark(testPlacemarks[i]);
       }

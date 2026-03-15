@@ -37,7 +37,7 @@ export const seedData = {
       category: "Hiking",
       lat: 52.0000,
       lng: -9.7424,
-      image: "https://upload.wikimedia.org/wikipedia/commons/e/e0/Carrauntoohil_Summit.jpg",
+      image: "https://upload.wikimedia.org/wikipedia/commons/b/bb/Carrauntoohil_2016.JPG",
       timeRequired: "Full day",
       // amenities: ["Parking", "Trail Markers"],
       userId: "->users.marge"
@@ -49,7 +49,7 @@ export const seedData = {
       category: "Kayaking",
       lat: 51.5008,
       lng: -9.2986,
-      image: "https://westcorkoceanoutreach.ie/wp-content/uploads/2021/05/Lough-Hyne.jpg",
+      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/2019-07-31-Lough_Hyne-0828.jpg/640px-2019-07-31-Lough_Hyne-0828.jpg",
       timeRequired: "Half day",
       // amenities: ["Pier", "Information Boards"],
       userId: "->users.marge"
@@ -60,7 +60,7 @@ export const seedData = {
       category: "Heritage",
       lat: 53.3418,
       lng: -6.2867,
-      image: "https://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg",
+      image: "https://upload.wikimedia.org/wikipedia/commons/d/d8/Guinness_sign_on_Guinness_Storehouse%2C_Market_Street_South%2C_Dublin_-_geograph.org.uk_-_2581936.jpg",
       timeRequired: "2 hours",
       // amenities: ["Guiness Tasting", "Gift Shop"],
       userId: "->users.marge"
@@ -71,7 +71,7 @@ export const seedData = {
       category: "Hiking",
       lat: 52.0174,
       lng: -9.5167,
-      image: "https://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg",
+      image: "https://res..https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Lakes_of_Killarney.JPG/1280px-Lakes_of_Killarney.JPG/demo/https://commons.wikimedia.org/wiki/File:Lakes_of_Killarney.JPG/upload/v1312461204/sample.jpg",
       timeRequired: "Half Day",
       // amenities: ["Information Signs", "Cafe"],
       userId: "->users.lisa"    
@@ -82,7 +82,7 @@ export const seedData = {
       category: "Hiking",
       lat: 53.0113,
       lng: -6.3298,
-      image: "https://res.cloudinary.com/demo/image/upload/v1312461274/sample.jpg",
+      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Wicklow_Mountains_National_Park_Glendalough_Valley.jpg/640px-Wicklow_Mountains_National_Park_Glendalough_Valley.jpg",
       timeRequired: "Half Day",
       // amenities: ["Hiking Trails"],
       userId: "->users.lisa"
