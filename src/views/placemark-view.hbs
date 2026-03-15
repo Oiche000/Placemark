@@ -1,0 +1,123 @@
+{{> menu}}
+
+<section class="section  is-vcentered">
+  {{#if isEditing}}
+    <h1 class="title is-2">Edit {{placemark.name}} Details</h1>
+    {{> edit-placemark}}
+    <a href="/placemark/{{placemark._id}}" class="button is-light">Cancel</a>
+  {{else}}
+    <div class="columns has-text-centered">
+      <div class="column">
+        <h1 class="title">{{placemark.name}}</h1>
+          <p>Category: {{placemark.category}}</p>
+          <p>{{placemark.description}}</p>
+          <p>Time Required: {{placemark.timeRequired}}</p>
+          <a href="/placemark/{{placemark._id}}/editplacemark" class="button is-warning">
+            <i class="fas fa-edit mr-2"></i>Edit Details
+          </a>
+      </div>
+      <div class="column">
+        <figure class="image is-4by3">
+          <img src="{{placemark.image}}" onerror="this.src='/images/placeholder.jpg'">
+        </figure>
+      </div>
+      <div class="column">
+        {{> placemark-image }}
+      </div>
+    </div>
+    <div class="columns mt-4">
+  
+  <div class="column is-one-third">
+    {{#if currentWeather}}
+    <div class="card has-background-info-light" style="height: 100%;">
+      <div class="card-content has-text-centered">
+        <p class="title is-4">Current Weather</p>
+        <img src="http://openweathermap.org/img/wn/{{currentWeather.icon}}@2x.png" alt="Weather icon">
+        <p class="title is-2 mb-1">{{currentWeather.temp}}°C</p>
+        <p class="subtitle is-5 is-capitalized">{{currentWeather.clouds}}</p>
+        <div class="level is-mobile mt-4">
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading">Feels Like</p>
+              <p class="title is-6">{{currentWeather.feelsLike}}°C</p>
+            </div>
+          </div>
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading">Wind</p>
+              <p class="title is-6">{{currentWeather.windSpeed}} m/s</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{/if}}
+  </div>
+
+  <div class="column is-two-thirds">
+    {{#if forecast}}
+    <div class="card has-background-white-ter" style="height: 100%;">
+      <div class="card-content">
+        <p class="title is-4 has-text-centered">Forecast (Next 24 Hours)</p>
+        <div class="columns is-mobile mt-2">
+          
+          {{#each forecast}}
+          <div class="column has-text-centered">
+            <p class="heading is-size-6">{{this.time}}</p> 
+            
+            <img src="http://openweathermap.org/img/wn/{{this.icon}}@2x.png" alt="Forecast icon">
+            
+            <p class="title is-4">{{this.temp}}°C</p>
+            <p class="subtitle is-6 is-capitalized">{{this.description}}</p>
+          </div>
+          {{/each}}
+          
+        </div>
+      </div>
+    </div>
+    {{/if}}
+  </div>
+
+</div>
+
+    <div class="box">
+      {{> map}}
+    </div>
+  {{/if}}
+</section> 
+
+{{#if weather}}
+<div class="card has-background-info-light">
+  <div class="card-content">
+    <p class="title is-4">Current Weather</p>
+    <div class="level">
+      <div class="level-item has-text-centered">
+        <img src="http://openweathermap.org/img/wn/{{weather.icon}}@2x.png">
+      </div>
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading">Temperature</p>
+          <p class="title">{{weather.temp}}°C</p>
+        </div>
+      </div>
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading">Conditions</p>
+          <p class="title is-size-5">{{weather.clouds}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{{/if}}
+
+
+<script>
+  const fileInput = document.querySelector(".file-input");
+  fileInput.onchange = () => {
+    if (fileInput.files.length > 0) {
+      const fileName = document.querySelector(".file-name");
+      fileName.textContent = fileInput.files[0].name;
+    }
+  };
+</script>

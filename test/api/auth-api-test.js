@@ -1,13 +1,23 @@
 import { assert } from "chai";
 import { placemarkService } from "./placemark-service.js";
 import { decodeToken } from "../../src/api/jwt-utils.js";
-import { maggie, maggieCredentials } from "../fixtures.js";
+import { maggie, maggieCredentials, adminUser, adminCredentials } from "../fixtures.js";
 
 suite("Authentication API tests", async () => {
   setup(async () => {
-    placemarkService.clearAuth();
-    await placemarkService.createUser(maggie);
-    await placemarkService.authenticate(maggieCredentials );
+  placemarkService.clearAuth();
+ /*  try {
+        // Let's see exactly why this is failing!
+        await placemarkService.createUser(adminUser);
+       await placemarkService.authenticate(adminCredentials);
+      await placemarkService.deleteAllUsers();
+    } catch (error) {y
+      console.log("🚨 HIDDEN JOI ERROR:", error.response.data);
+    }
+
+     */
+    await placemarkService.createUser(adminUser);
+    await placemarkService.authenticate(adminCredentials);
     await placemarkService.deleteAllUsers();
   });
 
@@ -35,6 +45,17 @@ suite("Authentication API tests", async () => {
       assert.fail("Route not protected");
     } catch (error) {
       assert.equal(error.response.data.statusCode, 401);
+    }
+  });
+
+  test("non-admin user cannot access admin route", async () => {
+    const returnedUser = await placemarkService.createUser(maggie);
+    const response = await placemarkService.authenticate(maggieCredentials );
+    try {
+      await placemarkService.getAdminData();
+      assert.fail("Admin route not protected");
+    } catch (error) {
+      assert.equal(error.response.data.statusCode, 404);
     }
   });
 

@@ -57,39 +57,6 @@ export const dashboardController = {
     },
   },
 
-  updatePlacemark: {
-    validate: {
-      payload: PlacemarkSpec,
-      options: { abortEarly: false },
-      failAction: async function (request, h, error) {
-        const placemarkId = request.params.id;
-        const originalPlacemark = await db.placemarkStore.getPlacemarkById(placemarkId);
-        return h.view("edit-placemark-view", {
-          title: "Update Placemark error", 
-          errors: error.details,
-          placemark: originalPlacemark
-        }).takeover().code(400);
-      },
-    },
-    handler: async function(request, h) {
-      const placemarkId = request.params.id;
-
-      const updatedPlacemarkData = {
-        name: request.payload.name,
-        description: request.payload.description,
-        lat: Number(request.payload.lat),
-        lng: Number(request.payload.lng),
-        image: request.payload.image,
-        category: request.payload.category,
-        timeRequired: request.payload.timeRequired,
-        // amenities: request.payload.// amenities,
-      };
-      console.log("updating placemark with id: ", placemarkId, "with data: ", updatedPlacemarkData);
-      await db.placemarkStore.updatePlacemark(placemarkId, updatedPlacemarkData);
-      return h.redirect("/dashboard");
-    },
-  },
-
   editPlacemark: {
     handler: async function(request, h) {
       const placemarkId = request.params.id;
@@ -110,7 +77,7 @@ export const dashboardController = {
       const categoryName = request.params.category;
       // const all placemarks = await db.placemarkStore.getUserPlacemarks(loggedInUser._id);
       // const categoryPlacemarks = all placemarks.filter(p => p.category === categoryName);
-      const placemarks = await db.placemarkStore.getPlacemarksByCategory(category);
+      const placemarks = await db.placemarkStore.getPlacemarkByCategory(category);
       const viewData = {
         title: `${category} Locations`,
         user: loggedInUser,

@@ -1,7 +1,7 @@
 import { assert } from "chai";
 import { placemarkService } from "./placemark-service.js";
 import { assertSubset } from "../test-utils.js";
-import { maggie, maggieCredentials, freshUser, testUsers } from "../fixtures.js";
+import { maggie, maggieCredentials, freshUser, testUsers, adminUser, adminCredentials } from "../fixtures.js";
 import { db } from "../../src/models/db.js";
 
 const users = new Array(testUsers.length);
@@ -9,8 +9,8 @@ const users = new Array(testUsers.length);
 suite("User API tests", () => {
   setup(async () => {
     placemarkService.clearAuth();
-    await placemarkService.createUser(maggie);
-    await placemarkService.authenticate(maggieCredentials );
+    await placemarkService.createUser(adminUser);
+    await placemarkService.authenticate(adminCredentials);
     await placemarkService.deleteAllUsers();
     await placemarkService.createUser(maggie);
     await placemarkService.authenticate(maggieCredentials );
@@ -20,9 +20,7 @@ suite("User API tests", () => {
     }
 
   });
-  teardown(async () => {
-    await placemarkService.deleteAllUsers();
-  });
+  teardown(async () => { });
 
   test("create a user", async () => {
     const newUser = await placemarkService.createUser(freshUser);
@@ -46,15 +44,27 @@ suite("User API tests", () => {
     assert.deepEqual(newUserFound, updatedUser);
   });
 
-  test("delete all users", async () => {
-    // console.log("current users: ", users);
+  test("Admin delete all users - success", async () => {
+    await placemarkService.createUser(adminUser);
+    await placemarkService.authenticate(adminCredentials);
     let returnedUsers = await placemarkService.getAllUsers();
-    assert.equal(returnedUsers.length, 4);
+    assert.equal(returnedUsers.length, 5); // test users + admin user + maggie
+    
     await placemarkService.deleteAllUsers();
-    await placemarkService.createUser(maggie);
-    await placemarkService.authenticate(maggieCredentials );
+    await placemarkService.createUser(adminUser);
+    await placemarkService.authenticate(adminCredentials);
     returnedUsers = await placemarkService.getAllUsers();
     assert.equal(returnedUsers.length, 1);  
+  });
+
+  test("regular user cannot delete all users", async () => {
+    try {
+      await placemarkService.deleteAllUsers();
+      assert.fail("Should not allow non-admin user to delete all users");
+    } catch (error) {
+      assert.equal(error.response.data.statusCode, 403);
+      assert.equal(error.response.data.message, "Only administrators can perform this action");
+    }
   });
   
   test("get a user - success", async () => {
@@ -78,6 +88,8 @@ suite("User API tests", () => {
   });
 
   test("get a user - deleted user", async () => {
+    await placemarkService.createUser(adminUser);
+    await placemarkService.authenticate(adminCredentials);
     await placemarkService.deleteAllUsers();
     await placemarkService.createUser(maggie);
     await placemarkService.authenticate(maggieCredentials );
@@ -87,6 +99,34 @@ suite("User API tests", () => {
     } catch (error) {
       assert(error.response.data.message === "No User with this id");
       assert.equal(error.response.data.statusCode, 404);
+    }
+  });
+
+  test("Admin can get all users", async () => {
+    await placemarkService.createUser(adminUser);
+    await placemarkService.authenticate(adminCredentials);
+    const returnedUsers = await placemarkService.getAllUsers();
+    
+    assert.equal(returnedUsers.length, 5); 
+  });
+
+  test("Regular user cannot delete all users", async () => {
+    try {
+      await placemarkService.deleteAllUsers();
+      assert.fail("Maggie should not be able to delete all users");
+    } catch (error) {
+      assert.equal(error.response.data.statusCode, 403);
+      assert.equal(error.response.data.message, "Only administrators can perform this action");
+    }
+  });
+
+  test("Regular user (Maggie) cannot get all users", async () => {
+    try {
+      await placemarkService.getAllUsers();
+      assert.fail("Maggie should not be able to get all users");
+    } catch (error) {
+      assert.equal(error.response.data.statusCode, 403);
+      assert.equal(error.response.data.message, "Only administrators can access user lists");
     }
   });
 });

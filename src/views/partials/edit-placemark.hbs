@@ -1,67 +1,77 @@
-{{> menu active="dashboard"}}
 
-<section class="section">
-  <div class="container">
-    <h1 class="title">Edit {{placemark.name}}</h1>
+<div class="box">
+  <form action="/placemark/{{placemark._id}}/updateplacemark" method="POST">
     
-    <div class="box">
-      <form action="/dashboard/updateplacemark/{{placemark._id}}" method="POST">
-        
-        <div class="field is-horizontal">
-          <div class="field-body">
-            <div class="field">
-              <label class="label">Adventure Name</label>
-              <div class="control">
-                <input class="input" type="text" name="name" value="{{placemark.name}}">
-              </div>
-            </div>
-            <div class="field">
-              <label class="label">Category</label>
-              <div class="control">
-                <input class="input" type="text" name="category" value="{{placemark.category}}" readonly>
-                <p class="help">Category cannot be changed.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
+    <div class="field is-horizontal">
+      <div class="field-body">
         <div class="field">
-          <label class="label">Description</label>
+          <label class="label">Adventure Name</label>
           <div class="control">
-            <textarea class="textarea" name="description" maxlength="200">{{placemark.description}}</textarea>
+            <input class="input" type="text" name="name" value="{{placemark.name}}">
           </div>
         </div>
-
-        <div class="field is-horizontal">
-          <div class="field-body">
-            <div class="field">
-              <label class="label">Latitude</label>
-              <div class="control">
-                <input class="input" type="number" step="any" name="lat" value="{{placemark.lat}}">
-              </div>
-            </div>
-            <div class="field">
-              <label class="label">Longitude</label>
-              <div class="control">
-                <input class="input" type="number" step="any" name="lng" value="{{placemark.lng}}">
-              </div>
-            </div>
+        <div class="field">
+          <label class="label">Category</label>
+          <div class="control">
+            <input class="input" type="text" name="category" value="{{placemark.category}}" readonly>
+            <p class="help">Category cannot be changed.</p>
           </div>
         </div>
-
-        <div class="field is-horizontal mt-3">
-          <div class="field-body">
-             <div class="field">
-              <label class="label">Image URL</label>
-              <div class="control">
-                <input class="input" type="text" name="image" value="{{placemark.image}}">
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <button class="button is-link is-fullwidth mt-4">Save Changes</button>
-      </form>
+      </div>
     </div>
-  </div>
-</section>
+
+    <div class="field">
+      <label class="label">Description</label>
+      <div class="control">
+        <textarea class="textarea" name="description" maxlength="200">{{placemark.description}}</textarea>
+      </div>
+    </div>
+    <div class="field is-horizontal">
+  <div class="field-body">
+    <div class="field">
+      <label class="label">Time Required</label>
+      <div class="control">
+        <div class="select is-fullwidth">
+          <select name="timeRequired">
+            <option value="" disabled selected>Select duration...</option>
+            <option value="1 hour">1 hour</option>
+            <option value="2 hours">2 hours</option>
+            <option value="Half day">Half day</option>
+            <option value="Full day">Full day</option>
+            <option value="Overnight">Overnight</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="field is-horizontal">
+      <div class="field-body">
+        <div class="field">
+          <label class="label">Latitude</label>
+          <div class="control">
+            <input class="input" type="number" step="any" name="lat" value="{{placemark.lat}}">
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Longitude</label>
+          <div class="control">
+            <input class="input" type="number" step="any" name="lng" value="{{placemark.lng}}">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="field is-horizontal mt-3">
+      <div class="field-body">
+          <div class="field">
+          <label class="label">Image URL</label>
+          <div class="control">
+            <input class="input" type="text" name="image" value="{{placemark.image}}">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="button is-link is-fullwidth mt-4">Save Changes</button>
+  </form>
+</div>
+  

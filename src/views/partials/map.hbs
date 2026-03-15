@@ -1,0 +1,19 @@
+{{#if placemark}}
+  <div id="placemark-map" style="height: 400px;"></div>
+{{/if}}
+
+<script>
+  const map = L.map('placemark-map').setView([{{placemark.lat}}, {{placemark.lng}}], 13);
+
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 14,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    L.marker([{{placemark.lat}}, {{placemark.lng}}])
+      .addTo(map)
+      .bindPopup('{{placemark.name}}{{placemark.category}}')
+      .openPopup();
+</script>
+
+{{!-- https://leafletjs.com/examples/quick-start/ --}}

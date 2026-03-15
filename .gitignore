@@ -78,6 +78,9 @@ web_modules/
 .env.test
 .env.production
 
+# firebase key
+fullstack1-65d7d-firebase-adminsdk-fbsvc-7c78e70385.json
+
 # parcel-bundler cache (https://parceljs.org/)
 .cache
 .parcel-cache

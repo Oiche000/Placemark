@@ -9,7 +9,8 @@ import { connectMongo } from "./mongo/connect.js";
 
 export const db = {
   userStore: null,
-
+  placemarkStore: null,
+  
   init(storeType) {
     switch (storeType) {
       case "json" :
