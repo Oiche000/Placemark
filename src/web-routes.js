@@ -2,6 +2,7 @@ import { accountsController } from "./controllers/accounts-controller.js";
 import { dashboardController } from "./controllers/dashboard-controller.js";
 import { aboutController } from "./controllers/about-controller.js";
 import { placemarkController } from "./controllers/placemark-controller.js";
+import { adminController } from "./controllers/admin-controller.js";
 
 export const webRoutes = [
   { method: "GET", path: "/", config: accountsController.index },
@@ -10,6 +11,7 @@ export const webRoutes = [
   { method: "GET", path: "/logout", config: accountsController.logout },
   { method: "POST", path: "/register", config: accountsController.signup },
   { method: "POST", path: "/authenticate", config: accountsController.login },
+  { method: "POST", path: "/updateuser", config: accountsController.updateUser },
 
   { method: "GET", path: "/dashboard", config: dashboardController.index },
   { method: "POST", path: "/dashboard/addplacemark", config: dashboardController.addPlacemark },
@@ -21,11 +23,15 @@ export const webRoutes = [
 
   { method: "GET", path: "/about", config: aboutController.index },
 
+  { method: "GET", path: "/admin", config: adminController.index },
+  // { method: "GET", path: "/admin/analytics", config: adminController.showAnalytics },
+  { method: "GET", path: "/admin/deleteuser/{id}", config: adminController.deleteUser },
+
   { method: "GET", path: "/category/{category}", config: dashboardController.categoryView },
   // { method: "GET", path: "/category/{category}", config: dashboardController.categoryView },
 
   { method: "POST", path: "/placemark/{id}/uploadimage", config: placemarkController.uploadImage },
 
-  // { method: "GET", path: "/{param*}", handler: { directory: { path: "./public" } }, options: { auth: false } },
+  { method: "GET", path: "/{param*}", handler: { directory: { path: "./public" } }, options: { auth: false } },
 
 ];

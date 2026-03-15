@@ -2,12 +2,25 @@ export const maggie = {
   firstName: "Maggie",
   lastName: "Simpson",
   email: "maggie@simpson.com",
-  password: "secret"
+  password: "secret",
 };
 
 export const maggieCredentials = {
   email: "maggie@simpson.com",
   password: "secret"
+};
+
+export const adminUser = {
+  firstName: "admin",
+  lastName: "Simpson",
+  email: "admin@simpson.com",
+  password: "secret",
+  isAdmin: true,
+};
+
+export const adminCredentials = {
+  email: "admin@simpson.com",
+  password: "secret",
 };
 
 export const freshUser = {

@@ -53,6 +53,7 @@ export const placemarkApi = {
     }, 
     handler: async function(request, h) {
       try {
+        
         const placemark = await db.placemarkStore.getPlacemarkById(request.params.id);
 
         if (!placemark) {
@@ -75,6 +76,9 @@ export const placemarkApi = {
       strategy: "jwt",
     },
     handler: async function(request,h) {
+      if (!request.auth.credentials.isAdmin) {
+        return Boom.forbidden("Only administrators can perform this action");
+      }
       try {
         await db.placemarkStore.deleteAllPlacemarks();
         return h.response().code(204);

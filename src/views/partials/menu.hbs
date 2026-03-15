@@ -11,9 +11,9 @@
           <a id="dashboard" class="button" href="/dashboard"> Dashboard </a> 
           <a id="about" class="button" href="/about"> About </a> 
           <a id="logout" class="button" href="/logout"> Logout </a>
-          {{#if user.isAdmin}}
-            <a id="admin" class="button navbar-item" href="/admin"> Admin </a>
-          {{/if}}
+        {{#if user.isAdmin}}
+          <a id="admin" class="button" href="/admin"> Admin </a>
+        {{/if}}
         </div>
       </div>
     </div>

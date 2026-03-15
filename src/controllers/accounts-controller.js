@@ -41,6 +41,7 @@ export const accountsController = {
       return h.view("login-view", { title: "Login to Placemark" });
     },
   },
+
   login: {
     auth:  false,
     validate: {
@@ -48,7 +49,9 @@ export const accountsController = {
       options: { abortEarly: false }, 
       failAction: function (request, h, error) {
         console.log("Joi Validation Failed:", error.details);
-        return h.view("login-view", {title: "Login error", error: error.details }).takeover().code(400);
+        return h.view("login-view", { 
+          title: "Login error", 
+          errors: error.details }).takeover().code(401);
       },
     },
     handler: async function (request, h) {
@@ -58,6 +61,11 @@ export const accountsController = {
         return h.redirect("/");
       }
       request.cookieAuth.set({ id: user._id });
+      if (user.isAdmin) {
+        console.log(`Admin user ${user.firstName} logged in with ID: ${user._id}`);
+        return h.redirect("/admin");
+      }
+      console.log(`User ${user.firstName} logged in with ID: ${user._id}`);
       return h.redirect("/dashboard");
     },
   },

@@ -2,7 +2,7 @@ import { EventEmitter } from "events";
 import { assert } from "chai";
 import { placemarkService } from "./placemark-service.js";
 import { assertSubset } from "../test-utils.js";
-import { maggie, maggieCredentials, testPlacemark, testPlacemarks } from "../fixtures.js";
+import { maggie, maggieCredentials, testPlacemark, testPlacemarks, adminUser, adminCredentials } from "../fixtures.js";
 
 EventEmitter.setMaxListeners(25);
 
@@ -11,8 +11,8 @@ suite("Placemark API tests", () => {
 
   setup(async () => {
     placemarkService.clearAuth();
-    user = await placemarkService.createUser(maggie);
-    await placemarkService.authenticate(maggieCredentials);
+    user = await placemarkService.createUser(adminUser);
+    await placemarkService.authenticate(adminCredentials);
     await placemarkService.deleteAllPlacemarks();
     await placemarkService.deleteAllUsers();
     user = await placemarkService.createUser(maggie);
@@ -57,6 +57,7 @@ suite("Placemark API tests", () => {
   test("Get multiple placemarks", async () => {
     for (let i = 0; i < testPlacemarks.length; i += 1) {
       // testPlacemarks[i].userId = user._id;
+
       // eslint-disable-next-line no-await-in-loop
       await placemarkService.createPlacemark(testPlacemarks[i]);
     }
@@ -95,7 +96,17 @@ suite("Placemark API tests", () => {
       }
     });
 
-    test("delete multiple placemarks", async () => {
+    test("delete all placemarks - success admin user", async () => {
+      try {
+        await placemarkService.deleteAllPlacemarks();
+        assert.fail("Should not allow non-admin user to delete all placemarks");
+      } catch (error) {
+        assert.equal(error.response.data.statusCode, 403);
+        assert.equal(error.response.data.message, "Only administrators can perform this action");
+      }
+    });
+
+    test("delete all placemarks - fail regular user", async () => {
       for (let i = 0; i < testPlacemarks.length; i += 1) {
         // testPlacemarks[i].userId = user._id;
         // eslint-disable-next-line no-await-in-loop
@@ -103,6 +114,8 @@ suite("Placemark API tests", () => {
       }
       let returnedLists = await placemarkService.getAllPlacemarks();
       assert.equal(returnedLists.length, testPlacemarks.length);
+      await placemarkService.createUser(adminUser);
+      await placemarkService.authenticate(adminCredentials);
       await placemarkService.deleteAllPlacemarks();
       returnedLists = await placemarkService.getAllPlacemarks();
       assert.equal(returnedLists.length, 0);
@@ -126,18 +139,23 @@ suite("Placemark API tests", () => {
       }
     });
 
-    test("Delete All Placemarks", async () => {
+    test("delete multiple placemarks", async () => {
       for (let i = 0; i < testPlacemarks.length; i += 1) {
-        // testPlacemarks[i].userId = user._id;
         // eslint-disable-next-line no-await-in-loop
         await placemarkService.createPlacemark(testPlacemarks[i]);
       }
-      let allPlacemarks = await placemarkService.getAllPlacemarks();
-      assert.equal(allPlacemarks.length, testPlacemarks.length);
+      let returnedLists = await placemarkService.getAllPlacemarks();
+      assert.equal(returnedLists.length, testPlacemarks.length);
+
+      for (let i = 0; i < returnedLists.length; i += 1) {
+        // eslint-disable-next-line no-await-in-loop
+        await placemarkService.deletePlacemarkById(returnedLists[i]._id);
+      }
       
-      await placemarkService.deleteAllPlacemarks();
-      
-      allPlacemarks = await placemarkService.getAllPlacemarks();
-      assert.equal(allPlacemarks.length, 0);
+      // 3. Verify they are all gone
+      returnedLists = await placemarkService.getAllPlacemarks();
+      assert.equal(returnedLists.length, 0);
     });
+
+
   });
