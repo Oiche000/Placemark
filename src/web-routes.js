@@ -11,7 +11,9 @@ export const webRoutes = [
   { method: "GET", path: "/logout", config: accountsController.logout },
   { method: "POST", path: "/register", config: accountsController.signup },
   { method: "POST", path: "/authenticate", config: accountsController.login },
-  { method: "POST", path: "/updateuser", config: accountsController.updateUser },
+  { method: "GET", path: "/settings", config: accountsController.showSettings },
+  { method: "POST", path: "/settings/update/{id}", config: accountsController.updateUser },
+  { method: "GET", path: "/settings/edit/{id}", config: accountsController.showSettings },   // for admin to edit users
 
   { method: "GET", path: "/dashboard", config: dashboardController.index },
   { method: "POST", path: "/dashboard/addplacemark", config: dashboardController.addPlacemark },
@@ -24,13 +26,14 @@ export const webRoutes = [
   { method: "GET", path: "/about", config: aboutController.index },
 
   { method: "GET", path: "/admin", config: adminController.index },
-  // { method: "GET", path: "/admin/analytics", config: adminController.showAnalytics },
   { method: "GET", path: "/admin/deleteuser/{id}", config: adminController.deleteUser },
 
   { method: "GET", path: "/category/{category}", config: dashboardController.categoryView },
   // { method: "GET", path: "/category/{category}", config: dashboardController.categoryView },
 
   { method: "POST", path: "/placemark/{id}/uploadimage", config: placemarkController.uploadImage },
+  { method: "POST", path: "/placemark/{id}/updateimage", config: placemarkController.updateImage },
+  { method: "GET", path: "/placemark/{id}/delete", config: placemarkController.deleteImage },
 
   { method: "GET", path: "/{param*}", handler: { directory: { path: "./public" } }, options: { auth: false } },
 
