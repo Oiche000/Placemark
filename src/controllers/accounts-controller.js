@@ -21,7 +21,7 @@ export const accountsController = {
       options: { abortEarly: false }, 
       failAction: function (request, h, error) {
         console.log("Joi Validation Failed:", error.details);
-        return h.view("signup-view", {title: "sign up error", error: error.details }).takeover().code(400);
+        return h.view("signup-view", {title: "sign up error", errors: error.details }).takeover().code(400);
       },
     },
     /* Check the "payload" (the form data) against "UserSpec"
@@ -90,7 +90,7 @@ export const accountsController = {
 
         return h.view("settings-view", {
           title: "Update Profile error", 
-          error: error.details,
+          errors: error.details,
           user: originalUser,
           loggedInUser: request.auth.credentials,
         }).takeover().code(400);
