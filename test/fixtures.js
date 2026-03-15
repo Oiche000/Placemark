@@ -10,6 +10,19 @@ export const maggieCredentials = {
   password: "secret"
 };
 
+export const adminUser = {
+  firstName: "admin",
+  lastName: "Simpson",
+  email: "admin@simpson.com",
+  password: "secret",
+  isAdmin: true,
+};
+
+export const adminCredentials = {
+  email: "admin@simpson.com",
+  password: "secret",
+};
+
 export const freshUser = {
   firstName: "Ned",
   lastName: "Flanders",

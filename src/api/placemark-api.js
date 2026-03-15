@@ -53,9 +53,7 @@ export const placemarkApi = {
     }, 
     handler: async function(request, h) {
       try {
-        if (!request.auth.credentials.isAdmin) {
-          return Boom.forbidden("Only administrators can perform this action");
-        }
+        
         const placemark = await db.placemarkStore.getPlacemarkById(request.params.id);
 
         if (!placemark) {
