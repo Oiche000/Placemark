@@ -2,6 +2,9 @@
 .idea
 .vscode
 
+# aws key pair
+*.pem
+
 # Logs
 logs
 *.log

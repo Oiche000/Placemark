@@ -4,9 +4,9 @@ import { assertSubset } from "../test-utils.js";
 import { maggie, maggieCredentials, freshUser, testUsers, adminUser, adminCredentials } from "../fixtures.js";
 import { db } from "../../src/models/db.js";
 
-const users = new Array(testUsers.length);
-
 suite("User API tests", () => {
+  const users = new Array(testUsers.length);
+  
   setup(async () => {
     placemarkService.clearAuth();
     await placemarkService.createUser(adminUser);
@@ -72,12 +72,7 @@ suite("User API tests", () => {
     assert.deepEqual(users[0], returnedUser);
   });
 
-  /*   test("get a user - fail", async () => {
-    const returnedUser = await placemarkService.getUser("1234");
-    assert.isNull(returnedUser);
-  }); */
-
-    test("get a user - bad id - fail", async () => {
+  test("get a user - bad id - fail", async () => {
     try {
       const returnedUser = await placemarkService.getUser("1234");
       assert.fail("Should not return a response");
