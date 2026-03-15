@@ -55,3 +55,5 @@ Project has testing strategy for:
 * Unit Tests: Validate stores for data accuracy
 * API testing: Validate CRUD operations
 * Security: Ensuring non-admin users cannot access sensitive data or API calls
+
+* cross-env NODE_ENV=test: This sets the environment to "test" mode in a way that works across all operating systems (Windows, Mac, and Linux). It is used to make sure that seed data are not added while running tests, thus preventing corruption of the tests.
