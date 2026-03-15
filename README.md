@@ -55,5 +55,16 @@ Project has testing strategy for:
 * Unit Tests: Validate stores for data accuracy
 * API testing: Validate CRUD operations
 * Security: Ensuring non-admin users cannot access sensitive data or API calls
-
 * cross-env NODE_ENV=test: This sets the environment to "test" mode in a way that works across all operating systems (Windows, Mac, and Linux). It is used to make sure that seed data are not added while running tests, thus preventing corruption of the tests.
+
+## User and Admin Management
+* Role-Based Access Control: Distinct views and permissions for standard Users and Administrators.
+* Admin Dashboard: Real-time analytics showing total user engagement and placemark distribution.
+<!-- * Account Settings: Secure profile management allowing users to update credentials and Admins to promote/demote accounts. -->
+
+## Adventure Cataloging
+* Dynamic Categorization: Organise spots by activity (Hiking, Swimming, etc.).
+* Image Management: Integrated image uploading supported by Cloudinary.
+* Leaflet Maps: Interactive map integration. Every placemark is rendered with a custom marker based on its latitude and longitude coordinates. Dashboard contains global map of all placemarks on the site.
+* Live Weather Integration: Real-time weather data and 24 hour forecasts fetched via the OpenWeatherMap API for every location.
+
