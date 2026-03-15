@@ -5,16 +5,17 @@ import { freshUser, maggie, testUsers } from "../fixtures.js";
 
 suite("User Model tests", () => {
 
+  const users = new Array(testUsers.length);  // create a new users array to prevent fixture pollution
+
   suiteSetup( () => {
     db.init("firebase");
   });
 
   setup(async () => {
-    // db.init("mongo");
     await db.userStore.deleteAll();
     for (let i = 0; i < testUsers.length; i += 1) {
       // eslint-disable-next-line no-await-in-loop
-      testUsers[i] = await db.userStore.addUser(testUsers[i]);
+      users[i] = await db.userStore.addUser(testUsers[i]);
     }
   });
 
@@ -23,7 +24,7 @@ suite("User Model tests", () => {
     assertSubset(maggie, newUser);
   });
 
-  test("delete all userApi", async () => {
+  test("delete all user", async () => {
     let returnedUsers = await db.userStore.getAllUsers();
     assert.equal(returnedUsers.length, 3);
     await db.userStore.deleteAll();
@@ -40,7 +41,7 @@ suite("User Model tests", () => {
   });
 
   test("update a user - success", async () => {
-    const user = testUsers[0];
+    const user = users[0];
     const updatedData = {
       firstName: "UpdatedFirstName",
       lastName: "UpdatedLastName",
@@ -64,10 +65,10 @@ suite("User Model tests", () => {
   });
 
   test("delete One User - success", async () => {
-    await db.userStore.deleteUserById(testUsers[0]._id);
+    await db.userStore.deleteUserById(users[0]._id);
     const returnedUsers = await db.userStore.getAllUsers();
     assert.equal(returnedUsers.length, testUsers.length - 1);
-    const deletedUser = await db.userStore.getUserById(testUsers[0]._id);
+    const deletedUser = await db.userStore.getUserById(users[0]._id);
     assert.isNull(deletedUser);
   });
 

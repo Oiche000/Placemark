@@ -5,17 +5,15 @@ import { assertSubset } from "../test-utils.js";
 
 suite("Placemark Model tests", () => {
   let user = null;
+  const placemarks = new Array(testPlacemarks.length);
 
   suiteSetup( () => {
-    db.init("firebase");
+    db.init("firebase");  // in suiteSetup so only run it once
   });
 
   setup(async () => {
-    // db.init("mongo");
-    
     await db.userStore.deleteAll();
     await db.placemarkStore.deleteAllPlacemarks();
-    
 
     const uniqueUser = {
       firstName: "Test",
@@ -24,20 +22,20 @@ suite("Placemark Model tests", () => {
       password: "secretpassword"
     };
     
-    user = await db.userStore.addUser(uniqueUser);
+    user = await db.userStore.addUser(maggie);
    // user = await db.userStore.addUser(freshUser2);
     // assert.isDefined(user, "user should have been created");
     // assert.isDefined(user._id, "user must have an _id");
 
     for (let i = 0; i < testPlacemarks.length; i += 1) {
-      // testPlacemarks[i].userId = user._id;
+      
       // eslint-disable-next-line no-await-in-loop
-      testPlacemarks[i] = await db.placemarkStore.addPlacemark(user._id, testPlacemarks[i]);
+      placemarks[i] = await db.placemarkStore.addPlacemark(user._id, testPlacemarks[i]);
     }
   });
 
   test("create a placemark", async () => {
-    // testPlacemark.userId = user._id;
+    
     const newPlacemark = await db.placemarkStore.addPlacemark(user._id, testPlacemark);
     assertSubset(testPlacemark, newPlacemark);
     assert.isDefined(newPlacemark._id);
@@ -52,17 +50,16 @@ suite("Placemark Model tests", () => {
   });
 
   test("get a placemark - success", async () => {
-    // testPlacemark.userId = user._id;
     const placemark = await db.placemarkStore.addPlacemark(user._id, testPlacemark);
     const returnedPlacemark = await db.placemarkStore.getPlacemarkById(placemark._id);
     assert.deepEqual(placemark, returnedPlacemark);
   });
 
   test("delete One Placemark - success", async () => {
-    await db.placemarkStore.deletePlacemarkById(testPlacemarks[0]._id);
+    await db.placemarkStore.deletePlacemarkById(placemarks[0]._id);
     const returnedPlacemarks = await db.placemarkStore.getAllPlacemarks();
-    assert.equal(returnedPlacemarks.length, testPlacemarks.length - 1);
-    const deletedPlacemark = await db.placemarkStore.getPlacemarkById(testPlacemarks[0]._id);
+    assert.equal(returnedPlacemarks.length, placemarks.length - 1);
+    const deletedPlacemark = await db.placemarkStore.getPlacemarkById(placemarks[0]._id);
     assert.isNull(deletedPlacemark);
   });
 
@@ -78,7 +75,7 @@ suite("Placemark Model tests", () => {
   });
 
   test("update a placemark - sucess", async () => {
-    const placemarkToUpdate = testPlacemarks[0];
+    const placemarkToUpdate = placemarks[0];
     const updatedData = {
       name: "Updated Name",
       description: "Updated Description",
@@ -90,7 +87,7 @@ suite("Placemark Model tests", () => {
       // userId: user._id
     };
     const updatedPlacemark = await db.placemarkStore.updatePlacemark(placemarkToUpdate._id, updatedData);
-    assert.equal(updatedPlacemark.name, "Updated Name");
+    assert.equal(updatedPlacemark.name, updatedData.name);
     assert.equal(updatedPlacemark.description, "Updated Description");
   });
 
