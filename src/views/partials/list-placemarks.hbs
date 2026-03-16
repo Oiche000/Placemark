@@ -26,6 +26,9 @@
           <div class="content mt-3">
             <p>{{description}}</p>
             <p class="is-size-6"><span class="has-text-weight-bold">Location (Lat/Long):</span> {{lat}}, {{lng}}</p>
+            <p class="is-size-7 has-text-grey mt-2">
+              <em>Added by: {{creatorName}}</em>
+            </p>
           </div>
         </div>
         <footer class="card-footer">
@@ -33,6 +36,39 @@
           <a href="/placemark/{{_id}}/editplacemark" class="card-footer-item">Edit</a>
           <a href="/dashboard/deleteplacemark/{{_id}}" class="card-footer-item has-text-danger">Delete</a>
         </footer>
+      </div>
+    </div>
+  {{/each}}
+</div>
+
+
+<div class="columns is-multiline">
+  {{#each placemarks}}
+    <div class="column is-4">
+      <div class="card">
+        <div class="card-content">
+          
+          <span class="tag {{design.color}} is-pulled-right">
+            <span class="icon"><i class="{{design.icon}}"></i></span>
+            <span class="ml-1">{{category}}</span>
+          </span>
+          
+          <p class="title is-4">{{name}}</p>
+          <p>{{description}}</p>
+          <p class="is-size-7 has-text-grey mt-2">
+            <em>Added by: {{creatorName}}</em>
+          </p>
+        </div>
+        <footer class="card-footer">
+          <a href="/placemark/{{_id}}" class="card-footer-item">Details</a>
+          <a href="/dashboard/deleteplacemark/{{_id}}" class="card-footer-item has-text-danger">Delete</a>
+        </footer>
+      </div>
+    </div>
+  {{else}}
+    <div class="column is-12">
+      <div class="box has-text-centered">
+        <p>No placemarks found for this filter. Time to add one!</p>
       </div>
     </div>
   {{/each}}

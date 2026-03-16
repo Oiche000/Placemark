@@ -11,33 +11,44 @@ export const dashboardController = {
       // use url params to filter categories
       const filter = request.query.filter || "my";
       const categoryFilter = request.query.category;
+      const allUsers = await db.userStore.getAllUsers();
 
       let placemarksToDisplay = [];
 
-      // 2. Fetch the correct data based on the filter
+      // Get correct data based on the filter
       if (categoryFilter) {
-        // Show only a specific category
+        // only a specific category
         placemarksToDisplay = await db.placemarkStore.getPlacemarkByCategory(categoryFilter);
       } else if (filter === "all") {
-        // Show everything
+        // everything
         placemarksToDisplay = await db.placemarkStore.getAllPlacemarks();
       } else {
-        // Show only the logged-in user's placemarks
+        // only the logged-in user's placemarks
         placemarksToDisplay = await db.placemarkStore.getUserPlacemarks(loggedInUser._id);
       }
 
-      // 3. Attach the styling icons/colors
+      // update placemarks to add icons and creator
       if (placemarksToDisplay) {
-        placemarksToDisplay.forEach(pm => {
+        placemarksToDisplay.forEach((pm) => {
+          
+          // Add the design
           pm.design = getCategoryDesign(pm.category);
+          
+          // get the matching user from  users list
+          // wrap the IDs in String()  in case they are Mongo ObjectIds
+          const creator = allUsers.find((user) => String(user._id) === String(pm.userId));
+          
+          // Attach the name
+          pm.creatorName = creator ? `${creator.firstName} ${creator.lastName}` : "Unknown Explorer";
         });
       }
+    
       const viewData = {
         title: "Playtime Dashboard",
         user: loggedInUser,
-        placemarks: placemarks,
+        placemarks: placemarksToDisplay,
         categories: availableCategories,
-        allPlacemarks: allPlacemarks,
+        /* allPlacemarks: allPlacemarks,  REMOVE ! */
       };
       return h.view("dashboard-view", viewData);
     },
