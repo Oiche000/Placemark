@@ -58,6 +58,9 @@
                     <strong>Administrator Account</strong>
                   </label>
                   <p class="is-size-7">Granting admin rights allows this user to delete other users and manage all placemarks.</p>
+                  {{#if isSelf}}
+                    <p class="help is-danger mt-2"><strong>Note:</strong> You cannot revoke your own admin privileges.</p>
+                  {{/if}}
                 </div>
               </div>
             </div>

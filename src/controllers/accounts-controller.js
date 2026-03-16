@@ -167,8 +167,8 @@ export const accountsController = {
         userToEdit = await db.userStore.getUserById(request.params.id);
       }
       // boolean for if admin edits self
-      isSelf = loggedInUser._id.toString() === userToEdit._id.toString();
-      
+      const isSelf = loggedInUser._id.toString() === userToEdit._id.toString();
+
       return h.view("settings-view", { 
         title: "Settings", 
         user: userToEdit, 
