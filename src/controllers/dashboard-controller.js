@@ -87,9 +87,9 @@ export const dashboardController = {
       /* const loggedInUser = request.auth.credentials; */
 
       const placemarkId = request.params.id;
-      const placemark = await db.placemarkStore.getPlacemarkById(request.params.id);
+      const placemark = await db.placemarkStore.getPlacemarkById(placemarkId);
       if (placemark.image) {
-      // clean up cloud storage when deleting local data
+      // cascade delete: clean up cloud storage when deleting local data
       await imageStore.deleteImage(placemark.image);
     }
       await db.placemarkStore.deletePlacemarkById(placemarkId);

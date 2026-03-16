@@ -120,7 +120,7 @@ export const placemarkController = {
         return h.redirect(`/placemark/${placemark._id}`);
       } catch (err) {
         console.log(err);
-        return h.redirect(`/placemark/${placemark._id}`);
+        return h.redirect(`/placemark/${request.params.id}`);
       }
     },
     payload: {
