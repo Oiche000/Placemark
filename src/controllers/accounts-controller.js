@@ -1,5 +1,5 @@
 import { db } from "../models/db.js";
-import { UserSpec, UserCredentialsSpec } from "../models/joi-schemas.js";
+import { UserSpec, UserUpdateSpec, UserCredentialsSpec } from "../models/joi-schemas.js";
 
 export const accountsController = {
   index: {
@@ -82,7 +82,7 @@ export const accountsController = {
   updateUser: {
     auth: "session",
     validate: {
-      payload: UserSpec,
+      payload: UserUpdateSpec,        // change so that will handle empty password
       options: { abortEarly: false }, 
       failAction: async function (request, h, error) {
         const userId = request.params.id;  
