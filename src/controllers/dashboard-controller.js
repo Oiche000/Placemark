@@ -1,17 +1,43 @@
 import { db } from "../models/db.js";
 import { PlacemarkSpec, availableCategories } from "../models/joi-schemas.js";
+import { getCategoryDesign } from "./utils.js";
 
 export const dashboardController = {
   index: {
     handler: async function (request, h) {
       const loggedInUser = request.auth.credentials;
       console.log("Logged in user:", loggedInUser);
-      const placemarks = await db.placemarkStore.getUserPlacemarks(loggedInUser._id);
+
+      // use url params to filter categories
+      const filter = request.query.filter || "my";
+      const categoryFilter = request.query.category;
+
+      let placemarksToDisplay = [];
+
+      // 2. Fetch the correct data based on the filter
+      if (categoryFilter) {
+        // Show only a specific category
+        placemarksToDisplay = await db.placemarkStore.getPlacemarkByCategory(categoryFilter);
+      } else if (filter === "all") {
+        // Show everything
+        placemarksToDisplay = await db.placemarkStore.getAllPlacemarks();
+      } else {
+        // Show only the logged-in user's placemarks
+        placemarksToDisplay = await db.placemarkStore.getUserPlacemarks(loggedInUser._id);
+      }
+
+      // 3. Attach the styling icons/colors
+      if (placemarksToDisplay) {
+        placemarksToDisplay.forEach(pm => {
+          pm.design = getCategoryDesign(pm.category);
+        });
+      }
       const viewData = {
         title: "Playtime Dashboard",
         user: loggedInUser,
         placemarks: placemarks,
         categories: availableCategories,
+        allPlacemarks: allPlacemarks,
       };
       return h.view("dashboard-view", viewData);
     },

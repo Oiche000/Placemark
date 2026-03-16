@@ -9,7 +9,12 @@
     {{else}}
       <div class="columns has-text-centered">
         <div class="column">
-          <h1 class="title">{{placemark.name}}</h1>
+          <h1 class="title">
+            <span class="icon has-text-{{design.color}} is-large mr-3">
+              <i class="{{design.icon}} fa-lg"></i>
+              {{placemark.name}}
+            </span>
+          </h1>
             <p>Category: {{placemark.category}}</p>
             <p>{{placemark.description}}</p>
             <p>Time Required: {{placemark.timeRequired}}</p>
@@ -96,3 +101,30 @@
     }
   };
 </script>
+
+{{!-- REMOVE this! --}}
+{{#if currentWeather}}
+<div class="card has-background-info-light">
+  <div class="card-content">
+    <p class="title is-4">Current Weather</p>
+    <div class="level">
+      <div class="level-item has-text-centered">
+        <img src="http://openweathermap.org/img/wn/{{weather.icon}}@2x.png">
+      </div>
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading">Temperature</p>
+          <p class="title">{{weather.temp}}°C</p>
+        </div>
+      </div>
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading">Conditions</p>
+          <p class="title is-size-5">{{weather.clouds}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{{/if}}
+

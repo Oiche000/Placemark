@@ -1,4 +1,4 @@
-{{> menu active="dashboard"}}
+{{!-- {{> menu active="dashboard"}}
 
 <section class="section">
   <div class="container  is-max-desktop">
@@ -50,5 +50,57 @@
         </div>
       {{/each}}
     </div>
+  </div>
+</section> --}}
+
+{{> menu active="dashboard"}}
+
+<section class="section">
+  <div class="container is-max-desktop">
+    
+    <h1 class="title is-2">Adventure Dashboard</h1>
+
+    <div class="tabs is-boxed is-centered mb-5">
+      <ul>
+        <li>
+          <a href="/dashboard?filter=my">
+            <span class="icon is-small"><i class="fas fa-user"></i></span>
+            <span>My Spots</span>
+          </a>
+        </li>
+        <li>
+          <a href="/dashboard?filter=all">
+            <span class="icon is-small"><i class="fas fa-globe"></i></span>
+            <span>All Spots</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="box">
+      <p class="subtitle is-6">Filter by Activity:</p>
+      <div class="field is-grouped is-grouped-multiline">
+        <div class="control">
+          <a href="/dashboard?filter=all" class="tag is-primary is-medium">Clear Filters</a>
+        </div>
+        {{#each categories}}
+        <div class="control">
+          <a href="/dashboard?category={{this}}" class="tag is-info is-light is-medium">{{this}}</a>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+
+    {{> list-placemarks}}
+
+    <hr>
+    
+    <h2 class="title is-4 mt-5">Add a New Spot</h2>
+    {{> add-placemark}}
+    
+    <div class="mt-5">
+      {{> dashboard-map}}
+    </div>
+    
   </div>
 </section>

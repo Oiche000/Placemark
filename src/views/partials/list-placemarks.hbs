@@ -11,9 +11,13 @@
         {{/if}}
         <div class="card-content">
           <p class="title is-5">{{name}}</p>
+          <span class="tag {{design.color}} is-pulled-right">
+          <span class="icon"><i class="{{design.icon}}"></i></span>
+          <span>{{category}}</span>
+          </span> 
           <span class="tag is-primary">{{category}}</span>
           {{#if timeRequired}}
-            <span class="tag is-light">⏱ {{timeRequired}}</span>
+            <span class="tag is-warning is-light is-pulled-right">⏱ {{timeRequired}}</span>
           {{/if}}
           {{#if amenities}}
             <span class="tag is-light">Amenities: {{#each amenities}} {{amenities}} {{/each}}</span>
@@ -21,7 +25,7 @@
           
           <div class="content mt-3">
             <p>{{description}}</p>
-            <p class="is-size-7"><span class="has-text-bold">Location (Lat/Long):</span> {{lat}}, {{lng}}</p>
+            <p class="is-size-6"><span class="has-text-weight-bold">Location (Lat/Long):</span> {{lat}}, {{lng}}</p>
           </div>
         </div>
         <footer class="card-footer">

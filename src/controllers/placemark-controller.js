@@ -2,6 +2,7 @@ import axios from "axios";
 import {db } from "../models/db.js";
 import { PlacemarkSpec, availableCategories } from "../models/joi-schemas.js";
 import { imageStore } from "../models/image-store.js";
+import { getCategoryDesign } from "./utils.js";
 
 export const placemarkController = {
   index: {
@@ -9,6 +10,7 @@ export const placemarkController = {
       const loggedInUser = request.auth.credentials;
       /* add placemark variable here to pass to the view */
       const placemark = await db.placemarkStore.getPlacemarkById(request.params.id);
+      placemark.design = getCategoryDesign(placemark.category);
 
       let currentWeather = null;
       let forecast = null;

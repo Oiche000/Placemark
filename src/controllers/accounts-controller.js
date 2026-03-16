@@ -80,7 +80,7 @@ export const accountsController = {
   },
 
   updateUser: {
-    auth: false,
+    auth: "session",
     validate: {
       payload: UserSpec,
       options: { abortEarly: false }, 
@@ -97,33 +97,44 @@ export const accountsController = {
       },
     },
     handler: async function(request, h) {
-      const userId = request.params.id;   // user to edit        
-      const loggedInUser = request.auth.credentials;
-      const updatedUser = request.payload;
 
-      const user = await db.userStore.getUserById(userId);
-      user.firstName = payload.firstName;
-      user.lastName = payload.lastName;
-      user.email = payload.email;
+      try{
+        const userId = request.params.id;   // user to edit        
+        const loggedInUser = request.auth.credentials;
+        const newData = request.payload;
 
-      // Handle Password 
-      if (updatedUser.password && updatedUser.password !== "") {
-        user.password = payload.password;
+        const user = await db.userStore.getUserById(userId);
+        user.firstName = newData.firstName;
+        user.lastName = newData.lastName;
+        user.email = newData.email;
+
+        // Handle Password 
+        if (newData.password && newData.password !== "") {
+          user.password = newData.password;
+        }
+
+        // Handle Admin Privileges 
+        if (loggedInUser.isAdmin) {
+
+          if (loggedInUser._id.toString() === userId.toString()) {
+            user.isAdmin = true;
+          } else {
+          // Only an admin can change the isAdmin status (on for tick box in view)
+          user.isAdmin = newData.isAdmin === "on" || newData.isAdmin === true;
+          }
+        } 
+        await db.userStore.updateUser(userId, user);
+
+        // if admin edited someone else, return to admin dashboard
+        if (loggedInUser.isAdmin && loggedInUser._id.toString() !== userId.toString()) {
+          return h.redirect("/admin")
+        }
+        // otherwise redirect to dashboard
+        return h.redirect("/dashboard");
+      } catch (err) {
+        console.error("Update user error:", err);
+        return h.redirect("/");
       }
-
-      // Handle Admin Privileges 
-      if (loggedInUser.isAdmin) {
-        // Only an admin can change the isAdmin status (on for tick box in view)
-        user.isAdmin = updatedUser.isAdmin === "on" || updatedUser.isAdmin === true;
-      }
-      await db.userStore.updateUser(userId, user);
-
-      // if admin edited someone else, return to admin dashboard
-      if (loggedInUser.isAdmin && loggedInUser._id !== userId) {
-        return h.redirect("/admin")
-      }
-      
-      return h.redirect("/dashboard");
     },
   },
 

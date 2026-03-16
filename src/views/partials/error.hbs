@@ -10,12 +10,12 @@
 {{/if}}
 
 {{#if errors}}
-  <div class="notification is-danger is-light">
+  <div class="box content notification is-danger is-light">
     <button class="delete"></button>
-    <p class="has-text-weight-bold">There was a problem with your submission:</p>
+    <p class="has-text-weight-bold">There was a problem with your entry</p>
     <ul>
       {{#each errors}}
-        <li>- {{message}}</li>
+        <li> {{message}}</li>
       {{/each}}
     </ul>
   </div>
