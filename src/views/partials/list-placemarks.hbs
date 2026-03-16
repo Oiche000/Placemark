@@ -5,62 +5,40 @@
         {{#if image}}
         <div class="card-image">
           <figure class="image is-4by3">
-            <img src="{{image}}" alt="{{name}} image">
+            <img src="{{image}}" alt="{{name}} image" onerror="this.src='/images/placeholder.jpg'">
           </figure>
         </div>
         {{/if}}
         <div class="card-content">
           <p class="title is-5">{{name}}</p>
-          <span class="tag {{design.color}} is-pulled-right">
-          <span class="icon"><i class="{{design.icon}}"></i></span>
-          <span>{{category}}</span>
-          </span> 
-          <span class="tag is-primary">{{category}}</span>
-          {{#if timeRequired}}
-            <span class="tag is-warning is-light is-pulled-right">⏱ {{timeRequired}}</span>
-          {{/if}}
-          {{#if amenities}}
-            <span class="tag is-light">Amenities: {{#each amenities}} {{amenities}} {{/each}}</span>
-          {{/if}}
+          <div class="tags">
+            <span class="tag is-{{design.colour}} is-medium">
+              <span class="icon"><i class="{{design.icon}}"></i></span>
+              <span class="ml-1">{{category}}</span>
+            </span> 
+
+            {{#if timeRequired}}
+              <span class="tag  is-medium is-warning is-light ml-4 mb-2">
+                <span class="icon"><i class="fas fa-clock"></i></span>
+                <span>{{timeRequired}}</span>
+              </span>
+            {{/if}}
+            {{#if amenities}}
+              <span class="tag  is-medium is-light">Amenities: {{#each amenities}} {{amenities}} {{/each}}</span>
+            {{/if}}
+          </div>
           
           <div class="content mt-3">
             <p>{{description}}</p>
             <p class="is-size-6"><span class="has-text-weight-bold">Location (Lat/Long):</span> {{lat}}, {{lng}}</p>
             <p class="is-size-7 has-text-grey mt-2">
-              <em>Added by: {{creatorName}}</em>
+              <span class="is-italic">Added by: {{creatorName}}</span>
             </p>
           </div>
         </div>
         <footer class="card-footer">
           <a href="/placemark/{{_id}}" class="card-footer-item">View Details</a>
           <a href="/placemark/{{_id}}/editplacemark" class="card-footer-item">Edit</a>
-          <a href="/dashboard/deleteplacemark/{{_id}}" class="card-footer-item has-text-danger">Delete</a>
-        </footer>
-      </div>
-    </div>
-  {{/each}}
-</div>
-
-
-<div class="columns is-multiline">
-  {{#each placemarks}}
-    <div class="column is-4">
-      <div class="card">
-        <div class="card-content">
-          
-          <span class="tag {{design.color}} is-pulled-right">
-            <span class="icon"><i class="{{design.icon}}"></i></span>
-            <span class="ml-1">{{category}}</span>
-          </span>
-          
-          <p class="title is-4">{{name}}</p>
-          <p>{{description}}</p>
-          <p class="is-size-7 has-text-grey mt-2">
-            <em>Added by: {{creatorName}}</em>
-          </p>
-        </div>
-        <footer class="card-footer">
-          <a href="/placemark/{{_id}}" class="card-footer-item">Details</a>
           <a href="/dashboard/deleteplacemark/{{_id}}" class="card-footer-item has-text-danger">Delete</a>
         </footer>
       </div>

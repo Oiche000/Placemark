@@ -1,18 +1,18 @@
 export function getCategoryDesign(category) {
   switch (category) {
     case "Hiking":
-      return { icon: "fas fa-hiking", color: "is-success" }; // Green
+      return { icon: "fas fa-hiking", colour: "success" }; // Green
     case "Swimming":
-      return { icon: "fas fa-swimmer", color: "is-info" }; // Blue
+      return { icon: "fas fa-swimmer", colour: "info" }; // Blue
     case "Heritage":
-      return { icon: "fas fa-landmark", color: "is-warning" }; // Yellow
+      return { icon: "fas fa-landmark", colour: "warning" }; // Yellow
     case "Kayaking":
-      return { icon: "fas fa-water", color: "is-link" }; // Dark Blue
+      return { icon: "fas fa-water", colour: "link" }; // Dark Blue
     case "Caving":
-      return { icon: "fas fa-dungeon", color: "is-dark" }; // Black/Dark
+      return { icon: "fas fa-dungeon", colour: "dark" }; // Black/Dark
     case "Stargazing":
-      return { icon: "fas fa-star", color: "is-black" }; // Black
+      return { icon: "fas fa-star", colour: "black" }; // Black
     default:
-      return { icon: "fas fa-map-marker-alt", color: "is-primary" }; // Default Teal
+      return { icon: "fas fa-map-marker-alt", colour: "primary" }; // Default Teal
   }
 };

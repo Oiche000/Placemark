@@ -1,6 +1,7 @@
+{{> menu active="settings"}}
 
 <section class="section">
-  <div class="container is-max-desktop">
+  <div class="container pb-5 is-max-desktop">
     <div class="column is-9 is-offset-2">
       <div class="box">
         <h1 class="title">Account Settings: {{user.firstName}} {{user.lastName}}</h1>
@@ -55,11 +56,11 @@
                   <label class="checkbox">
                   {{!-- If isSelf is true, add 'disabled' attribute --}}
                     <input type="checkbox" name="isAdmin" {{#if user.isAdmin}}checked{{/if}} {{#if isSelf}}disabled{{/if}}>
-                    <strong>Administrator Account</strong>
+                    <span class="has-text-weight-bold">Administrator Account</span>
                   </label>
                   <p class="is-size-7">Granting admin rights allows this user to delete other users and manage all placemarks.</p>
                   {{#if isSelf}}
-                    <p class="help is-danger mt-2"><strong>Note:</strong> You cannot revoke your own admin privileges.</p>
+                    <p class="help is-danger mt-2"><span class="has-text-weight-bold">Note:</span> You cannot revoke your own admin privileges.</p>
                   {{/if}}
                 </div>
               </div>

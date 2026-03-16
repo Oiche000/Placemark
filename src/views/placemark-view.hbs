@@ -1,90 +1,102 @@
 {{> menu active="dashboard"}}
 
-<div class="container  is-max-desktop">
-  <section class="section  is-vcentered">
+<div class="container mt-5 is-max-widescreen pb-5">
+  <section class="section is-vcentered">
     {{#if isEditing}}
       <h1 class="title is-2">Edit {{placemark.name}} Details</h1>
       {{> edit-placemark}}
       <a href="/placemark/{{placemark._id}}" class="button is-light">Cancel</a>
     {{else}}
-      <div class="columns has-text-centered">
-        <div class="column">
-          <h1 class="title">
-            <span class="icon has-text-{{design.color}} is-large mr-3">
-              <i class="{{design.icon}} fa-lg"></i>
-              {{placemark.name}}
-            </span>
-          </h1>
-            <p>Category: {{placemark.category}}</p>
-            <p>{{placemark.description}}</p>
-            <p>Time Required: {{placemark.timeRequired}}</p>
-            <a href="/placemark/{{placemark._id}}/editplacemark" class="button is-warning">
-              <i class="fas fa-edit mr-2"></i>Edit Details
+
+      <div class="has-text-centered mb-5">
+        <h1 class="title is-1">
+          <span class="icon has-text-{{placemark.design.colour}} is-large mr-3">
+            <i class="{{placemark.design.icon}} fa-lg"></i>
+          </span>
+          {{placemark.name}}
+        </h1>
+      </div>
+
+      <div class="columns is-desktop box">
+        
+        <div class="column is-5">
+          <div class="content">
+            <h3 class="title is-4">About this spot</h3>
+            <p><span class="has-text-weight-bold">Category: </span>{{placemark.category}}</p>
+            <p class="has-text-weight-bold">Description:</p>
+            <p> {{placemark.description}}</p>
+            <p><span class="has-text-weight-bold">Time Required:</span> {{placemark.timeRequired}}</p>
+          </div>
+          <hr>
+          <h4 class="title is-5 mb-3">Update Placemark</h4>
+          <div class="mb-4">
+            <a href="/placemark/{{placemark._id}}/editplacemark" class="button is-warning is-fullwidth">
+              <span class="icon"><i class="fas fa-edit"></i></span>
+              <span>Edit Text Details</span>
             </a>
+          </div>
+          <p class="subtitle mb-3">Update Image</p>
+          <div class="mb-4">
+            {{> placemark-image }}
+          </div>
         </div>
-        <div class="column">
+        
+        <div class="column is-7">
           <figure class="image is-4by3">
-            <img src="{{placemark.image}}" onerror="this.src='/images/placeholder.jpg'">
+            <img src="{{placemark.image}}" onerror="this.src='/images/placeholder.jpg'" alt="Photo of {{placemark.name}}">
           </figure>
         </div>
-        <div class="column">
-          {{> placemark-image }}
-        </div>
       </div>
-      <div class="columns mt-4">
-    
-    <div class="column is-one-third">
-      {{#if currentWeather}}
-      <div class="card has-background-info-dark has-text-info-dark-invert" style="height: 100%;">
-        <div class="card-content has-text-centered">
-          <p class="title is-4">Current Weather</p>
-          <img src="http://openweathermap.org/img/wn/{{currentWeather.icon}}@2x.png" alt="Weather icon">
-          <p class="title is-2 mb-1">{{currentWeather.temp}}°C</p>
-          <p class="subtitle is-5 is-capitalized">{{currentWeather.clouds}}</p>
-          <div class="level is-mobile mt-4">
-            <div class="level-item has-text-centered">
-              <div>
-                <p class="heading">Feels Like</p>
-                <p class="title is-6">{{currentWeather.feelsLike}}°C</p>
-              </div>
-            </div>
-            <div class="level-item has-text-centered">
-              <div>
-                <p class="heading">Wind</p>
-                <p class="title is-6">{{currentWeather.windSpeed}} m/s</p>
+
+      <div class="columns mt-5">
+        
+        <div class="column is-one-third">
+          {{#if currentWeather}}
+          <div class="card has-background-info-light has-text-info-light-invert" style="height: 100%;">
+            <div class="card-content has-text-info-light-invert has-text-centered">
+              <p class="title has-text-info-light-invert is-4 ">Current Weather</p>
+              <img src="https://openweathermap.org/img/wn/{{currentWeather.icon}}@2x.png" alt="Weather icon">
+              <p class="title is-2 mb-1 has-text-info-light-invert">{{currentWeather.temp}}°C</p>
+              <p class="subtitle is-5 is-capitalized has-text-info-light-invert">{{currentWeather.clouds}}</p>
+              <div class="level is-mobile mt-4">
+                <div class="level-item has-text-centered">
+                  <div>
+                    <p class="heading ">Feels Like</p>
+                    <p class="title has-text-info-light-invert is-5">{{currentWeather.feelsLike}}°C</p>
+                  </div>
+                </div>
+                <div class="level-item has-text-centered">
+                  <div>
+                    <p class="heading">Wind</p>
+                    <p class="title is-5 has-text-info-light-invert">{{currentWeather.windSpeed}} m/s</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
+          {{/if}}
         </div>
-      </div>
-      {{/if}}
-    </div>
 
-    <div class="column is-two-thirds">
-      {{#if forecast}}
-      <div class="card has-background-danger-light has-text-danger-dark" style="height: 100%;">
-        <div class="card-content">
-          <p class="title is-4 has-text-danger-dark has-text-centered">Forecast (Next 24 Hours)</p>
-          <div class="columns is-mobile mt-2">
-            
-            {{#each forecast}}
-            <div class="column has-text-centered">
-              <p class="heading is-size-6">{{this.time}}</p> 
-              
-              <img src="http://openweathermap.org/img/wn/{{this.icon}}@2x.png" alt="Forecast icon">
-              
-              <p class="title is-4">{{this.temp}}°C</p>
-              <p class="subtitle is-6 is-capitalized">{{this.description}}</p>
+        <div class="column is-two-thirds has-text-info-light">
+          {{#if forecast}}
+          <div class="card has-background-info-dark has-text-info-dark-invert" style="height: 100%;">
+            <div class="card-content">
+              <p class="title is-4 has-text-info-light has-text-centered">Forecast (Next 24 Hours)</p>
+              <div class="columns is-mobile mt-2">
+                {{#each forecast}}
+                <div class="column has-text-centered   is-3-desktop is-6-mobile">
+                  <p class="heading is-size-6 has-text-info-dark-invert">{{this.time}}</p> 
+                  <img src="http://openweathermap.org/img/wn/{{this.icon}}@2x.png" class="pb-5" alt="Forecast icon">
+                  <p class="heading is-6 is-capitalized has-text-info-light">{{this.description}}</p>
+                  <p class="title is-5 has-text-info-light">{{this.temp}}°C</p>
+                </div>
+                {{/each}}
+              </div>
             </div>
-            {{/each}}
-            
           </div>
+          {{/if}}
         </div>
       </div>
-      {{/if}}
-    </div>
-
-  </div>
 
       <div class="box">
         {{> map}}
@@ -101,30 +113,3 @@
     }
   };
 </script>
-
-{{!-- REMOVE this! --}}
-{{#if currentWeather}}
-<div class="card has-background-info-light">
-  <div class="card-content">
-    <p class="title is-4">Current Weather</p>
-    <div class="level">
-      <div class="level-item has-text-centered">
-        <img src="http://openweathermap.org/img/wn/{{weather.icon}}@2x.png">
-      </div>
-      <div class="level-item has-text-centered">
-        <div>
-          <p class="heading">Temperature</p>
-          <p class="title">{{weather.temp}}°C</p>
-        </div>
-      </div>
-      <div class="level-item has-text-centered">
-        <div>
-          <p class="heading">Conditions</p>
-          <p class="title is-size-5">{{weather.clouds}}</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-{{/if}}
-
