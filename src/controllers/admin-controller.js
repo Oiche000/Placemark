@@ -42,14 +42,13 @@ export const adminController = {
 
       const userId = request.params.id;
       if (userId === loggedInUser._id) {
-        emitWarning("Admin users cannot delete their own account.");
         console.log("Admin users cannot delete their own account.");  
-        return h.redirect("/admin", {
+        return h.redirect("/admin-view", {
           title: "Admin Dashboard",
           user: loggedInUser,
           users: await db.userStore.getAllUsers(),
-          errors: "Admin users cannot delete their own account."
-        }).takeover().code(400);
+          errors: [{message: "Admin users cannot delete their own account."}],
+        }).code(400);
       }
       
       // cascade delete placemarks associated with the user is handled in the user store's deleteUserById method
@@ -59,8 +58,9 @@ export const adminController = {
         await db.placemarkStore.deletePlacemarkById(usersPlacemarks[i]._id);
         console.log(`Deleted placemark with ID: ${usersPlacemarks[i]._id} for user: ${userId}`);
       }
+      const userToDelete = await db.userStore.getUserById(userId);
       await db.userStore.deleteUserById(userId);
-      console.log(`Deleted user ${request.auth.credentials.firstName} with ID: ${userId}`);
+      console.log(`Deleted user ${userToDelete.firstName} with ID: ${userId}`);
 
       return h.redirect("/admin");
     },

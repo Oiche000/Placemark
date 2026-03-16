@@ -11,33 +11,44 @@ export const dashboardController = {
       // use url params to filter categories
       const filter = request.query.filter || "my";
       const categoryFilter = request.query.category;
+      const allUsers = await db.userStore.getAllUsers();
 
       let placemarksToDisplay = [];
 
-      // 2. Fetch the correct data based on the filter
+      // Get correct data based on the filter
       if (categoryFilter) {
-        // Show only a specific category
+        // only a specific category
         placemarksToDisplay = await db.placemarkStore.getPlacemarkByCategory(categoryFilter);
       } else if (filter === "all") {
-        // Show everything
+        // everything
         placemarksToDisplay = await db.placemarkStore.getAllPlacemarks();
       } else {
-        // Show only the logged-in user's placemarks
+        // only the logged-in user's placemarks
         placemarksToDisplay = await db.placemarkStore.getUserPlacemarks(loggedInUser._id);
       }
 
-      // 3. Attach the styling icons/colors
+      // update placemarks to add icons and creator
       if (placemarksToDisplay) {
-        placemarksToDisplay.forEach(pm => {
+        placemarksToDisplay.forEach((pm) => {
+          
+          // Add the design
           pm.design = getCategoryDesign(pm.category);
+          
+          // get the matching user from  users list
+          // wrap the IDs in String()  in case they are Mongo ObjectIds
+          const creator = allUsers.find((user) => String(user._id) === String(pm.userId));
+          
+          // Attach the name
+          pm.creatorName = creator ? `${creator.firstName} ${creator.lastName}` : "Unknown Explorer";
         });
       }
+    
       const viewData = {
         title: "Playtime Dashboard",
         user: loggedInUser,
-        placemarks: placemarks,
+        placemarks: placemarksToDisplay,
         categories: availableCategories,
-        allPlacemarks: allPlacemarks,
+        /* allPlacemarks: allPlacemarks,  REMOVE ! */
       };
       return h.view("dashboard-view", viewData);
     },
@@ -47,9 +58,19 @@ export const dashboardController = {
     validate: {
           payload: PlacemarkSpec,
           options: { abortEarly: false }, 
-          failAction: function (request, h, error) {
+          failAction: async function (request, h, error) {
             console.log("Joi Validation Failed:", error.details);
-            return h.view("dashboard-view", {title: "Add Placemark error", errors: error.details }).takeover().code(400);
+            const loggedInUser = request.auth.credentials;
+            const placemarks = await db.placemarkStore.getUserPlacemarks(loggedInUser._id);
+            
+            return h.view("dashboard-view", {
+              title: "Add Placemark error", 
+              errors: error.details,
+              user: loggedInUser,
+              placemarks: placemarks,
+              categories: availableCategories,
+
+            }).takeover().code(400);
           },
         },
     handler: async function (request, h) {
@@ -66,19 +87,19 @@ export const dashboardController = {
         // // amenities: request.payload.// amenities || "",
       };
       console.log("adding new placemark: ", newPlacemark);
-      await db.placemarkStore.addPlacemark(loggedInUser._id, newPlacemark);
-      return h.redirect("/dashboard");
+      const addedPlacemark = await db.placemarkStore.addPlacemark(loggedInUser._id, newPlacemark);
+      return h.redirect(`/placemark/${addedPlacemark._id}`);
     },
   },
 
   deletePlacemark: {
     handler: async function(request, h) {
-      /* const loggedInUser = request.auth.credentials; */
+      const loggedInUser = request.auth.credentials;
 
       const placemarkId = request.params.id;
-      const placemark = await db.placemarkStore.getPlacemarkById(request.params.id);
+      const placemark = await db.placemarkStore.getPlacemarkById(placemarkId);
       if (placemark.image) {
-      // clean up cloud storage when deleting local data
+      // cascade delete: clean up cloud storage when deleting local data
       await imageStore.deleteImage(placemark.image);
     }
       await db.placemarkStore.deletePlacemarkById(placemarkId);
@@ -86,36 +107,4 @@ export const dashboardController = {
       return h.redirect("/dashboard");
     },
   },
-
-  editPlacemark: {
-    handler: async function(request, h) {
-      const placemarkId = request.params.id;
-      const placemark = await db.placemarkStore.getPlacemarkById(placemarkId);
-      const viewData = {
-        title: `Edit ${placemark.name} Placemark`,
-        placemark: placemark,
-        categories: availableCategories,
-      };
-
-      return h.view("edit-placemark-view", viewData);
-    },        // or partials/edit-placemark
-  },
-
-  categoryView: {
-    handler: async function(request, h) {
-      const loggedInUser = request.auth.credentials;
-      const categoryName = request.params.category;
-      // const all placemarks = await db.placemarkStore.getUserPlacemarks(loggedInUser._id);
-      // const categoryPlacemarks = all placemarks.filter(p => p.category === categoryName);
-      const placemarks = await db.placemarkStore.getPlacemarkByCategory(category);
-      const viewData = {
-        title: `${category} Locations`,
-        user: loggedInUser,
-        placemarks: placemarks, // categoryPlacemarks
-        categories: availableCategories,   // categoryName
-      };
-      return h.view("category-view", viewData);
-    },
-  },
-
 };

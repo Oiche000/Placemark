@@ -26,25 +26,24 @@
         <textarea class="textarea" name="description" maxlength="200">{{placemark.description}}</textarea>
       </div>
     </div>
-    <div class="field is-horizontal">
-  <div class="field-body">
-    <div class="field">
-      <label class="label">Time Required</label>
-      <div class="control">
-        <div class="select is-fullwidth">
-          <select name="timeRequired">
-            <option value="" disabled selected>Select duration...</option>
-            <option value="1 hour">1 hour</option>
-            <option value="2 hours">2 hours</option>
-            <option value="Half day">Half day</option>
-            <option value="Full day">Full day</option>
-            <option value="Overnight">Overnight</option>
-          </select>
-        </div>
-      </div>
-    </div>
+
     <div class="field is-horizontal">
       <div class="field-body">
+        <div class="field">
+          <label class="label">Time Required</label>
+          <div class="control">
+            <div class="select is-fullwidth">
+              <select name="timeRequired">
+                <option value="" disabled selected>Select duration...</option>
+                <option value="1 hour">1 hour</option>
+                <option value="2 hours">2 hours</option>
+                <option value="Half day">Half day</option>
+                <option value="Full day">Full day</option>
+                <option value="Overnight">Overnight</option>
+              </select>
+            </div>
+          </div>
+        </div>
         <div class="field">
           <label class="label">Latitude</label>
           <div class="control">
@@ -59,19 +58,19 @@
         </div>
       </div>
     </div>
-
-    <div class="field is-horizontal mt-3">
-      <div class="field-body">
-          <div class="field">
-          <label class="label">Image URL</label>
-          <div class="control">
-            <input class="input" type="text" name="image" value="{{placemark.image}}">
-          </div>
-        </div>
+    <div class="field is-grouped is-grouped-centered">
+      <div class="control">
+        <button type="submit" class="button is-link">
+          <span class="icon" aria-hidden="true"><i class="fas fa-save"></i></span>
+          <span>Save Changes</span>
+        </button>
+      </div>
+      <div class="control">
+        <a href="/placemark/{{placemark._id}}" class="button is-warning">
+          Cancel
+        </a>
       </div>
     </div>
-
-    <button class="button is-link is-fullwidth mt-4">Save Changes</button>
   </form>
 </div>
   

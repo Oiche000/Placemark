@@ -9,6 +9,7 @@ const credentials = {
   api_key: process.env.cloudinary_key,
   api_secret: process.env.cloudinary_secret
 };
+
 cloudinary.config(credentials);
 
 export const imageStore = {

@@ -1,62 +1,94 @@
-{{> menu active ="settings"}}
+{{> menu active="settings"}}
 
 <section class="section">
-  <div class="container is-max-desktop">
-    <div class="box">
-      <h1 class="title">Account Settings: {{user.firstName}}</h1>
-      <form action="/settings/update/{{user._id}}" method="POST">
+  <div class="container pb-5 is-max-desktop">
+    <div class="column is-9 is-offset-2">
+      <div class="box">
+        <h1 class="title">Account Settings: {{user.firstName}} {{user.lastName}}</h1>
+        <hr>
         
-        <div class="field is-horizontal">
-          <div class="field-label is-normal"><label class="label">Name</label></div>
-          <div class="field-body">
-            <div class="field"><input class="input" type="text" name="firstName" value="{{user.firstName}}"></div>
-            <div class="field"><input class="input" type="text" name="lastName" value="{{user.lastName}}"></div>
+        <form action="/settings/update/{{user._id}}" method="POST">
+          
+          <div class="field is-horizontal">
+            <div class="field-label is-normal"><label class="label">Full Name</label></div>
+            <div class="field-body">
+              <div class="field">
+                <p class="control is-expanded">
+                  <input class="input" type="text" name="firstName" value="{{user.firstName}}" required>
+                </p>
+              </div>
+              <div class="field">
+                <p class="control is-expanded">
+                  <input class="input" type="text" name="lastName" value="{{user.lastName}}" required>
+                </p>
+              </div>
+            </div>
           </div>
-        </div>
 
-        <div class="field is-horizontal">
-          <div class="field-label is-normal"><label class="label">Email</label></div>
-          <div class="field-body">
-            <div class="field"><input class="input" type="email" name="email" value="{{user.email}}"></div>
+          <div class="field is-horizontal">
+            <div class="field-label is-normal"><label class="label">Email</label></div>
+            <div class="field-body">
+              <div class="field">
+                <p class="control">
+                  <input class="input" type="email" name="email" value="{{user.email}}" required>
+                </p>
+              </div>
+            </div>
           </div>
-        </div>
 
-        {{#unless loggedInUser.isAdmin}}
-        <div class="field is-horizontal">
-          <div class="field-label is-normal"><label class="label">Password</label></div>
-          <div class="field-body">
-            <div class="field"><input class="input" type="password" name="password" placeholder="Leave blank to keep current"></div>
+          <div class="field is-horizontal">
+            <div class="field-label is-normal"><label class="label">Password</label></div>
+            <div class="field-body">
+              <div class="field">
+                <p class="control">
+                  <input class="input" type="password" name="password" placeholder="Leave blank to keep current password">
+                </p>
+              </div>
+            </div>
           </div>
-        </div>
-        {{/unless}}
 
-        {{#if loggedInUser.isAdmin}}
-        <div class="field is-horizontal">
-          <div class="field-label"></div>
-          <div class="field-body">
-            <label class="checkbox">
-              <input type="checkbox" name="isAdmin" {{#if user.isAdmin}}checked{{/if}}>
-              <strong>Grant Admin Privileges</strong>
-            </label>
-            <p class="is-size-7">Granting admin rights allows this user to delete other users and manage all placemarks.</p>
+          {{#if loggedInUser.isAdmin}}
+          <div class="field is-horizontal mt-5">
+            <div class="field-label"></div>
+            <div class="field-body">
+              <div class="field">
+                <div class="notification is-warning is-light">
+                  <label class="checkbox">
+                  {{!-- If isSelf is true, add 'disabled' attribute --}}
+                    <input type="checkbox" name="isAdmin" {{#if user.isAdmin}}checked{{/if}} {{#if isSelf}}disabled{{/if}}>
+                    <span class="has-text-weight-bold">Administrator Account</span>
+                  </label>
+                  <p class="is-size-7">Granting admin rights allows this user to delete other users and manage all placemarks.</p>
+                  {{#if isSelf}}
+                    <p class="help is-danger mt-2"><span class="has-text-weight-bold">Note:</span> You cannot revoke your own admin privileges.</p>
+                  {{/if}}
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-        {{/if}}
+          {{/if}}
 
-        <div class="field is-grouped is-horizontal">
-          <div class="control">
-            <button class="button is-link">Save Changes</button>
+          <div class="field is-horizontal mt-5">
+            <div class="field-label"></div>
+            <div class="field-body">
+              <div class="control">
+                <button class="button is-link is-fullwidth">Save Changes</button>
+              </div>
+            </div>
           </div>
-          <div class="control">
-            {{#if loggedInUser.isAdmin}}
-              <a href="/admin" class="button is-link is-light">Cancel</a>
-            {{else}}
-              <a href="/dashboard" class="button is-link is-light">Cancel</a>
-            {{/if}}
-          </div>
-        </div>
-        
-      </form>
+
+        </form>
+      </div>
+      
+      
+      <div class="has-text-centered">
+      {{#if loggedInUser.isAdmin}}
+        <a href="/admin" class="button is-text">Cancel</a>
+      {{else}}
+        <a href="/dashboard" class="button is-text">Cancel"</a>
+      </div>
+      {{/if}}
+      
     </div>
   </div>
 </section>

@@ -1,5 +1,5 @@
 import { db } from "../models/db.js";
-import { UserSpec, UserCredentialsSpec } from "../models/joi-schemas.js";
+import { UserSpec, UserUpdateSpec, UserCredentialsSpec } from "../models/joi-schemas.js";
 
 export const accountsController = {
   index: {
@@ -21,7 +21,7 @@ export const accountsController = {
       options: { abortEarly: false }, 
       failAction: function (request, h, error) {
         console.log("Joi Validation Failed:", error.details);
-        return h.view("signup-view", {title: "sign up error", errors: error.details }).takeover().code(400);
+        return h.view("signup-view", {title: "sign up error", errors: error.details }).code(400);
       },
     },
     /* Check the "payload" (the form data) against "UserSpec"
@@ -82,7 +82,7 @@ export const accountsController = {
   updateUser: {
     auth: "session",
     validate: {
-      payload: UserSpec,
+      payload: UserUpdateSpec,        // change so that will handle empty password
       options: { abortEarly: false }, 
       failAction: async function (request, h, error) {
         const userId = request.params.id;  
@@ -93,11 +93,10 @@ export const accountsController = {
           errors: error.details,
           user: originalUser,
           loggedInUser: request.auth.credentials,
-        }).takeover().code(400);
+        }).code(400);
       },
     },
     handler: async function(request, h) {
-
       try{
         const userId = request.params.id;   // user to edit        
         const loggedInUser = request.auth.credentials;
@@ -115,12 +114,12 @@ export const accountsController = {
 
         // Handle Admin Privileges 
         if (loggedInUser.isAdmin) {
-
+          // if admin, keep admin true
           if (loggedInUser._id.toString() === userId.toString()) {
             user.isAdmin = true;
           } else {
           // Only an admin can change the isAdmin status (on for tick box in view)
-          user.isAdmin = newData.isAdmin === "on" || newData.isAdmin === true;
+          user.isAdmin = newData.isAdmin ;
           }
         } 
         await db.userStore.updateUser(userId, user);
@@ -167,10 +166,14 @@ export const accountsController = {
       if (request.params.id) {
         userToEdit = await db.userStore.getUserById(request.params.id);
       }
+      // boolean for if admin edits self
+      const isSelf = loggedInUser._id.toString() === userToEdit._id.toString();
+
       return h.view("settings-view", { 
         title: "Settings", 
         user: userToEdit, 
         loggedInUser: loggedInUser,
+        isSelf: isSelf,
       });
     },
   },
