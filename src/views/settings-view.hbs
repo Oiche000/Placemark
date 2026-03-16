@@ -53,7 +53,8 @@
               <div class="field">
                 <div class="notification is-warning is-light">
                   <label class="checkbox">
-                    <input type="checkbox" name="isAdmin" {{#if user.isAdmin}}checked{{/if}}>
+                  {{!-- If isSelf is true, add 'disabled' attribute --}}
+                    <input type="checkbox" name="isAdmin" {{#if user.isAdmin}}checked{{/if}} {{#if isSelf}}disabled{{/if}}>
                     <strong>Administrator Account</strong>
                   </label>
                   <p class="is-size-7">Granting admin rights allows this user to delete other users and manage all placemarks.</p>

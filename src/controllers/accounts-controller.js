@@ -97,7 +97,6 @@ export const accountsController = {
       },
     },
     handler: async function(request, h) {
-
       try{
         const userId = request.params.id;   // user to edit        
         const loggedInUser = request.auth.credentials;
@@ -115,12 +114,12 @@ export const accountsController = {
 
         // Handle Admin Privileges 
         if (loggedInUser.isAdmin) {
-
+          // if admin, keep admin true
           if (loggedInUser._id.toString() === userId.toString()) {
             user.isAdmin = true;
           } else {
           // Only an admin can change the isAdmin status (on for tick box in view)
-          user.isAdmin = newData.isAdmin === "on" || newData.isAdmin === true;
+          user.isAdmin = newData.isAdmin ;
           }
         } 
         await db.userStore.updateUser(userId, user);
@@ -167,10 +166,14 @@ export const accountsController = {
       if (request.params.id) {
         userToEdit = await db.userStore.getUserById(request.params.id);
       }
+      // boolean for if admin edits self
+      isSelf = loggedInUser._id.toString() === userToEdit._id.toString();
+      
       return h.view("settings-view", { 
         title: "Settings", 
         user: userToEdit, 
         loggedInUser: loggedInUser,
+        isSelf: isSelf,
       });
     },
   },
