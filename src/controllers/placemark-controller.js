@@ -6,6 +6,7 @@ import { imageStore } from "../models/image-store.js";
 export const placemarkController = {
   index: {
     handler: async function (request, h) {
+      const loggedInUser = request.auth.credentials;
       /* add placemark variable here to pass to the view */
       const placemark = await db.placemarkStore.getPlacemarkById(request.params.id);
 
@@ -49,6 +50,7 @@ export const placemarkController = {
         placemark: placemark,
         currentWeather: currentWeather,
         forecast: forecast,
+        user: loggedInUser,
       };
       return h.view("placemark-view", viewData);
     },
@@ -77,7 +79,7 @@ export const placemarkController = {
           description: request.payload.description,
           lat: Number(request.payload.lat),
           lng: Number(request.payload.lng),
-          image: request.payload.image,
+          image: request.payload.image || DEFAULT_IMAGE,
           category: request.payload.category,
           timeRequired: request.payload.timeRequired,
           // amenities: request.payload.// amenities,
@@ -111,7 +113,7 @@ export const placemarkController = {
         if (Object.keys(file).length > 0) {
           const url = await imageStore.uploadImage(request.payload.imagefile);
           placemark.image = url;
-          await db.placemarkStore.updateplacemark(placemark);
+          await db.placemarkStore.updatePlacemark(placemark._id, placemark);
         }
         return h.redirect(`/placemark/${placemark._id}`);
       } catch (err) {
@@ -124,6 +126,44 @@ export const placemarkController = {
       output: "data",
       maxBytes: 209715200,
       parse: true,
+    },
+  },
+
+  updateImage: {
+    handler: async function (request, h) {
+      try {
+        const placemark = await db.placemarkStore.getPlacemarkById(request.params.id);
+        // Delete old image from Cloudinary before uploading new one
+        if (placemark.image) {
+          await imageStore.deleteImage(placemark.image);
+        }
+        const file = request.payload.imagefile;
+        if (Object.keys(file).length > 0) {
+          const url = await imageStore.uploadImage(file);
+          placemark.image = url;
+          await db.placemarkStore.updatePlacemark(placemark._id, placemark);
+        }
+        return h.redirect(`/placemark/${placemark._id}`);
+      } catch (err) {
+        console.log(err);
+        return h.redirect(`/placemark/${request.params.id}`);
+      }
+    },
+    payload: {
+      multipart: true,
+      output: "data",
+      maxBytes: 20971520,
+      parse: true,
+    },
+  },
+
+  deleteImage: {
+    handler: async function (request, h) {
+      const placemark = await db.placemarkStore.getPlacemarkById(request.params.id);
+      await imageStore.deleteImage(placemark.image);
+      placemark.image = "";
+      await db.placemarkStore.updatePlacemark(placemark._id, placemark);
+      return h.redirect(`/placemark/${placemark._id}`);
     },
   },
 

@@ -68,6 +68,22 @@ server.views({
   partialsPath: "./views/partials",     /* partials folder */
   layout: true,                    /* use layout file */    
   isCached: false,               /* reload file on refresh */
+/* 
+  helpers: {
+  getIcon: function (category) {
+    const icons = {
+      Swimming: "fa-swimmer",
+      Hiking: "fa-mountain",
+      Kayaking: "fa-rowing",
+      Heritage: "fa-monument",
+      Caving: "fa-dungeon",
+      Camping: "fa-campground",
+      Surfing: "fa-water",
+      Stargazing: "fa-star"
+    };
+    return icons[category] || "fa-map-marker-alt";
+  }
+} */
 });
 
 server.auth.strategy("session", "cookie", {

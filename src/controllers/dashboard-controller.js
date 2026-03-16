@@ -23,7 +23,7 @@ export const dashboardController = {
           options: { abortEarly: false }, 
           failAction: function (request, h, error) {
             console.log("Joi Validation Failed:", error.details);
-            return h.view("dashboard-view", {title: "Add Placemark error", error: error.details }).takeover().code(400);
+            return h.view("dashboard-view", {title: "Add Placemark error", errors: error.details }).takeover().code(400);
           },
         },
     handler: async function (request, h) {
@@ -50,9 +50,13 @@ export const dashboardController = {
       /* const loggedInUser = request.auth.credentials; */
 
       const placemarkId = request.params.id;
+      const placemark = await db.placemarkStore.getPlacemarkById(request.params.id);
+      if (placemark.image) {
+      // clean up cloud storage when deleting local data
+      await imageStore.deleteImage(placemark.image);
+    }
       await db.placemarkStore.deletePlacemarkById(placemarkId);
-      /* await db.placemarkStore.deletePlacemarkById(request.params.id); */
-      /* console.log(`Deleted placemark with ID: ${request.params.id} for user: ${loggedInUser._id}`); */
+      console.log(`Deleted placemark with ID: ${request.params.id} for user: ${loggedInUser._id}`);
       return h.redirect("/dashboard");
     },
   },

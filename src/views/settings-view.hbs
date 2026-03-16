@@ -1,66 +1,4 @@
-{{> menu}}
-
-<section class="section">
-  <div class="box">
-    <h1 class="title">User Settings</h1>
-    <form action="/settings/update" method="POST">
-      <div class="field is-horizontal">
-        <div class="field-label is-normal">
-          <label class="label">Name</label>
-        </div>
-        <div class="field-body">
-          <div class="field">
-            <p class="control">
-              <input class="input" type="text" name="firstName" value="{{user.firstName}}">
-            </p>
-          </div>
-          <div class="field">
-            <p class="control">
-              <input class="input" type="text" name="lastName" value="{{user.lastName}}">
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="field is-horizontal">
-        <div class="field-label is-normal">
-          <label class="label">Email</label>
-        </div>
-        <div class="field-body">
-          <div class="field">
-            <p class="control">
-              <input class="input" type="email" name="email" value="{{user.email}}">
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="field is-horizontal">
-        <div class="field-label is-normal">
-          <label class="label">Password</label>
-        </div>
-        <div class="field-body">
-          <div class="field">
-            <p class="control">
-              <input class="input" type="password" name="password" placeholder="Enter new password">
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="field is-horizontal">
-        <div class="field-label"></div>
-        <div class="field-body">
-          <div class="control">
-            <button class="button is-link">Update Settings</button>
-          </div>
-        </div>
-      </div>
-    </form>
-  </div>
-</section>
-
-{{> menu}}
+{{> menu active ="settings"}}
 
 <section class="section">
   <div class="container is-max-desktop">
@@ -100,16 +38,24 @@
               <input type="checkbox" name="isAdmin" {{#if user.isAdmin}}checked{{/if}}>
               <strong>Grant Admin Privileges</strong>
             </label>
+            <p class="is-size-7">Granting admin rights allows this user to delete other users and manage all placemarks.</p>
           </div>
         </div>
         {{/if}}
 
-        <div class="field is-horizontal mt-4">
-          <div class="field-label"></div>
-          <div class="field-body">
+        <div class="field is-grouped is-horizontal">
+          <div class="control">
             <button class="button is-link">Save Changes</button>
           </div>
+          <div class="control">
+            {{#if loggedInUser.isAdmin}}
+              <a href="/admin" class="button is-link is-light">Cancel</a>
+            {{else}}
+              <a href="/dashboard" class="button is-link is-light">Cancel</a>
+            {{/if}}
+          </div>
         </div>
+        
       </form>
     </div>
   </div>

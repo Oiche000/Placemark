@@ -21,7 +21,7 @@ export const accountsController = {
       options: { abortEarly: false }, 
       failAction: function (request, h, error) {
         console.log("Joi Validation Failed:", error.details);
-        return h.view("signup-view", {title: "sign up error", error: error.details }).takeover().code(400);
+        return h.view("signup-view", {title: "sign up error", errors: error.details }).takeover().code(400);
       },
     },
     /* Check the "payload" (the form data) against "UserSpec"
@@ -85,19 +85,44 @@ export const accountsController = {
       payload: UserSpec,
       options: { abortEarly: false }, 
       failAction: async function (request, h, error) {
-        const userId = request.params.id;
+        const userId = request.params.id;  
         const originalUser = await db.userStore.getUserById(userId);
-        return h.view("profile-view", {
+
+        return h.view("settings-view", {
           title: "Update Profile error", 
-          error: error.details,
-          user: originalUser
+          errors: error.details,
+          user: originalUser,
+          loggedInUser: request.auth.credentials,
         }).takeover().code(400);
       },
     },
     handler: async function(request, h) {
-      const userId = request.params.id;
+      const userId = request.params.id;   // user to edit        
+      const loggedInUser = request.auth.credentials;
       const updatedUser = request.payload;
-      await db.userStore.updateUser(userId, updatedUser);
+
+      const user = await db.userStore.getUserById(userId);
+      user.firstName = payload.firstName;
+      user.lastName = payload.lastName;
+      user.email = payload.email;
+
+      // Handle Password 
+      if (updatedUser.password && updatedUser.password !== "") {
+        user.password = payload.password;
+      }
+
+      // Handle Admin Privileges 
+      if (loggedInUser.isAdmin) {
+        // Only an admin can change the isAdmin status (on for tick box in view)
+        user.isAdmin = updatedUser.isAdmin === "on" || updatedUser.isAdmin === true;
+      }
+      await db.userStore.updateUser(userId, user);
+
+      // if admin edited someone else, return to admin dashboard
+      if (loggedInUser.isAdmin && loggedInUser._id !== userId) {
+        return h.redirect("/admin")
+      }
+      
       return h.redirect("/dashboard");
     },
   },
@@ -108,5 +133,34 @@ export const accountsController = {
       return { isValid: false };
     }
     return { isValid: true, credentials: user };
+  },
+
+  deleteAccount: {
+    handler: async function (request, h) {
+      const loggedInUser = request.auth.credentials;
+
+      await db.userStore.deleteUserById(loggedInUser._id);
+
+      request.cookieAuth.clear();
+      return h.redirect("/");
+    },
+  },
+
+  showSettings: {
+    handler: async function (request, h) {
+      // Get the currently logged-in user
+      const loggedInUser = request.auth.credentials;
+      let userToEdit = loggedInUser;
+
+      // if it is admin (because they are editing a user with id in URL), they are editing someone else
+      if (request.params.id) {
+        userToEdit = await db.userStore.getUserById(request.params.id);
+      }
+      return h.view("settings-view", { 
+        title: "Settings", 
+        user: userToEdit, 
+        loggedInUser: loggedInUser,
+      });
+    },
   },
 };
