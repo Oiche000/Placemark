@@ -65,7 +65,7 @@ export const placemarkController = {
         failAction: async function (request, h, error) {
           const placemarkId = request.params.id;
           const originalPlacemark = await db.placemarkStore.getPlacemarkById(placemarkId);
-          return h.view("edit-placemark-view", {
+          return h.view("edit-placemark", {
             title: "Update Placemark error", 
             errors: error.details,
             placemark: originalPlacemark,
@@ -75,13 +75,15 @@ export const placemarkController = {
       },
       handler: async function(request, h) {
         const placemarkId = request.params.id;
+
+        const originalPlacemark = await db.placemarkStore.getPlacemarkById(placemarkId);
   
         const updatedPlacemarkData = {
           name: request.payload.name,
           description: request.payload.description,
           lat: Number(request.payload.lat),
           lng: Number(request.payload.lng),
-          image: request.payload.image || DEFAULT_IMAGE,
+          image: originalPlacemark.image,
           category: request.payload.category,
           timeRequired: request.payload.timeRequired,
           // amenities: request.payload.// amenities,

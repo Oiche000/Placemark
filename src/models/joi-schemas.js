@@ -24,12 +24,10 @@ export const UserSpecPlus = UserSpec.keys({
 
 export const UserArray = Joi.array().items(UserSpecPlus).label("UserArray");
 
-export const UserUpdateSpec = UserCredentialsSpec.keys({
-  firstName: Joi.string().example("Homer").required(),
-  lastName: Joi.string().example("Simpson").required(),
-  email: Joi.string().email().required(),
-  passwird: Joi.string().allow("").optional(),
-  isAdmin: Joi.boolean().default(false),            // allow empty so can leave blank for unchanged in views
+export const UserUpdateSpec = UserSpec.keys({
+
+  password: Joi.string().allow("").optional(),          // allow empty so can leave blank for unchanged in views
+  isAdmin: Joi.boolean().truthy("on").default(false),   // truthy allows extra values to be considered boolean
 }).label("UserUpdateDetails");
 
 export const availableCategories = ["Swimming", "Hiking", "Kayaking", "Heritage", "Caving", "Camping", "Surfing", "Stargazing"];
