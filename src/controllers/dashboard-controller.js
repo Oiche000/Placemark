@@ -84,7 +84,7 @@ export const dashboardController = {
 
   deletePlacemark: {
     handler: async function(request, h) {
-      /* const loggedInUser = request.auth.credentials; */
+      const loggedInUser = request.auth.credentials;
 
       const placemarkId = request.params.id;
       const placemark = await db.placemarkStore.getPlacemarkById(placemarkId);
@@ -97,36 +97,4 @@ export const dashboardController = {
       return h.redirect("/dashboard");
     },
   },
-
-  editPlacemark: {
-    handler: async function(request, h) {
-      const placemarkId = request.params.id;
-      const placemark = await db.placemarkStore.getPlacemarkById(placemarkId);
-      const viewData = {
-        title: `Edit ${placemark.name} Placemark`,
-        placemark: placemark,
-        categories: availableCategories,
-      };
-
-      return h.view("edit-placemark-view", viewData);
-    },        // or partials/edit-placemark
-  },
-
-  categoryView: {
-    handler: async function(request, h) {
-      const loggedInUser = request.auth.credentials;
-      const categoryName = request.params.category;
-      // const all placemarks = await db.placemarkStore.getUserPlacemarks(loggedInUser._id);
-      // const categoryPlacemarks = all placemarks.filter(p => p.category === categoryName);
-      const placemarks = await db.placemarkStore.getPlacemarkByCategory(category);
-      const viewData = {
-        title: `${category} Locations`,
-        user: loggedInUser,
-        placemarks: placemarks, // categoryPlacemarks
-        categories: availableCategories,   // categoryName
-      };
-      return h.view("category-view", viewData);
-    },
-  },
-
 };

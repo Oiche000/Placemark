@@ -10,11 +10,6 @@ const credentials = {
   api_secret: process.env.cloudinary_secret
 };
 
-console.log("--- CLOUDINARY DEBUG ---");
-console.log("Name:", credentials.cloud_name);
-console.log("Key:", credentials.api_key);
-console.log("Secret Length:", credentials.api_secret ? credentials.api_secret.length : "UNDEFINED!!!");
-console.log("------------------------");
 cloudinary.config(credentials);
 
 export const imageStore = {

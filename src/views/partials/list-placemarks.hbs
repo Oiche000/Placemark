@@ -13,13 +13,13 @@
           <p class="title is-5">{{name}}</p>
           <div class="tags">
             <span class="tag is-{{design.colour}} is-medium">
-              <span class="icon"><i class="{{design.icon}}"></i></span>
+              <span class="icon" aria-hidden="true"><i class="{{design.icon}}"></i></span>
               <span class="ml-1">{{category}}</span>
             </span> 
 
             {{#if timeRequired}}
               <span class="tag  is-medium is-warning is-light ml-4 mb-2">
-                <span class="icon"><i class="fas fa-clock"></i></span>
+                <span class="icon" aria-hidden="true"><i class="fas fa-clock"></i></span>
                 <span>{{timeRequired}}</span>
               </span>
             {{/if}}

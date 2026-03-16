@@ -5,7 +5,6 @@
     {{#if isEditing}}
       <h1 class="title is-2">Edit {{placemark.name}} Details</h1>
       {{> edit-placemark}}
-      <a href="/placemark/{{placemark._id}}" class="button is-light">Cancel</a>
     {{else}}
 
       <div class="has-text-centered mb-5">
@@ -31,7 +30,7 @@
           <h4 class="title is-5 mb-3">Update Placemark</h4>
           <div class="mb-4">
             <a href="/placemark/{{placemark._id}}/editplacemark" class="button is-warning is-fullwidth">
-              <span class="icon"><i class="fas fa-edit"></i></span>
+              <span class="icon" aria-hidden="true"><i class="fas fa-edit"></i></span>
               <span>Edit Text Details</span>
             </a>
           </div>

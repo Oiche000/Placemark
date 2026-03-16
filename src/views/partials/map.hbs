@@ -4,8 +4,6 @@
 
 <script>
 
-  console.log("DEBUG - Color is:", "{{placemark.design.color}}");
-  console.log("DEBUG - Icon is:", "{{placemark.design.icon}}");
   const map = L.map('placemark-map').setView([{{placemark.lat}}, {{placemark.lng}}], 13);
 
   const popupHtml = `
