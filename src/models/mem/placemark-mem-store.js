@@ -8,10 +8,13 @@ export const placemarkMemStore = {
   },
 
   async addPlacemark(userId, placemark) {
-    placemark._id = v4();
-    placemark.userId = userId;
-    placemarks.push(placemark);
-    return placemark;
+    const newPlacemark  = {
+      ...placemark,
+      _id: v4(),
+      userId: userId
+    };
+    placemarks.push(newPlacemark);
+    return newPlacemark;
   },
 
   async getPlacemarkById(id) {
@@ -49,7 +52,7 @@ export const placemarkMemStore = {
     placemark.lng = updatedPlacemark.lng;
     placemark.image = updatedPlacemark.image;
     placemark.timeRequired = updatedPlacemark.timeRequired;
-    placemark.// amenities = updatedPlacemark.// amenities; 
+    // placemark. amenities = updatedPlacemark.// amenities; 
     placemark.category = updatedPlacemark.category; 
     return placemark;
   },

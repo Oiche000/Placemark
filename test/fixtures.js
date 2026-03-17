@@ -107,7 +107,7 @@ export const testPlacemarks2 = [
     lat: 53.6947,
     lng: -6.4463,
     image: "https://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg",
-    timeRequired: "Half Day",
+    timeRequired: "Half day",
     // amenities: ["Guided Tours", "Cafe"],
     userId: "->users.marge"
   },
