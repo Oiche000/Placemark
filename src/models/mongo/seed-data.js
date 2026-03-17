@@ -37,7 +37,7 @@ export const seedData = {
       category: "Hiking",
       lat: 52.0000,
       lng: -9.7424,
-      image: "https://upload.wikimedia.org/wikipedia/commons/b/bb/Carrauntoohil_2016.JPG",
+      image: "https://res.cloudinary.com/dsrrlkzpj/image/upload/v1773752838/Carrauntoohil_2016_qedgye.jpg",
       timeRequired: "Full day",
       // amenities: ["Parking", "Trail Markers"],
       userId: "->users.marge"
@@ -49,7 +49,7 @@ export const seedData = {
       category: "Kayaking",
       lat: 51.5008,
       lng: -9.2986,
-      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/2019-07-31-Lough_Hyne-0828.jpg/640px-2019-07-31-Lough_Hyne-0828.jpg",
+      image: "https://res.cloudinary.com/dsrrlkzpj/image/upload/v1773752869/2019-07-31-Lough_Hyne-0828_miq52r.jpg",
       timeRequired: "Half day",
       // amenities: ["Pier", "Information Boards"],
       userId: "->users.marge"
@@ -60,7 +60,7 @@ export const seedData = {
       category: "Heritage",
       lat: 53.3418,
       lng: -6.2867,
-      image: "https://upload.wikimedia.org/wikipedia/commons/d/d8/Guinness_sign_on_Guinness_Storehouse%2C_Market_Street_South%2C_Dublin_-_geograph.org.uk_-_2581936.jpg",
+      image: "https://res.cloudinary.com/dsrrlkzpj/image/upload/v1773752889/Guiness_Storehouse__161318901_hcd0sx.jpg",
       timeRequired: "2 hours",
       // amenities: ["Guiness Tasting", "Gift Shop"],
       userId: "->users.marge"
@@ -71,7 +71,7 @@ export const seedData = {
       category: "Hiking",
       lat: 52.0174,
       lng: -9.5167,
-      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Lakes_of_Killarney.JPG/1280px-Lakes_of_Killarney.JPG",
+      image: "https://res.cloudinary.com/dsrrlkzpj/image/upload/v1773752901/Ladies_View_in_summer__Ring_of_Kerry__Killarney_National_Park_m3hmkp.jpg",
       timeRequired: "Half Day",
       // amenities: ["Information Signs", "Cafe"],
       userId: "->users.lisa"    
@@ -82,7 +82,7 @@ export const seedData = {
       category: "Hiking",
       lat: 53.0113,
       lng: -6.3298,
-      image: "https://upload.wikimedia.org/wikipedia/commons/c/c8/Wicklow_Mountains_National_Park_Glendalough_Valley_08.JPG",
+      image: "https://res.cloudinary.com/dsrrlkzpj/image/upload/v1773752919/Wicklow_Mountains_National_Park_Glendalough_Valley_cejprw.jpg",
       timeRequired: "Half Day",
       // amenities: ["Hiking Trails"],
       userId: "->users.lisa"
@@ -93,7 +93,7 @@ export const seedData = {
       category: "Heritage",
       lat: 53.6947,
       lng: -6.4463,
-      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Newgrange_-_geograph.org.uk_-_14526.jpg/640px-Newgrange_-_geograph.org.uk_-_14526.jpg",
+      image: "https://res.cloudinary.com/dsrrlkzpj/image/upload/v1773752931/Newgrange_-_geograph.org.uk_-_14526_wspaj0.jpg",
       timeRequired: "Half Day",
       // amenities: ["Guided Tours", "Cafe"],
       userId: "->users.marge"
@@ -104,7 +104,7 @@ export const seedData = {
         category: "Hiking",
         lat: 52.9719,
         lng: -9.4265,
-        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/CliffsofMoher_001.jpg/500px-CliffsofMoher_001.jpg",
+        image: "https://res.cloudinary.com/dsrrlkzpj/image/upload/v1773752946/Cliffs_of_Moher_seen_from_water_ua2yl7.jpg",
         timeRequired: "2 hours",
         // amenities: ["Parking", "Visitor Centre", "Pathways"],
         userId: "->users.marge"
@@ -115,7 +115,7 @@ export const seedData = {
       category: "Heritage",
       lat: 52.5204,
       lng: -7.8906,
-      image: "https://upload.wikimedia.org/wikipedia/commons/1/13/Rock_of_Cashel_%2849163525453%29.jpg",
+      image: "https://res.cloudinary.com/dsrrlkzpj/image/upload/v1773752410/Cashel_-_Rock_of_Cashel_-_20120615001238_rvr2ri.jpg",
       timeRequired: "2 hours",
       // amenities: ["Guided Tour", "Toilets", "Parking"],
       userId: "->users.homer"
@@ -126,7 +126,7 @@ export const seedData = {
       category: "Swimming",
       lat: 53.2891,
       lng: -6.1162,
-      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Steps_at_the_Forty_Foot_Bathing_Place_-_geograph.org.uk_-_6312431.jpg/640px-Steps_at_the_Forty_Foot_Bathing_Place_-_geograph.org.uk_-_6312431.jpg",
+      image: "https://res.cloudinary.com/dsrrlkzpj/image/upload/v1773752387/Forty_foot_pic_sjts1j.jpg",
       timeRequired: "1 hour",
       // amenities: ["Changing Rooms", "Ladders", "Handrails"],
       userId: "->users.lisa"
@@ -137,7 +137,7 @@ export const seedData = {
       category: "Caving",
       lat: 53.0898,
       lng: -9.1466,
-      image: "https://upload.wikimedia.org/wikipedia/commons/e/e3/Stalactites%2C_Aillwee_Cave_-_geograph.org.uk_-_6755731.jpg",
+      image: "https://res.cloudinary.com/dsrrlkzpj/image/upload/v1773752251/Stalactites_2C_Aillwee_Cave_-_geograph.org.uk_-_6755731_ckjx5b.jpg",
       timeRequired: "2 hours",
       // amenities: ["Gift Shop", "Cafe", "Guided Tour"],
       userId: "->users.homer"
@@ -148,7 +148,7 @@ export const seedData = {
       category: "Stargazing",
       lat: 51.8413,
       lng: -10.2796,
-      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/McCarthy%27s_Castle%2C_Ballinskelligs_in_the_Kerry_Dark_Sky_Reserve.jpg/960px-McCarthy%27s_Castle%2C_Ballinskelligs_in_the_Kerry_Dark_Sky_Reserve.jpg",
+      image: "https://res.cloudinary.com/dsrrlkzpj/image/upload/v1773752176/McCarthy_s_Castle__Ballinskelligs_in_the_Kerry_Dark_Sky_Reserve_q3idpz.jpg",
       timeRequired: "Overnight",
       // amenities: ["Information Boards", "Observation Point"],
       userId: "->users.marge"
