@@ -82,7 +82,7 @@ export const dashboardController = {
         category: request.payload.category,
         lat: Number(request.payload.lat),
         lng: Number(request.payload.lng),
-        image: request.payload.image || "",
+        image: /* request.payload.image || */ "",
         timeRequired: request.payload.timeRequired || "",
         // // amenities: request.payload.// amenities || "",
       };

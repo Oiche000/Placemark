@@ -82,7 +82,7 @@ export const seedData = {
       category: "Hiking",
       lat: 53.0113,
       lng: -6.3298,
-      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Wicklow_Mountains_National_Park_Glendalough_Valley.jpg/640px-Wicklow_Mountains_National_Park_Glendalough_Valley.jpg",
+      image: "https://upload.wikimedia.org/wikipedia/commons/c/c8/Wicklow_Mountains_National_Park_Glendalough_Valley_08.JPG",
       timeRequired: "Half Day",
       // amenities: ["Hiking Trails"],
       userId: "->users.lisa"

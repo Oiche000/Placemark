@@ -1,4 +1,4 @@
-<section class="hero is-info">
+{{!-- <section class="hero is-info">
   <div class="hero-body has-text-info-invert">
     <div class="title is-flex  is-align-items-center mb-0 p-2">
        <span class="icon is-large  mr-3">
@@ -18,5 +18,11 @@
     </div>
   </div>
 </section>
+ --}}
 
-
+<a class="navbar-item is-size-4 has-text-weight-bold" href="{{#if user}}/dashboard{{else}}/{{/if}}"">
+  <span class="icon is-large mr-2">
+    <i class="fas fa-compass has-text-warning-light"></i>
+  </span>
+  Adventure Tracker
+</a>

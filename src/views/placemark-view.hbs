@@ -1,6 +1,7 @@
 {{> menu active="dashboard"}}
 
 <div class="container mt-5 is-max-widescreen pb-5">
+  {{> error }}
   <section class="section is-vcentered">
     {{#if isEditing}}
       <h1 class="title is-2">Edit {{placemark.name}} Details</h1>
