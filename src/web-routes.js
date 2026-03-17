@@ -28,9 +28,6 @@ export const webRoutes = [
   { method: "GET", path: "/admin", config: adminController.index },
   { method: "GET", path: "/admin/deleteuser/{id}", config: adminController.deleteUser },
 
-  { method: "GET", path: "/category/{category}", config: dashboardController.categoryView },
-  // { method: "GET", path: "/category/{category}", config: dashboardController.categoryView },
-
   { method: "POST", path: "/placemark/{id}/uploadimage", config: placemarkController.uploadImage },
   { method: "POST", path: "/placemark/{id}/updateimage", config: placemarkController.updateImage },
   { method: "GET", path: "/placemark/{id}/delete", config: placemarkController.deleteImage },

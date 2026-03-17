@@ -1,45 +1,26 @@
-<section class="hero is-info is-small">
-  <div class="hero-head">
-    <nav class="navbar is-info">
-      <div class="container">
-        <div class="navbar-brand">
-          <span class="navbar-burger" data-target="navMenu">
-            <span></span><span></span><span></span>
-          </span>
-        </div>
-        <div id="navMenu" class="navbar-menu">
-          <div class="navbar-end">
-            {{#if user.isAdmin}}
-              <a id="admin" class="navbar-item has-text-warning" href="/admin">Admin</a>
-            {{/if}}
-            <a id="dashboard" class="navbar-item" href="/dashboard">Dashboard</a>
-            <a id="about" class="navbar-item" href="/about">About</a>
-            <a id="settings" class="navbar-item" href="/settings">Settings</a>
-            <a id="logout" class="navbar-item" href="/logout">Logout</a>
-          </div>
-        </div>
-      </div>
-    </nav>
-  </div>
-
-  <div class="hero-body">
-    <div class="container">
-      <div class="is-flex is-align-items-center">
-        <span class="icon is-large mr-4">
-          <i class="fas fa-compass fa-3x"></i>
-        </span>
-        <div>
-          <p class="title is-2 mb-1">Adventure Tracker</p>
-          <p class="subtitle is-5 mt-0">
-            <i class="fa-solid fa-person-hiking mr-2"></i>
-            <i class="fa-solid fa-person-swimming mr-2"></i>
-            Log your favorite outdoor spots
-          </p>
-        </div>
+<nav class="navbar is-info">
+  <div class="container pb-5">
+    <div class="navbar-brand">
+      {{> placemark-brand}}
+      <span class="navbar-burger" data-target="navMenu">
+        <span></span><span></span><span></span>
+      </span>
+    </div>
+    <div id="navMenu" class="navbar-menu">
+      <div class="navbar-end">
+        {{#if user.isAdmin}}
+          <a id="admin" class="navbar-item has-text-warning" href="/admin">Admin</a>
+        {{/if}}
+        <a id="dashboard" class="navbar-item" href="/dashboard">Dashboard</a>
+        <a id="about" class="navbar-item" href="/about">About</a>
+        <a id="settings" class="navbar-item" href="/settings">Settings</a>
+        <a id="logout" class="navbar-item" href="/logout">Logout</a>
       </div>
     </div>
   </div>
-</section>
+</nav>
+</div>
+
 
 <script>
   document.getElementById("{{active}}").classList.add("is-active", "has-text-weight-bold");

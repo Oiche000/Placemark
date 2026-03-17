@@ -71,7 +71,7 @@ export const seedData = {
       category: "Hiking",
       lat: 52.0174,
       lng: -9.5167,
-      image: "https://res..https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Lakes_of_Killarney.JPG/1280px-Lakes_of_Killarney.JPG/demo/https://commons.wikimedia.org/wiki/File:Lakes_of_Killarney.JPG/upload/v1312461204/sample.jpg",
+      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Lakes_of_Killarney.JPG/1280px-Lakes_of_Killarney.JPG",
       timeRequired: "Half Day",
       // amenities: ["Information Signs", "Cafe"],
       userId: "->users.lisa"    
@@ -82,7 +82,7 @@ export const seedData = {
       category: "Hiking",
       lat: 53.0113,
       lng: -6.3298,
-      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Wicklow_Mountains_National_Park_Glendalough_Valley.jpg/640px-Wicklow_Mountains_National_Park_Glendalough_Valley.jpg",
+      image: "https://upload.wikimedia.org/wikipedia/commons/c/c8/Wicklow_Mountains_National_Park_Glendalough_Valley_08.JPG",
       timeRequired: "Half Day",
       // amenities: ["Hiking Trails"],
       userId: "->users.lisa"
@@ -93,7 +93,7 @@ export const seedData = {
       category: "Heritage",
       lat: 53.6947,
       lng: -6.4463,
-      image: "https://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg",
+      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Newgrange_-_geograph.org.uk_-_14526.jpg/640px-Newgrange_-_geograph.org.uk_-_14526.jpg",
       timeRequired: "Half Day",
       // amenities: ["Guided Tours", "Cafe"],
       userId: "->users.marge"
@@ -104,7 +104,7 @@ export const seedData = {
         category: "Hiking",
         lat: 52.9719,
         lng: -9.4265,
-        image: "https://upload.wikimedia.org/wikipedia/commons/b/b2/Forty_Foot_Dublin.jpg",
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/CliffsofMoher_001.jpg/500px-CliffsofMoher_001.jpg",
         timeRequired: "2 hours",
         // amenities: ["Parking", "Visitor Centre", "Pathways"],
         userId: "->users.marge"
@@ -115,7 +115,7 @@ export const seedData = {
       category: "Heritage",
       lat: 52.5204,
       lng: -7.8906,
-      image: "https://www.aillweeburrenexperience.ie/wp-content/uploads/2021/03/Caves-1.jpg",
+      image: "https://upload.wikimedia.org/wikipedia/commons/1/13/Rock_of_Cashel_%2849163525453%29.jpg",
       timeRequired: "2 hours",
       // amenities: ["Guided Tour", "Toilets", "Parking"],
       userId: "->users.homer"
@@ -126,7 +126,7 @@ export const seedData = {
       category: "Swimming",
       lat: 53.2891,
       lng: -6.1162,
-      image: "https://upload.wikimedia.org/wikipedia/commons/b/b2/Forty_Foot_Dublin.jpg",
+      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b0/Steps_at_the_Forty_Foot_Bathing_Place_-_geograph.org.uk_-_6312431.jpg/640px-Steps_at_the_Forty_Foot_Bathing_Place_-_geograph.org.uk_-_6312431.jpg",
       timeRequired: "1 hour",
       // amenities: ["Changing Rooms", "Ladders", "Handrails"],
       userId: "->users.lisa"
@@ -137,7 +137,7 @@ export const seedData = {
       category: "Caving",
       lat: 53.0898,
       lng: -9.1466,
-      image: "https://www.aillweeburrenexperience.ie/wp-content/uploads/2021/03/Caves-1.jpg",
+      image: "https://upload.wikimedia.org/wikipedia/commons/e/e3/Stalactites%2C_Aillwee_Cave_-_geograph.org.uk_-_6755731.jpg",
       timeRequired: "2 hours",
       // amenities: ["Gift Shop", "Cafe", "Guided Tour"],
       userId: "->users.homer"
@@ -148,7 +148,7 @@ export const seedData = {
       category: "Stargazing",
       lat: 51.8413,
       lng: -10.2796,
-      image: "https://res.cloudinary.com/demo/image/upload/v1312461204/sample.jpg",
+      image: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/McCarthy%27s_Castle%2C_Ballinskelligs_in_the_Kerry_Dark_Sky_Reserve.jpg/960px-McCarthy%27s_Castle%2C_Ballinskelligs_in_the_Kerry_Dark_Sky_Reserve.jpg",
       timeRequired: "Overnight",
       // amenities: ["Information Boards", "Observation Point"],
       userId: "->users.marge"

@@ -8,7 +8,7 @@ suite("Placemark Model tests", () => {
   const placemarks = new Array(testPlacemarks.length);
 
   suiteSetup( () => {
-    db.init("firebase");  // in suiteSetup so only run it once
+    db.init("mongo");  // in suiteSetup so only run it once
   });
 
   setup(async () => {

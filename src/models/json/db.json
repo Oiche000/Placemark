@@ -1,0 +1,43 @@
+{
+  "users": [
+    {
+      "firstName": "Maggie",
+      "lastName": "Simpson",
+      "email": "maggie@simpson.com",
+      "password": "secret",
+      "_id": "a033abcf-6040-4d12-b470-d709db66ecaa"
+    }
+  ],
+  "placemarks": [
+    {
+      "name": "Carrauntoohil",
+      "description": "Highest peak.",
+      "category": "Hiking",
+      "lat": 52,
+      "lng": -9.7,
+      "timeRequired": "Full day",
+      "_id": "1b610c07-6654-45b9-aba2-d4b656895b94",
+      "userId": "a033abcf-6040-4d12-b470-d709db66ecaa"
+    },
+    {
+      "name": "Aillwee Caves",
+      "description": "Show cave.",
+      "category": "Caving",
+      "lat": 53.08,
+      "lng": -9.14,
+      "timeRequired": "2 hours",
+      "_id": "89fe1743-df97-4824-bebe-ea8f8ce90897",
+      "userId": "a033abcf-6040-4d12-b470-d709db66ecaa"
+    },
+    {
+      "name": "Lough Hyne",
+      "description": "Marine reserve.",
+      "category": "Kayaking",
+      "lat": 51.5,
+      "lng": -9.29,
+      "timeRequired": "Half day",
+      "_id": "91081d07-b6fc-4b79-a8c0-8626b3fba839",
+      "userId": "a033abcf-6040-4d12-b470-d709db66ecaa"
+    }
+  ]
+}

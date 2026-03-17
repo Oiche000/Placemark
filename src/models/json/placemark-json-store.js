@@ -55,7 +55,7 @@ export const placemarkJsonStore = {
     placemark.lng = updatedPlacemark.lng;
     placemark.image = updatedPlacemark.image;
     placemark.timeRequired = updatedPlacemark.timeRequired;
-    placemark.// amenities = updatedPlacemark.// amenities;
+    // placemark. amenities = updatedPlacemark.// amenities;
     placemark.category = updatedPlacemark.category;
     await db.write();
     return placemark;

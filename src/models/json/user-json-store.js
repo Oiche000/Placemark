@@ -44,11 +44,15 @@ export const userJsonStore = {
   async updateUser(userId, updatedUser) {
     await db.read();
     const user = db.data.users.find((u) => u._id === userId);
+    if (!user) {
+      return null;
+    }
     if (user) {
     user.firstName = updatedUser.firstName;
     user.lastName = updatedUser.lastName;
     user.email = updatedUser.email;
     user.password = updatedUser.password;
+    user.isAdmin = updatedUser.isAdmin;
     await db.write();
     }
     return user;

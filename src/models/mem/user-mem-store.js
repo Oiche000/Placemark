@@ -8,9 +8,12 @@ export const userMemStore = {
   },
 
   async addUser(user) {
-    user._id = v4();
-    users.push(user);
-    return user;
+    const newUser = {
+      ...user,
+      _id: v4(),
+    };
+    users.push(newUser);
+    return newUser;
   },
 
   async getUserById(id) {
@@ -45,6 +48,7 @@ export const userMemStore = {
     user.lastName = updatedUser.lastName;
     user.email = updatedUser.email;
     user.password = updatedUser.password;
+    user.isAdmin = updatedUser.isAdmin;
     return user;
   },
 };

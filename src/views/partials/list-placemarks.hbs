@@ -5,30 +5,55 @@
         {{#if image}}
         <div class="card-image">
           <figure class="image is-4by3">
-            <img src="{{image}}" alt="{{name}} image">
+            <img src="{{image}}" alt="{{name}} image" onerror="this.src='/images/placeholder.jpg'">
           </figure>
         </div>
         {{/if}}
         <div class="card-content">
           <p class="title is-5">{{name}}</p>
-          <span class="tag is-primary">{{category}}</span>
-          {{#if timeRequired}}
-            <span class="tag is-light">⏱ {{timeRequired}}</span>
-          {{/if}}
-          {{#if amenities}}
-            <span class="tag is-light">Amenities: {{#each amenities}} {{amenities}} {{/each}}</span>
-          {{/if}}
+          <div class="tags">
+            <span class="tag is-{{design.colour}} is-medium">
+              <span class="icon" aria-hidden="true"><i class="{{design.icon}}"></i></span>
+              <span class="ml-1">{{category}}</span>
+            </span> 
+
+            {{#if timeRequired}}
+              <span class="tag  is-medium is-warning is-light ml-4 mb-2">
+                <span class="icon" aria-hidden="true"><i class="fas fa-clock"></i></span>
+                <span>{{timeRequired}}</span>
+              </span>
+            {{/if}}
+            {{#if amenities}}
+              <span class="tag  is-medium is-light">Amenities: {{#each amenities}} {{amenities}} {{/each}}</span>
+            {{/if}}
+          </div>
           
           <div class="content mt-3">
             <p>{{description}}</p>
-            <p class="is-size-7"><span class="has-text-bold">Location (Lat/Long):</span> {{lat}}, {{lng}}</p>
+            <p class="is-size-6"><span class="has-text-weight-bold">Location (Lat/Long):</span> {{lat}}, {{lng}}</p>
+            <p class="is-size-7 has-text-grey mt-2">
+              <span class="is-italic">Added by: {{creatorName}}</span>
+            </p>
           </div>
         </div>
-        <footer class="card-footer">
-          <a href="/placemark/{{_id}}" class="card-footer-item">View Details</a>
-          <a href="/placemark/{{_id}}/editplacemark" class="card-footer-item">Edit</a>
-          <a href="/dashboard/deleteplacemark/{{_id}}" class="card-footer-item has-text-danger">Delete</a>
+        <footer class="card-footer ">
+          <a href="/placemark/{{_id}}" class="card-footer-item has-text-white">
+            <span class="icon mr-1"><i class="fas fa-eye"></i></span> 
+            View
+          </a>
+          <a href="/placemark/{{_id}}/editplacemark" class="card-footer-item">
+            <span class="icon mr-1"><i class="fas fa-edit"></i></span> Edit
+          </a>
+          <a href="/dashboard/deleteplacemark/{{_id}}" class="card-footer-item has-text-danger">
+            <span class="icon mr-1"><i class="fas fa-trash-alt"></i></span> Delete
+          </a>
         </footer>
+      </div>
+    </div>
+  {{else}}
+    <div class="column is-12">
+      <div class="box has-text-centered">
+        <p>No placemarks found for this filter. Time to add one!</p>
       </div>
     </div>
   {{/each}}

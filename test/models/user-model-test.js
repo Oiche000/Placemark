@@ -8,7 +8,7 @@ suite("User Model tests", () => {
   const users = new Array(testUsers.length);  // create a new users array to prevent fixture pollution
 
   suiteSetup( () => {
-    db.init("firebase");
+    db.init("mongo");
   });
 
   setup(async () => {

@@ -2,7 +2,8 @@
 {{> menu active="admin"}}
 
 <section class="section">
-  <div class="container  is-max-desktop">
+  <div class="container pb-5 is-max-desktop">
+    {{> error }}
     <h1 class="title">Admin Dashboard</h1>
 
     <div class="columns">
@@ -96,7 +97,7 @@
               <td>
                 {{#unless isAdmin}}
                 <a href="/admin/deleteuser/{{_id}}" class="button is-danger is-small">
-                  <span class="icon"><i class="fas fa-trash"></i></span>
+                  <span class="icon" aria-hidden="true"><i class="fas fa-trash"></i></span>
                   <span>Delete</span>
                 </a>
                 {{/unless}}

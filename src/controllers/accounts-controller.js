@@ -1,5 +1,5 @@
 import { db } from "../models/db.js";
-import { UserSpec, UserCredentialsSpec } from "../models/joi-schemas.js";
+import { UserSpec, UserUpdateSpec, UserCredentialsSpec } from "../models/joi-schemas.js";
 
 export const accountsController = {
   index: {
@@ -21,7 +21,7 @@ export const accountsController = {
       options: { abortEarly: false }, 
       failAction: function (request, h, error) {
         console.log("Joi Validation Failed:", error.details);
-        return h.view("signup-view", {title: "sign up error", errors: error.details }).takeover().code(400);
+        return h.view("signup-view", {title: "sign up error", errors: error.details }).code(400);
       },
     },
     /* Check the "payload" (the form data) against "UserSpec"
@@ -80,9 +80,9 @@ export const accountsController = {
   },
 
   updateUser: {
-    auth: false,
+    auth: "session",
     validate: {
-      payload: UserSpec,
+      payload: UserUpdateSpec,        // change so that will handle empty password
       options: { abortEarly: false }, 
       failAction: async function (request, h, error) {
         const userId = request.params.id;  
@@ -93,37 +93,47 @@ export const accountsController = {
           errors: error.details,
           user: originalUser,
           loggedInUser: request.auth.credentials,
-        }).takeover().code(400);
+        }).code(400);
       },
     },
     handler: async function(request, h) {
-      const userId = request.params.id;   // user to edit        
-      const loggedInUser = request.auth.credentials;
-      const updatedUser = request.payload;
+      try{
+        const userId = request.params.id;   // user to edit        
+        const loggedInUser = request.auth.credentials;
+        const newData = request.payload;
 
-      const user = await db.userStore.getUserById(userId);
-      user.firstName = payload.firstName;
-      user.lastName = payload.lastName;
-      user.email = payload.email;
+        const user = await db.userStore.getUserById(userId);
+        user.firstName = newData.firstName;
+        user.lastName = newData.lastName;
+        user.email = newData.email;
 
-      // Handle Password 
-      if (updatedUser.password && updatedUser.password !== "") {
-        user.password = payload.password;
+        // Handle Password 
+        if (newData.password && newData.password !== "") {
+          user.password = newData.password;
+        }
+
+        // Handle Admin Privileges 
+        if (loggedInUser.isAdmin) {
+          // if admin, keep admin true
+          if (loggedInUser._id.toString() === userId.toString()) {
+            user.isAdmin = true;
+          } else {
+          // Only an admin can change the isAdmin status (on for tick box in view)
+          user.isAdmin = newData.isAdmin ;
+          }
+        } 
+        await db.userStore.updateUser(userId, user);
+
+        // if admin edited someone else, return to admin dashboard
+        if (loggedInUser.isAdmin && loggedInUser._id.toString() !== userId.toString()) {
+          return h.redirect("/admin")
+        }
+        // otherwise redirect to dashboard
+        return h.redirect("/dashboard");
+      } catch (err) {
+        console.error("Update user error:", err);
+        return h.redirect("/");
       }
-
-      // Handle Admin Privileges 
-      if (loggedInUser.isAdmin) {
-        // Only an admin can change the isAdmin status (on for tick box in view)
-        user.isAdmin = updatedUser.isAdmin === "on" || updatedUser.isAdmin === true;
-      }
-      await db.userStore.updateUser(userId, user);
-
-      // if admin edited someone else, return to admin dashboard
-      if (loggedInUser.isAdmin && loggedInUser._id !== userId) {
-        return h.redirect("/admin")
-      }
-      
-      return h.redirect("/dashboard");
     },
   },
 
@@ -156,10 +166,14 @@ export const accountsController = {
       if (request.params.id) {
         userToEdit = await db.userStore.getUserById(request.params.id);
       }
+      // boolean for if admin edits self
+      const isSelf = loggedInUser._id.toString() === userToEdit._id.toString();
+
       return h.view("settings-view", { 
         title: "Settings", 
         user: userToEdit, 
         loggedInUser: loggedInUser,
+        isSelf: isSelf,
       });
     },
   },

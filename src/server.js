@@ -25,8 +25,8 @@ if (result.error) {
 }
 const swaggerOptions = {
   info: {
-    title: "Playtime API",
-    version: "0.1",
+    title: "Placemark API",
+    version: "5.0",
   },
   securityDefinitions: {
     jwt: {
@@ -68,22 +68,7 @@ server.views({
   partialsPath: "./views/partials",     /* partials folder */
   layout: true,                    /* use layout file */    
   isCached: false,               /* reload file on refresh */
-/* 
-  helpers: {
-  getIcon: function (category) {
-    const icons = {
-      Swimming: "fa-swimmer",
-      Hiking: "fa-mountain",
-      Kayaking: "fa-rowing",
-      Heritage: "fa-monument",
-      Caving: "fa-dungeon",
-      Camping: "fa-campground",
-      Surfing: "fa-water",
-      Stargazing: "fa-star"
-    };
-    return icons[category] || "fa-map-marker-alt";
-  }
-} */
+
 });
 
 server.auth.strategy("session", "cookie", {
