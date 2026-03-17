@@ -6,16 +6,7 @@ import { maggie, maggieCredentials, adminUser, adminCredentials } from "../fixtu
 suite("Authentication API tests", async () => {
   setup(async () => {
   placemarkService.clearAuth();
- /*  try {
-        // Let's see exactly why this is failing!
-        await placemarkService.createUser(adminUser);
-       await placemarkService.authenticate(adminCredentials);
-      await placemarkService.deleteAllUsers();
-    } catch (error) {y
-      console.log("🚨 HIDDEN JOI ERROR:", error.response.data);
-    }
-
-     */
+ 
     await placemarkService.createUser(adminUser);
     await placemarkService.authenticate(adminCredentials);
     await placemarkService.deleteAllUsers();
