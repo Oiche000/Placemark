@@ -33,5 +33,13 @@ export const webRoutes = [
   { method: "GET", path: "/placemark/{id}/delete", config: placemarkController.deleteImage },
 
   { method: "GET", path: "/{param*}", handler: { directory: { path: "./public" } }, options: { auth: false } },
+  { 
+    method: 'GET', 
+    path: '/testlb', 
+    handler: function (request, h) { 
+       return('Server: ' + os.hostname()); 
+    }, 
+    config: {auth: false} 
+  }, 
 
 ];
